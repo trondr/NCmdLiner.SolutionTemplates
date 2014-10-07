@@ -63,7 +63,7 @@ copy "$(TargetDir)..\$(TargetName)\%2a.dll" "$(TargetDir)..\$(TargetName)\Libs"
 del "$(TargetDir)..\$(TargetName)\Libs\$(TargetName)%2a.%2a"
 del "$(TargetDir)..\$(TargetName)\Libs\_S_LibraryProjectName_S_%2a.%2a"
 mkdir "$(TargetDir)..\$(TargetName)\Libs\NMultiTool"
-copy "$(SolutionDir)tools\NMultiTool" "$(TargetDir)..\$(TargetName)\Libs\NMultiTool"
+xcopy "$(ProjectDir)..\..\tools\NMultiTool" "$(TargetDir)..\$(TargetName)\Libs\NMultiTool" /Y /E
 del "$(TargetDir)..\$(TargetName)\Libs\NMultiTool\(null)%2a"
 "$(ProjectDir)..\..\Tools\NMultiTool\NMultiTool.exe" Folder2Wxs /harvestFolder="$(TargetDir)..\$(TargetName)\Libs" /wxsFileName="$(ProjectDir)Components.wxs" /targetFolderId="TargetFolder" /componentGroupId="Components_WiXComponentGroup" /diskIds="[%271%27]" /addExecutables2AppsPath="False"</PreBuildEvent>
   </PropertyGroup>

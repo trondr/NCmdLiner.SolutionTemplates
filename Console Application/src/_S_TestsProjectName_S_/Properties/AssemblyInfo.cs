@@ -19,8 +19,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("_S_TestsProjectName_S_")]
 [assembly: AssemblyCopyright("Copyright © _S_CompanyName_S_ 2014")]
 [assembly: CLSCompliant(false)]
-[assembly: AssemblyInformationalVersion("1.0.14280.24.")]
-[assembly: AssemblyVersion("1.0.14280.24")]
-[assembly: AssemblyFileVersion("1.0.14280.24")]
+[assembly: AssemblyInformationalVersion("1.0.14280.0.")]
+[assembly: AssemblyVersion("1.0.14280.0")]
+[assembly: AssemblyFileVersion("1.0.14280.0")]
 
 
