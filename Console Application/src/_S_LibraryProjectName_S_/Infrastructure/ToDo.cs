@@ -50,7 +50,7 @@ using System.Diagnostics;
 using System.Reflection;
 using Common.Logging;
 
-namespace _S_LibraryProjectName_S_.Common
+namespace _S_LibraryProjectName_S_.Infrastructure
 {
     /// <summary>
     /// Class to represent "TODO" blocks which need some action. Either "optimzation", "implementation", "bugfix", "workaround".

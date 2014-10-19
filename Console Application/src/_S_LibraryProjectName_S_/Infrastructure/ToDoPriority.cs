@@ -1,4 +1,4 @@
-namespace _S_LibraryProjectName_S_.Common
+namespace _S_LibraryProjectName_S_.Infrastructure
 {
     /// <summary>
     /// Priority for ToDo items.

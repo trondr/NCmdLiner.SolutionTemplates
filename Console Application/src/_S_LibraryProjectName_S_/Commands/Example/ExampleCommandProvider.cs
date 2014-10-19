@@ -1,16 +1,17 @@
 using System.Windows;
 using Common.Logging;
+using _S_LibraryProjectName_S_.Infrastructure;
 using _S_LibraryProjectName_S_.ViewModels;
 using _S_LibraryProjectName_S_.Views;
 
 namespace _S_LibraryProjectName_S_.Commands.Example
 {
-    public class Something : ISomething
+    public class ExampleCommandProvider : CommandProvider, IExampleCommandProvider
     {
         private readonly MainWindow _mainWindow;        
         private readonly ILog _logger;
 
-        public Something(MainWindow mainWindow, ILog logger)
+        public ExampleCommandProvider(MainWindow mainWindow, ILog logger)
         {
             _mainWindow = mainWindow;
             _logger = logger;

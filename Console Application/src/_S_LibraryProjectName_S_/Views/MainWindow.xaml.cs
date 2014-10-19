@@ -2,6 +2,7 @@
 using System.Windows;
 using Common.Logging;
 using _S_LibraryProjectName_S_.Common;
+using _S_LibraryProjectName_S_.Infrastructure;
 
 namespace _S_LibraryProjectName_S_.Views
 {

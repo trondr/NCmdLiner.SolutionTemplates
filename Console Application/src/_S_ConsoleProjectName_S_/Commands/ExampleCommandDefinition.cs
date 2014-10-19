@@ -1,18 +1,18 @@
 ﻿using Common.Logging;
 using NCmdLiner.Attributes;
 using _S_LibraryProjectName_S_.Commands.Example;
-using _S_LibraryProjectName_S_.Common;
+using _S_LibraryProjectName_S_.Infrastructure;
 
 namespace _S_ConsoleProjectName_S_.Commands
 {
-    public class ExampleCommand: CommandsBase
+    public class ExampleCommandDefinition: CommandDefinition
     {
-        private readonly ISomething _something;
+        private readonly IExampleCommandProvider _exampleCommandProvider;
         private readonly ILog _logger;
 
-        public ExampleCommand(ISomething something, ILog logger)
+        public ExampleCommandDefinition(IExampleCommandProvider exampleCommandProvider, ILog logger)
         {
-            _something = something;
+            _exampleCommandProvider = exampleCommandProvider;
             _logger = logger;
         }
 
@@ -21,12 +21,8 @@ namespace _S_ConsoleProjectName_S_.Commands
             [RequiredCommandParameter(Description = "Just an example parameter.", AlternativeName = "xp", ExampleValue = @"c:\temp")]
             string exampleParameter
             )
-        {
-            var returnValue = 0;
-            _logger.Info("Start CreateSomething...");
-            returnValue = _something.Create(exampleParameter);
-            _logger.Info("End CreateSomething.");
-            return returnValue;
+        {            
+            return _exampleCommandProvider.Create(exampleParameter);
         }
     }
 }

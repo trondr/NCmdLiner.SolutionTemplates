@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.IO;
 
-namespace _S_LibraryProjectName_S_.BootStrap
+namespace _S_LibraryProjectName_S_.Infrastructure
 {
     public class LoggingConfiguration : ILoggingConfiguration
     {

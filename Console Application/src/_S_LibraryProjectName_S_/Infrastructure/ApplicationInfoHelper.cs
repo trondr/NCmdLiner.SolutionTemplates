@@ -10,7 +10,7 @@ using System;
 using System.IO;
 using System.Reflection;
 
-namespace _S_LibraryProjectName_S_.Common
+namespace _S_LibraryProjectName_S_.Infrastructure
 {
     public static class ApplicationInfoHelper
     {

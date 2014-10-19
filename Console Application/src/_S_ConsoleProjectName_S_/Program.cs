@@ -2,8 +2,9 @@
 using Common.Logging;
 using NCmdLiner;
 using NCmdLiner.Exceptions;
-using _S_ConsoleProjectName_S_.BootStrap;
-using _S_LibraryProjectName_S_.Common;
+using _S_ConsoleProjectName_S_.Commands;
+using _S_ConsoleProjectName_S_.Infrastructure;
+using _S_LibraryProjectName_S_.Infrastructure;
 
 namespace _S_ConsoleProjectName_S_
 {
@@ -15,14 +16,14 @@ namespace _S_ConsoleProjectName_S_
             var returnValue = 0;
             try
             {
-                ILog logger = LogManager.GetCurrentClassLogger();
+                var logger = LogManager.GetCurrentClassLogger();
                 var applicationInfo = BootStrapper.Container.Resolve<IApplicationInfo>();
                 try
                 {
                     applicationInfo.Authors = @"_S_Authors_S_";
                     // ReSharper disable once CoVariantArrayConversion
-                    object[] commandTargets = BootStrapper.Container.ResolveAll<CommandsBase>();
-                    logger.InfoFormat("Start: {0} ({1}). Command line: {2}", applicationInfo.Name, applicationInfo.Version, Environment.CommandLine);
+                    object[] commandTargets = BootStrapper.Container.ResolveAll<CommandDefinition>();
+                    logger.InfoFormat("Start: {0} ({1}). Command line: {2}", applicationInfo.Name, applicationInfo.Version, Environment.CommandLine);                    
                     return CmdLinery.Run(commandTargets, args, applicationInfo, new NotepadMessenger());
                 }
                 catch (MissingCommandException ex)

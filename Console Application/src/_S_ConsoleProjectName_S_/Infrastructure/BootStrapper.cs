@@ -2,7 +2,7 @@
 using Castle.Windsor.Installer;
 using Common.Logging;
 
-namespace _S_ConsoleProjectName_S_.BootStrap
+namespace _S_ConsoleProjectName_S_.Infrastructure
 {
     public static class BootStrapper
     {
@@ -20,7 +20,7 @@ namespace _S_ConsoleProjectName_S_.BootStrap
                              _container = new WindsorContainer();
                             if (Logger.IsDebugEnabled)
                             {
-                                _container.Kernel.HandlerRegistered += Kernel_HandlerRegistered;
+                                _container.Kernel.HandlerRegistered += Kernel_HandlerRegistered;                                
                                 _container.Kernel.DependencyResolving += Kernel_DependencyResolving;
                             }
                             _container.Install(FromAssembly.InThisApplication());

@@ -221,6 +221,6 @@
   </Target>
 
   <Target Name="Build" DependsOnTargets="Deploy">
-    <Message Text="$(ProductProjectName) $(AssemblyVersion) build complete" Importance="normal" />
+    <Message Text="$(ProductProjectName).$(AssemblyVersion) build complete" Importance="normal" />
   </Target>
 </Project>

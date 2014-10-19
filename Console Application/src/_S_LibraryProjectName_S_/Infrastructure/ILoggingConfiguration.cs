@@ -1,4 +1,4 @@
-﻿namespace _S_LibraryProjectName_S_.BootStrap
+﻿namespace _S_LibraryProjectName_S_.Infrastructure
 {
     public interface ILoggingConfiguration
     {
