@@ -2,10 +2,10 @@
 using Common.Logging.Simple;
 using NUnit.Framework;
 
-namespace _S_TestsProjectName_S_.UnitTests
+namespace _S_TestsProjectName_S_.IntegrationTests.AdminUser
 {
-    [TestFixture(Category = "UnitTests")]
-    public class ExampleUnitTests
+    [TestFixture(Category = "AdminUserIntegrationTests")]
+    public class ExampleAdminUserIntegrationTests
     {
         private ConsoleOutLogger _logger;
 
@@ -28,8 +28,6 @@ namespace _S_TestsProjectName_S_.UnitTests
             //var expected = "SomeExpectedValue";
             //var actual = target.GetSomeValue()
             //Assert.AreEqual(expected,actual);
-        }
-
-
+        }        
     }
 }

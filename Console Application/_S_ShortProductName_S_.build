@@ -24,7 +24,7 @@
     <NunitVersion>2.6.3</NunitVersion>
     
   </PropertyGroup>
-  
+
   <!--
 		Include MSBuild Community Tasks.
 	-->
@@ -42,6 +42,23 @@
   </Choose>
   <Import Project="$(ToolsDirectory)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" Condition=" '$(MSBuildCommunityTasksAvailable)' == 'true' "/>
 
+    <!--
+		Include MSBuild Custom Tasks.
+	-->
+  <Choose>
+    <When Condition="Exists('$(ToolsDirectory)\MSBuildCustomTasks\MSBuildCustomTasks.Targets')">
+      <PropertyGroup>
+        <MSBuildCustomTasksAvailable>true</MSBuildCustomTasksAvailable>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <MSBuildCustomTasksAvailable>false</MSBuildCustomTasksAvailable>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+  <Import Project="$(ToolsDirectory)\MSBuildCustomTasks\MSBuildCustomTasks.Targets" Condition=" '$(MSBuildCustomTasksAvailable)' == 'true' "/>
+  
   <!-- Verify that NUnit is available-->
   
   <Choose>
@@ -95,6 +112,7 @@
 	<SourceFiles Include="$(MSBuildProjectDirectory)\*.*" Exclude="@(DefaultExclude)" />
 	<SourceFiles Include="$(ToolsDirectory)\**\*.*" Exclude="@(DefaultExclude)" />
   </ItemGroup>
+  
   <Target Name="GitHashInit">
     <CreateProperty Value="unknown">
       <Output TaskParameter="Value" PropertyName="RevisionHash" />
@@ -106,58 +124,95 @@
       <Output TaskParameter="CommitHash" PropertyName="RevisionHash" />
     </GitVersion>
   </Target>
-  
-  <Target Name="Version" DependsOnTargets="GitHash">    
-    <XmlRead XPath="/root/property[@name='revision']/@value" XmlFileName="revision.xml">
+
+  <Target Name="UpdateRevisionVersion">
+    <XmlRead XPath="/version/property[@name='revision']/@value" XmlFileName="version.xml">
       <Output TaskParameter="Value" PropertyName="Revision" />
     </XmlRead>
     <Math.Add Numbers="$(Revision);1">
       <Output TaskParameter="Result" PropertyName="Revision" />
     </Math.Add>
-    <XmlUpdate XPath="/root/property[@name='revision']/@value" XmlFileName="revision.xml" Value="$(Revision)"/>
+    <XmlUpdate XPath="/version/property[@name='revision']/@value" XmlFileName="version.xml" Value="$(Revision)"/>
+  </Target>
+
+  <Target Name="UpdateBuildVersion">
+    <XmlRead XPath="/version/property[@name='build']/@value" XmlFileName="version.xml">
+      <Output TaskParameter="Value" PropertyName="Build" />
+    </XmlRead>
+    <Math.Add Numbers="0;$(ShortYear)$(DayOfYear)">
+      <Output TaskParameter="Result" PropertyName="Build" />
+    </Math.Add>
+    <XmlUpdate XPath="/version/property[@name='build']/@value" XmlFileName="version.xml" Value="$(Build)"/>
+  </Target>
+  
+  <Target Name="UpdateVersion" DependsOnTargets="GitHash;UpdateRevisionVersion;UpdateBuildVersion">
+    <XmlRead XPath="/version/property[@name='major']/@value" XmlFileName="version.xml">
+      <Output TaskParameter="Value" PropertyName="Major" />
+    </XmlRead>
+    <XmlRead XPath="/version/property[@name='minor']/@value" XmlFileName="version.xml">
+      <Output TaskParameter="Value" PropertyName="Minor" />
+    </XmlRead>
     <CreateProperty Value="$(Major).$(Minor).$(Build).$(Revision)">
       <Output TaskParameter="Value" PropertyName="AssemblyVersion" />
     </CreateProperty>
     <Message Text="AssemblyVersion: $(AssemblyVersion)"/>
-    <AssemblyInfo CodeLanguage="CS"
-     OutputFile="$(SrcDirectory)\_S_ConsoleProjectName_S_\Properties\AssemblyInfo.cs"
-     AssemblyDescription="$(ProductDescription)"
-     AssemblyCompany="$(ProductCompany)"
-     AssemblyProduct="_S_ConsoleProjectName_S_"
-     AssemblyCopyright="$(ProductCopyright)"
-     CLSCompliant="false"
-	   AssemblyInformationalVersion="$(Major).$(Minor).$(Build).$(Revision).$(RevisionHash)"
-     AssemblyVersion="$(AssemblyVersion)"
-     AssemblyFileVersion="$(AssemblyVersion)"
-	  />
-	<AssemblyInfo CodeLanguage="CS"
-     OutputFile="$(SrcDirectory)\_S_LibraryProjectName_S_\Properties\AssemblyInfo.cs"
-     AssemblyDescription="$(ProductDescription)"
-     AssemblyCompany="$(ProductCompany)"
-     AssemblyProduct="_S_LibraryProjectName_S_"
-     AssemblyCopyright="$(ProductCopyright)"
-     CLSCompliant="false"
-     AssemblyInformationalVersion="$(Major).$(Minor).$(Build).$(Revision).$(RevisionHash)"
-     AssemblyVersion="$(AssemblyVersion)"
-     AssemblyFileVersion="$(AssemblyVersion)"
-	  />
-	  
-	 <AssemblyInfo CodeLanguage="CS"
-     OutputFile="$(SrcDirectory)\_S_TestsProjectName_S_\Properties\AssemblyInfo.cs"
-     AssemblyDescription="$(ProductDescription)"
-     AssemblyCompany="$(ProductCompany)"
-     AssemblyProduct="_S_TestsProjectName_S_"
-     AssemblyCopyright="$(ProductCopyright)"
-     CLSCompliant="false"
-     AssemblyInformationalVersion="$(Major).$(Minor).$(Build).$(Revision).$(RevisionHash)"
-     AssemblyVersion="$(AssemblyVersion)"
-     AssemblyFileVersion="$(AssemblyVersion)"
-	  />
   </Target>
 
+  <Target Name="Version">
+    <XmlRead XPath="/version/property[@name='major']/@value" XmlFileName="version.xml">
+      <Output TaskParameter="Value" PropertyName="Major" />
+    </XmlRead>
+    <XmlRead XPath="/version/property[@name='minor']/@value" XmlFileName="version.xml">
+      <Output TaskParameter="Value" PropertyName="Minor" />
+    </XmlRead>
+    <XmlRead XPath="/version/property[@name='build']/@value" XmlFileName="version.xml">
+      <Output TaskParameter="Value" PropertyName="Build" />
+    </XmlRead>
+    <XmlRead XPath="/version/property[@name='revision']/@value" XmlFileName="version.xml">
+      <Output TaskParameter="Value" PropertyName="Revision" />
+    </XmlRead>
+    <CreateProperty Value="$(Major).$(Minor).$(Build).$(Revision)">
+      <Output TaskParameter="Value" PropertyName="AssemblyVersion" />
+    </CreateProperty>
+    <AssemblyInfo CodeLanguage="CS"
+       OutputFile="$(SrcDirectory)\_S_ConsoleProjectName_S_\Properties\AssemblyInfo.cs"
+       AssemblyDescription="$(ProductDescription)"
+       AssemblyCompany="$(ProductCompany)"
+       AssemblyProduct="_S_ConsoleProjectName_S_"
+       AssemblyCopyright="$(ProductCopyright)"
+       CLSCompliant="false"
+       AssemblyInformationalVersion="$(Major).$(Minor).$(Build).$(Revision).$(RevisionHash)"
+       AssemblyVersion="$(AssemblyVersion)"
+       AssemblyFileVersion="$(AssemblyVersion)"
+	  />
+    <AssemblyInfo CodeLanguage="CS"
+       OutputFile="$(SrcDirectory)\_S_LibraryProjectName_S_\Properties\AssemblyInfo.cs"
+       AssemblyDescription="$(ProductDescription)"
+       AssemblyCompany="$(ProductCompany)"
+       AssemblyProduct="_S_LibraryProjectName_S_"
+       AssemblyCopyright="$(ProductCopyright)"
+       CLSCompliant="false"
+       AssemblyInformationalVersion="$(Major).$(Minor).$(Build).$(Revision).$(RevisionHash)"
+       AssemblyVersion="$(AssemblyVersion)"
+       AssemblyFileVersion="$(AssemblyVersion)"
+	  />
+
+    <AssemblyInfo CodeLanguage="CS"
+      OutputFile="$(SrcDirectory)\_S_TestsProjectName_S_\Properties\AssemblyInfo.cs"
+      AssemblyDescription="$(ProductDescription)"
+      AssemblyCompany="$(ProductCompany)"
+      AssemblyProduct="_S_TestsProjectName_S_"
+      AssemblyCopyright="$(ProductCopyright)"
+      CLSCompliant="false"
+      AssemblyInformationalVersion="$(Major).$(Minor).$(Build).$(Revision).$(RevisionHash)"
+      AssemblyVersion="$(AssemblyVersion)"
+      AssemblyFileVersion="$(AssemblyVersion)"
+	  />
+  </Target>
+  
   <!--Compile-->
   
-  <Target Name="Compile" DependsOnTargets="Version" >
+  <Target Name="Compile" DependsOnTargets="Version">
     <MSBuild Projects="$(SrcDirectory)\_S_LibraryProjectName_S_\_S_LibraryProjectName_S_.csproj" Properties="Configuration=Release;" />
     <MSBuild Projects="$(SrcDirectory)\_S_ConsoleProjectName_S_\_S_ConsoleProjectName_S_.csproj" Properties="Configuration=Release;" />
   </Target>
@@ -184,8 +239,7 @@
   </Target>
 
   <!-- Run Unit tests -->
-  
-  <Target Name="Tests" DependsOnTargets="CompileTests;DownloadNunit">
+  <Target Name="UnitTests" DependsOnTargets="CompileTests;DownloadNunit">
     <CreateItem Include="$(BinDirectory)\Release\_S_TestsProjectName_S_\_S_TestsProjectName_S_.dll">
       <Output TaskParameter="Include" ItemName="TestAssembly" />
     </CreateItem>
@@ -193,7 +247,32 @@
     <NUnit Assemblies="@(TestAssembly)" IncludeCategory="UnitTests" ToolPath="$(ToolsDirectory)\NUnit"/>
   </Target>
 
-  <Target Name="CompileSetup" DependsOnTargets="Tests">
+  <Target Name="IntegrationTests" DependsOnTargets="CompileTests;DownloadNunit">
+    <CreateItem Include="$(BinDirectory)\Release\_S_TestsProjectName_S_\_S_TestsProjectName_S_.dll">
+      <Output TaskParameter="Include" ItemName="TestAssembly" />
+    </CreateItem>
+    <NUnit Assemblies="@(TestAssembly)" IncludeCategory="IntegrationTests" ToolPath="$(ToolsDirectory)\NUnit"/>
+  </Target>
+  
+  <!-- Run integration tests under the security context of a user member of a privileged group -->
+  <Target Name="AdminUserIntegrationTests" DependsOnTargets="CompileTests;DownloadNunit">
+    <RunAsUser UserName="jenny" 
+               Password="TestPw." 
+               Domain="$(USERDOMAIN)" 
+               FileName="$(ToolsDirectory)\NUnit\nunit-console.exe" 
+               Arguments="/nologo $(BinDirectory)\Release\_S_TestsProjectName_S_\_S_TestsProjectName_S_.dll /include=AdminUserIntegrationTests"/>    
+  </Target>
+
+  <!-- Run integration tests under the security context of a user NOT member of a privileged group -->
+  <Target Name="StandardUserIntegrationTests" DependsOnTargets="CompileTests;DownloadNunit">
+    <RunAsUser UserName="jim"
+               Password="TestPw."
+               Domain="$(USERDOMAIN)"
+               FileName="$(ToolsDirectory)\NUnit\nunit-console.exe"
+               Arguments="/nologo $(BinDirectory)\Release\_S_TestsProjectName_S_\_S_TestsProjectName_S_.dll /include=StandardUserIntegrationTests"/>
+  </Target>
+
+  <Target Name="CompileSetup" DependsOnTargets="UnitTests">
     <MSBuild Projects="$(SrcDirectory)\_S_SetupProjectName_S_\_S_SetupProjectName_S_.wixproj" Properties="Configuration=Release"/>    
   </Target>
   
@@ -204,23 +283,23 @@
     <ReleaseFiles Include="$(BinDirectory)\Release\$(ProductName)\**\*.config" Exclude="$(BinDirectory)\Release\$(ProductName)\**\Libs\**" />
   </ItemGroup>
     
-  <Target Name="Deploy" DependsOnTargets="Version;CompileSetup">
+  <Target Name="Deploy" DependsOnTargets="UpdateVersion;CompileSetup">
     
     <Zip Files="@(ReleaseFiles)"
          WorkingDirectory="$(BinDirectory)\Release\$(ProductName)"
          ZipFileName="$(BinDirectory)\Release\_S_ConsoleProjectName_S_.$(AssemblyVersion).zip"
          ZipLevel="9"
          />
-    <Message Text="$(ProductName) relase zip complete" Importance="normal" />
+    <Message Text="_S_ConsoleProjectName_S_.$(AssemblyVersion) relase zip complete" Importance="normal" />
     <Zip Files="@(SourceFiles)"
          WorkingDirectory="$(MSBuildProjectDirectory)"
          ZipFileName="$(BinDirectory)\Release\_S_ConsoleProjectName_S_.Source.$(AssemblyVersion).zip"
          ZipLevel="9"
          />
-    <Message Text="$(ProductName) source zip complete" Importance="normal" />
+    <Message Text="_S_ConsoleProjectName_S_.Source.$(AssemblyVersion) zip complete" Importance="normal" />    
   </Target>
 
-  <Target Name="Build" DependsOnTargets="Deploy">
+  <Target Name="Build" DependsOnTargets="CompileSetup">
     <Message Text="$(ProductProjectName).$(AssemblyVersion) build complete" Importance="normal" />
   </Target>
 </Project>

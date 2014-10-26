@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IntegrationTests\AdminUser\AdminUserImpersonationTests.cs" />
+    <Compile Include="Common\SecurityHelper.cs" />
+    <Compile Include="IntegrationTests\AdminUser\ExampleStandardUserIntegrationTests.cs" />
+    <Compile Include="IntegrationTests\ExampleIntegrationTests.cs" />
+    <Compile Include="IntegrationTests\StandardUser\ExampleStandardUserIntegrationTests.cs" />
+    <Compile Include="IntegrationTests\StandardUser\StandardUserImpersonationTests.cs" />
     <Compile Include="UnitTests\ExampleUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -61,6 +67,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="IntegrationTests\AdminUser\Readme.txt" />
+    <Content Include="IntegrationTests\StandardUser\Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AdminUserIntegrationTests\" />
+    <Folder Include="StandardUserIntegrationTests\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -2,10 +2,10 @@
 using Common.Logging.Simple;
 using NUnit.Framework;
 
-namespace _S_TestsProjectName_S_.UnitTests
+namespace _S_TestsProjectName_S_.IntegrationTests.StandardUser
 {
-    [TestFixture(Category = "UnitTests")]
-    public class ExampleUnitTests
+    [TestFixture(Category = "StandardUserIntegrationTests")]
+    public class ExampleStandardUserIntegrationTests
     {
         private ConsoleOutLogger _logger;
 
