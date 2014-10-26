@@ -7,8 +7,8 @@
     <MsBuildCustomTasksLib>$(MsBuildCustomTasksPath)\MSBuildCustomTasks.dll</MsBuildCustomTasksLib>
   </PropertyGroup>
 
-  <UsingTask AssemblyFile="$(MsBuildCustomTasksLib)" TaskName="CustomTasks.Impersonate" />
-  <UsingTask AssemblyFile="$(MsBuildCustomTasksLib)" TaskName="CustomTasks.RunAsUser" />
+  <UsingTask AssemblyFile="$(MsBuildCustomTasksLib)" TaskName="MSBuildCustomTasks.Impersonate" />
+  <UsingTask AssemblyFile="$(MsBuildCustomTasksLib)" TaskName="MSBuildCustomTasks.RunAsUser" />
 
   <ItemGroup>
     <FxCopRuleAssemblies Include="UsageRules.dll"/>

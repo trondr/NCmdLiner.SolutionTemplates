@@ -32,6 +32,7 @@
     <When Condition="Exists('$(ToolsDirectory)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets')">
       <PropertyGroup>
         <MSBuildCommunityTasksAvailable>true</MSBuildCommunityTasksAvailable>
+		<MSBuildCommunityTasksPath>$(ToolsDirectory)\MSBuildCommunityTasks</MSBuildCommunityTasksPath>
       </PropertyGroup>
     </When>
     <Otherwise>
@@ -49,6 +50,7 @@
     <When Condition="Exists('$(ToolsDirectory)\MSBuildCustomTasks\MSBuildCustomTasks.Targets')">
       <PropertyGroup>
         <MSBuildCustomTasksAvailable>true</MSBuildCustomTasksAvailable>
+		<MSBuildCustomTasksPath>$(ToolsDirectory)\MSBuildCustomTasks</MSBuildCustomTasksPath>
       </PropertyGroup>
     </When>
     <Otherwise>
@@ -257,19 +259,19 @@
   <!-- Run integration tests under the security context of a user member of a privileged group -->
   <Target Name="AdminUserIntegrationTests" DependsOnTargets="CompileTests;DownloadNunit">
     <RunAsUser UserName="jenny" 
-               Password="TestPw." 
+               Password="TestPw.19" 
                Domain="$(USERDOMAIN)" 
                FileName="$(ToolsDirectory)\NUnit\nunit-console.exe" 
-               Arguments="/nologo $(BinDirectory)\Release\_S_TestsProjectName_S_\_S_TestsProjectName_S_.dll /include=AdminUserIntegrationTests"/>    
+               Arguments="/nologo &quot;$(BinDirectory)\Release\_S_TestsProjectName_S_\_S_TestsProjectName_S_.dll&quot; /include=AdminUserIntegrationTests"/>    
   </Target>
 
   <!-- Run integration tests under the security context of a user NOT member of a privileged group -->
   <Target Name="StandardUserIntegrationTests" DependsOnTargets="CompileTests;DownloadNunit">
     <RunAsUser UserName="jim"
-               Password="TestPw."
+               Password="TestPw.19"
                Domain="$(USERDOMAIN)"
                FileName="$(ToolsDirectory)\NUnit\nunit-console.exe"
-               Arguments="/nologo $(BinDirectory)\Release\_S_TestsProjectName_S_\_S_TestsProjectName_S_.dll /include=StandardUserIntegrationTests"/>
+               Arguments="/nologo &quot;$(BinDirectory)\Release\_S_TestsProjectName_S_\_S_TestsProjectName_S_.dll&quot; /include=StandardUserIntegrationTests"/>
   </Target>
 
   <Target Name="CompileSetup" DependsOnTargets="UnitTests">
