@@ -14,6 +14,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <BinDirectory Condition=" '$(BinDirectory)' == ''">..\..\bin</BinDirectory>
     <BaseIntermediateOutputPath>$(BinDirectory)\obj\$(AssemblyName)\</BaseIntermediateOutputPath>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>

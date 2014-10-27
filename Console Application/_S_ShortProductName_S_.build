@@ -119,12 +119,14 @@
     <CreateProperty Value="unknown">
       <Output TaskParameter="Value" PropertyName="RevisionHash" />
     </CreateProperty>
+	<Message Text="Initial RevisionHash=$(RevisionHash)" Importance="normal" />
   </Target>
   
   <Target Name="GitHash" Condition=" '$(IsGitRepository)' == 'true' " DependsOnTargets="GitHashInit">
     <GitVersion LocalPath="$(MSBuildProjectDirectory)" Timeout="5000">
       <Output TaskParameter="CommitHash" PropertyName="RevisionHash" />
     </GitVersion>
+	<Message Text="Calculated RevisionHash=$(RevisionHash)" Importance="normal" />
   </Target>
 
   <Target Name="UpdateRevisionVersion">
@@ -160,7 +162,7 @@
     <Message Text="AssemblyVersion: $(AssemblyVersion)"/>
   </Target>
 
-  <Target Name="Version">
+  <Target Name="Version" DependsOnTargets="GitHash">
     <XmlRead XPath="/version/property[@name='major']/@value" XmlFileName="version.xml">
       <Output TaskParameter="Value" PropertyName="Major" />
     </XmlRead>
