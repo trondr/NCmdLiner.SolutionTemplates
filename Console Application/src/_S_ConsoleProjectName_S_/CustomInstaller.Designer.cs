@@ -1,6 +1,6 @@
 ﻿namespace _S_ConsoleProjectName_S_
 {
-    partial class SolutionCreatorInstaller
+    partial class CustomInstaller
     {
         /// <summary>
         /// Required designer variable.

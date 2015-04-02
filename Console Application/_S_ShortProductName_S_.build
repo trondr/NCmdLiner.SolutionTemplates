@@ -286,8 +286,8 @@
     <ReleaseFiles Include="$(BinDirectory)\Release\$(ProductName)\**\*.pdb" Exclude="$(BinDirectory)\Release\$(ProductName)\**\Libs\**" />
     <ReleaseFiles Include="$(BinDirectory)\Release\$(ProductName)\**\*.config" Exclude="$(BinDirectory)\Release\$(ProductName)\**\Libs\**" />
   </ItemGroup>
-    
-  <Target Name="Deploy" DependsOnTargets="UpdateVersion;CompileSetup">
+  
+  <Target Name="Deploy" DependsOnTargets="CompileSetup">
     
     <Zip Files="@(ReleaseFiles)"
          WorkingDirectory="$(BinDirectory)\Release\$(ProductName)"
@@ -295,6 +295,19 @@
          ZipLevel="9"
          />
     <Message Text="_S_ConsoleProjectName_S_.$(AssemblyVersion) relase zip complete" Importance="normal" />
+
+   <ItemGroup>
+      <SetupFiles Include="$(BinDirectory)\Release\_S_SetupProjectName_S_\en-us\_S_ConsoleProjectName_S_.$(AssemblyVersion).msi" />
+   </ItemGroup>
+ 	
+    <Zip Files="@(SetupFiles)"
+         WorkingDirectory="$(BinDirectory)\Release\_S_SetupProjectName_S_\en-us"
+         ZipFileName="$(BinDirectory)\Release\_S_ConsoleProjectName_S_.$(AssemblyVersion).msi.zip"
+         ZipLevel="9"
+         />
+    <Message Text="_S_ConsoleProjectName_S_.$(AssemblyVersion).msi zip complete" Importance="normal" />
+
+
     <Zip Files="@(SourceFiles)"
          WorkingDirectory="$(MSBuildProjectDirectory)"
          ZipFileName="$(BinDirectory)\Release\_S_ConsoleProjectName_S_.Source.$(AssemblyVersion).zip"

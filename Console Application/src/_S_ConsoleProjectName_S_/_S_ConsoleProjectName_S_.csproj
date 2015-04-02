@@ -110,11 +110,11 @@
     <Compile Include="Commands\ExampleCommandDefinition.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SolutionCreatorInstaller.cs">
+    <Compile Include="CustomInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SolutionCreatorInstaller.Designer.cs">
-      <DependentUpon>SolutionCreatorInstaller.cs</DependentUpon>
+    <Compile Include="CustomInstaller.Designer.cs">
+      <DependentUpon>CustomInstaller.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
