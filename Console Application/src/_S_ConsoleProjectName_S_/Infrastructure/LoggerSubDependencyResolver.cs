@@ -60,7 +60,7 @@ namespace _S_ConsoleProjectName_S_.Infrastructure
             {
                 if (dependency.TargetType == typeof(ILog))
                 {
-                    return LogManager.GetLogger(model.Implementation.Name);
+                    return LogManager.GetLogger(model.Implementation.FullName);
                 }
             }
             return null;
