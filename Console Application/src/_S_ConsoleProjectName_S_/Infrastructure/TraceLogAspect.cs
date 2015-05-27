@@ -1,16 +1,16 @@
-﻿using System;
+using System;
 using Castle.DynamicProxy;
 using Common.Logging;
 
 namespace _S_ConsoleProjectName_S_.Infrastructure
 {
-    public class InfoLogAspect : IInterceptor
+    public class TraceLogAspect : IInterceptor
     {
         private readonly IInvocationLogStringBuilder _invocationLogStringBuilder;
         private readonly ILogFactory _logFactory;
         private ILog _logger;
 
-        public InfoLogAspect(IInvocationLogStringBuilder invocationLogStringBuilder, ILogFactory logFactory)
+        public TraceLogAspect(IInvocationLogStringBuilder invocationLogStringBuilder, ILogFactory logFactory)
         {
             _invocationLogStringBuilder = invocationLogStringBuilder;
             _logFactory = logFactory;
@@ -19,11 +19,11 @@ namespace _S_ConsoleProjectName_S_.Infrastructure
         public void Intercept(IInvocation invocation)
         {
             _logger = _logFactory.GetLogger(invocation.TargetType);
-            if (_logger.IsInfoEnabled) _logger.Info(_invocationLogStringBuilder.BuildLogString(invocation, InvocationPhase.Start));
+            if (_logger.IsTraceEnabled) _logger.Trace(_invocationLogStringBuilder.BuildLogString(invocation, InvocationPhase.Start));
             try
             {
                 invocation.Proceed();
-                if (_logger.IsInfoEnabled) _logger.Info(_invocationLogStringBuilder.BuildLogString(invocation, InvocationPhase.End));
+                if (_logger.IsTraceEnabled) _logger.Trace(_invocationLogStringBuilder.BuildLogString(invocation, InvocationPhase.End));
             }
             catch (Exception ex)
             {

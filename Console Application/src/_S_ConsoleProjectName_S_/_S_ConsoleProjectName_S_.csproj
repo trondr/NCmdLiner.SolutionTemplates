@@ -108,6 +108,7 @@
     <Compile Include="Infrastructure\LoggerSubDependencyResolver.cs" />
     <Compile Include="Infrastructure\NotepadMessenger.cs" />
     <Compile Include="Commands\ExampleCommandDefinition.cs" />
+    <Compile Include="Infrastructure\TraceLogAspect.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CustomInstaller.cs">
