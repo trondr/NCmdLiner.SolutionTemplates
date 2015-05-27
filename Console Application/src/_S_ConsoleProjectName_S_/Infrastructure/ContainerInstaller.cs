@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using Castle.Core.Internal;
-using Castle.Facilities.Logging;
 using Castle.Facilities.TypedFactory;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
@@ -27,10 +26,7 @@ namespace _S_ConsoleProjectName_S_.Infrastructure
             ILoggingConfiguration loggingConfiguration = new LoggingConfiguration();
             log4net.GlobalContext.Properties["LogFile"] = Path.Combine(loggingConfiguration.LogDirectoryPath, loggingConfiguration.LogFileName);
             log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile));
-            
             var applicationRootNameSpace = typeof (Program).Namespace;
-
-            container.AddFacility<LoggingFacility>(f => f.UseLog4Net().ConfiguredExternally());
             container.Kernel.Register(Component.For<ILog>().Instance(LogManager.GetLogger(applicationRootNameSpace))); //Default logger
             container.Kernel.Resolver.AddSubResolver(new LoggerSubDependencyResolver()); //Enable injection of class specific loggers
             

@@ -21,7 +21,7 @@
     <SrcDirectory>$(MSBuildProjectDirectory)\src</SrcDirectory>
     <ToolsDirectory>$(MSBuildProjectDirectory)\tools</ToolsDirectory>
   
-    <NunitVersion>2.6.3</NunitVersion>
+    <NunitVersion>2.6.4</NunitVersion>
     
   </PropertyGroup>
 
@@ -229,7 +229,8 @@
   
   <Target Name="DownloadNunit" Condition=" '$(NUnitIsAvailable)' == 'false' ">
     <Message Text="Downloading NUnit..." Importance="normal" />
-    <WebDownload FileUri="http://launchpad.net/nunitv2/trunk/2.6.3/+download/NUnit-$(NunitVersion).zip" FileName="$(BinDirectory)\Download\NUnit-$(NunitVersion).zip" />
+	<MakeDir Directories="$(BinDirectory)\Download"/>
+    <WebDownload FileUri="http://github.com/nunit/nunitv2/releases/download/$(NunitVersion)/NUnit-$(NunitVersion).zip" FileName="$(BinDirectory)\Download\NUnit-$(NunitVersion).zip" />
     <Message Text="Extracting NUnit..." Importance="normal" />
     <Unzip ZipFileName="$(BinDirectory)\Download\NUnit-$(NunitVersion).zip" TargetDirectory="$(BinDirectory)\Download"/>
     <ItemGroup>
