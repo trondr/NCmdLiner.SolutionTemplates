@@ -40,4 +40,14 @@ _ReSharper*/
 *.shfbproj_*
 Doc\Help
 .metadata/*
-NMultiTool/(null)
+*/tools/NMultiTool/(null)
+*/tools/NuGetPackages/Castle.Core.*/*
+*/tools/NuGetPackages/Castle.Windsor.*/*
+*/tools/NuGetPackages/Common.Logging.*/*
+*/tools/NuGetPackages/Common.Logging.Core.*/*
+*/tools/NuGetPackages/Common.Logging.Log4Net*/*
+*/tools/NuGetPackages/NCmdLiner.*/*
+*/tools/NuGetPackages/NUnit.*/*
+*/tools/NuGetPackages/Newtonsoft.Json.*/*
+*/tools/NuGetPackages/RhinoMocks.*/*
+*/tools/NuGetPackages/log4net.*/*
