@@ -38,10 +38,11 @@ namespace MSBuildCustomTasks
         public string ScriptInstallPackageTargetPath { get; set; }
 
         [Required]
-        public string TargetMsiFile { get; set; }
+        public string SourceMsiFile { get; set; }
         
         [Required]
-        public string SourceMsiFile { get; set; }
+        public string TargetMsiFile { get; set; }
+       
 
         [Required]
         public string VendorInstallIni { get; set; }
