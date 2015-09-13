@@ -19,6 +19,7 @@ Set Path=%Path%;%MSBUILDPATH%
 
 :Build
 Echo Building %ProductName%...
+Set EnableNuGetPackageRestore=true
 nuget.exe restore %ProductName%.sln
 msbuild.exe %ProductName%.build %1 %2 %3 %4 %5 %6 %7 %8 %9
 Set BuildErrorLevel=%ERRORLEVEL%
