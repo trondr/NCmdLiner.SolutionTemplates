@@ -1,0 +1,3 @@
+[submodule "Console Application/src/_S_ScriptInstallProjectName_S_"]
+	path = Console Application/src/_S_ScriptInstallProjectName_S_
+	url = https://github.com/trondr/Script.Install.Template.git
