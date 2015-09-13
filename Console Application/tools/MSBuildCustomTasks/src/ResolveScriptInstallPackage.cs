@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Tasks;
 using MSBuildCustomTasks.Common;
@@ -10,8 +11,10 @@ namespace MSBuildCustomTasks
         public override bool Execute()
         {
             Log.LogMessage(MessageImportance.Normal, "Copying script install package template '{0}' to script install package target '{1}'...", ScriptInstallPackageSourcePath, ScriptInstallPackageTargetPath);
-
+            DirectoryOperation.CopyDirectory(ScriptInstallPackageSourcePath, ScriptInstallPackageTargetPath);
+            
             Log.LogMessage(MessageImportance.Normal, "Copying Windows Installer file '{0}' to script install package target '{1}'...", SourceMsiFile, TargetMsiFile);
+            File.Copy(SourceMsiFile, TargetMsiFile, true);
 
             Log.LogMessage(MessageImportance.Normal, "Updating vendor install ini '{0}'...", VendorInstallIni);
             if (!File.Exists(VendorInstallIni))
