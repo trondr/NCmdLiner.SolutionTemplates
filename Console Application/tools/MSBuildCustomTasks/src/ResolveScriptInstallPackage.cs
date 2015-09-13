@@ -20,7 +20,7 @@ namespace MSBuildCustomTasks
             if (!File.Exists(VendorInstallIni))
                 throw new FileNotFoundException("Vendor install ini file not found: " + VendorInstallIni);
             var iniFileOperation = new IniFileOperation();
-            iniFileOperation.Write(VendorInstallIni, "Install", "MsiFile", Path.GetFileName(TargetMsiFile));
+            iniFileOperation.Write(VendorInstallIni, "VendorInstall", "MsiFile", Path.GetFileName(TargetMsiFile));
 
             Log.LogMessage(MessageImportance.Normal, "Updating package definition file '{0}'...", PackageDefinitionSms);
 
