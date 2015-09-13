@@ -317,13 +317,13 @@
 	
 	  <ResolveScriptInstallPackage
       ScriptInstallPackageSourcePath="$(SrcDirectory)\_S_ScriptInstallProjectName_S_"
-      ScriptInstallPackageTargetPath="$(BinDirectory)\Release\_S_CompanyName_S_ _S_ScriptInstallProjectName_S_ $(AssemblyVersion)"
+      ScriptInstallPackageTargetPath="$(BinDirectory)\Release\_S_ScriptInstallProjectName_S_ $(AssemblyVersion)"
       SourceMsiFile="$(BinDirectory)\Release\_S_SetupProjectName_S_\en-us\_S_ConsoleProjectName_S_.$(AssemblyVersion).msi"
       TargetMsiFile="$(BinDirectory)\Release\_S_ScriptInstallProjectName_S_\VendorInstall\_S_ConsoleProjectName_S_.$(AssemblyVersion).msi"
       VendorInstallIni="$(BinDirectory)\Release\_S_ScriptInstallProjectName_S_\VendorInstall\VendorInstall.ini"
       PackageDefinitionSms="$(BinDirectory)\Release\_S_ScriptInstallProjectName_S_\PackageDefinition.sms"
-      PackageDefinitionName="_S_ShortProductName_S_"
-      PackageDefinitionVersion=""
+      PackageDefinitionName="_S_ProductName_S_"
+      PackageDefinitionVersion="$(AssemblyVersion)"
       PackageDefinitionPublisher="_S_CompanyName_S_"
       PackageDefinitionInstallCommandLine="Install.cmd Install > &quot;%Public%\Logs\_S_ConsoleProjectName_S__$(AssemblyVersionU)_Install.cmd.log&quot;"
       PackageDefinitionUnInstallCommandLine="Install.cmd UnInstall > &quot;%Public%\Logs\_S_ConsoleProjectName_S__$(AssemblyVersionU)_UnInstall.cmd.log&quot;"
