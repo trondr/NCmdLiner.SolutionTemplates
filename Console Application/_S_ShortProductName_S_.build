@@ -178,6 +178,9 @@
     <CreateProperty Value="$(Major).$(Minor).$(Build).$(Revision)">
       <Output TaskParameter="Value" PropertyName="AssemblyVersion" />
     </CreateProperty>
+    <CreateProperty Value="$(Major)_$(Minor)_$(Build)_$(Revision)">
+      <Output TaskParameter="Value" PropertyName="AssemblyVersionU" />
+    </CreateProperty>
     <AssemblyInfo CodeLanguage="CS"
        OutputFile="$(SrcDirectory)\_S_ConsoleProjectName_S_\Properties\AssemblyInfo.cs"
        AssemblyDescription="$(ProductDescription)"
@@ -325,8 +328,8 @@
       PackageDefinitionName="_S_ProductName_S_"
       PackageDefinitionVersion="$(AssemblyVersion)"
       PackageDefinitionPublisher="_S_CompanyName_S_"
-      PackageDefinitionInstallCommandLine="Install.cmd Install > &quot;%Public%\Logs\_S_ConsoleProjectName_S__$(AssemblyVersionU)_Install.cmd.log&quot;"
-      PackageDefinitionUnInstallCommandLine="Install.cmd UnInstall > &quot;%Public%\Logs\_S_ConsoleProjectName_S__$(AssemblyVersionU)_UnInstall.cmd.log&quot;"
+      PackageDefinitionInstallCommandLine="Install.cmd Install > &quot;%Public%\Logs\_S_ScriptInstallProjectNameU_S_$(AssemblyVersionU)_Install.cmd.log&quot;"
+      PackageDefinitionUnInstallCommandLine="Install.cmd UnInstall > &quot;%Public%\Logs\_S_ScriptInstallProjectNameU_S_$(AssemblyVersionU)_UnInstall.cmd.log&quot;"
      />
   </Target>
 
