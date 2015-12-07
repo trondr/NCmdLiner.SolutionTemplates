@@ -1,4 +1,4 @@
-﻿namespace _S_ConsoleProjectName_S_
+﻿namespace _S_ConsoleProjectName_S_.Module
 {
     partial class CustomInstaller
     {

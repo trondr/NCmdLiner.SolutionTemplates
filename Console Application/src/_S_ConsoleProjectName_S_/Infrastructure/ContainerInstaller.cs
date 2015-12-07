@@ -8,8 +8,8 @@ using Castle.Windsor;
 using Common.Logging;
 using NCmdLiner;
 using _S_LibraryProjectName_S_.Infrastructure;
-using _S_LibraryProjectName_S_.ViewModels;
-using _S_LibraryProjectName_S_.Views;
+using _S_LibraryProjectName_S_.Module.ViewModels;
+using _S_LibraryProjectName_S_.Module.Views;
 using SingletonAttribute = _S_LibraryProjectName_S_.Infrastructure.SingletonAttribute;
 
 namespace _S_ConsoleProjectName_S_.Infrastructure

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace _S_LibraryProjectName_S_.ViewModels
+namespace _S_LibraryProjectName_S_.Module.ViewModels
 {
     public interface IMainViewModel
     {

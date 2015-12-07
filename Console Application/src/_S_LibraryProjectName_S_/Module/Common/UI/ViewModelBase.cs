@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using _S_LibraryProjectName_S_.Views;
+using _S_LibraryProjectName_S_.Module.Views;
 
-namespace _S_LibraryProjectName_S_.Common.UI
+namespace _S_LibraryProjectName_S_.Module.Common.UI
 {
     public abstract class ViewModelBase : DependencyObject
     {

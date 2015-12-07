@@ -1,10 +1,9 @@
 using System;
 using System.Windows;
 using System.Windows.Input;
-using _S_LibraryProjectName_S_.Common.UI;
-using _S_LibraryProjectName_S_.Views;
+using _S_LibraryProjectName_S_.Module.Common.UI;
 
-namespace _S_LibraryProjectName_S_.ViewModels
+namespace _S_LibraryProjectName_S_.Module.ViewModels
 {
     public class MainViewModel : ViewModelBase, IMainViewModel
     {

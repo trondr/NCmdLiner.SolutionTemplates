@@ -1,10 +1,7 @@
 ﻿using System.Collections;
 using System.ComponentModel;
-using System.Reflection;
-using _S_ConsoleProjectName_S_.Commands;
-using _S_LibraryProjectName_S_.Common.Install;
 
-namespace _S_ConsoleProjectName_S_
+namespace _S_ConsoleProjectName_S_.Module
 {
     [RunInstaller(true)]
     public partial class CustomInstaller : System.Configuration.Install.Installer

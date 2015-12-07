@@ -112,14 +112,14 @@
     <Compile Include="Infrastructure\CustomTypeFactoryComponentSelector.cs" />
     <Compile Include="Infrastructure\LoggerSubDependencyResolver.cs" />
     <Compile Include="Infrastructure\NotepadMessenger.cs" />
-    <Compile Include="Commands\ExampleCommandDefinition.cs" />
+    <Compile Include="Module\Commands\ExampleCommandDefinition.cs" />
     <Compile Include="Infrastructure\TraceLogAspect.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CustomInstaller.cs">
+    <Compile Include="Module\CustomInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="CustomInstaller.Designer.cs">
+    <Compile Include="Module\CustomInstaller.Designer.cs">
       <DependentUpon>CustomInstaller.cs</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -128,16 +128,16 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Credits\1. Castle Windsor Credit.xml" />
-    <Content Include="Credits\2. NCmdLiner Credit.xml" />
-    <Content Include="Credits\3. Common.Logging Credit.xml" />
-    <Content Include="Credits\4. Log4Net Credit.xml" />
+    <EmbeddedResource Include="Credits\1. Castle Windsor Credit.xml" />
+    <EmbeddedResource Include="Credits\2. NCmdLiner Credit.xml" />
+    <EmbeddedResource Include="Credits\3. Common.Logging Credit.xml" />
+    <EmbeddedResource Include="Credits\4. Log4Net Credit.xml" />
     <Content Include="Debug.txt" />
-    <Content Include="License\0 _S_ConsoleProjectName_S_ License.xml" />
-    <Content Include="License\1 Castle Project License.xml" />
-    <Content Include="License\2 NCmLiner License.xml" />
-    <Content Include="License\3 Common.Logging License.xml" />
-    <Content Include="License\4 Log4Net License.xml" />
+    <EmbeddedResource Include="License\0 _S_ConsoleProjectName_S_ License.xml" />
+    <EmbeddedResource Include="License\1 Castle Project License.xml" />
+    <EmbeddedResource Include="License\2 NCmLiner License.xml" />
+    <EmbeddedResource Include="License\3 Common.Logging License.xml" />
+    <EmbeddedResource Include="License\4 Log4Net License.xml" />
     <Content Include="NCmdLiner.ico" />
     <Content Include="References.txt" />
   </ItemGroup>

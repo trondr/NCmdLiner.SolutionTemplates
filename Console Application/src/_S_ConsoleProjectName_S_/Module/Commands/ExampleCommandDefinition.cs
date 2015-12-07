@@ -1,9 +1,9 @@
 ﻿using Common.Logging;
 using NCmdLiner.Attributes;
-using _S_LibraryProjectName_S_.Commands.Example;
 using _S_LibraryProjectName_S_.Infrastructure;
+using _S_LibraryProjectName_S_.Module.Commands.Example;
 
-namespace _S_ConsoleProjectName_S_.Commands
+namespace _S_ConsoleProjectName_S_.Module.Commands
 {
     public class ExampleCommandDefinition: CommandDefinition
     {

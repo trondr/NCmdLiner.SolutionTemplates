@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Win32;
 
-namespace _S_LibraryProjectName_S_.Common.Install
+namespace _S_LibraryProjectName_S_.Module.Common.Install
 {
     public class WindowsExplorerContextMenuInstaller : IWindowsExplorerContextMenuInstaller
     {

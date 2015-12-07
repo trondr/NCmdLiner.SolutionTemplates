@@ -1,10 +1,10 @@
 using System.Windows;
 using Common.Logging;
 using _S_LibraryProjectName_S_.Infrastructure;
-using _S_LibraryProjectName_S_.ViewModels;
-using _S_LibraryProjectName_S_.Views;
+using _S_LibraryProjectName_S_.Module.ViewModels;
+using _S_LibraryProjectName_S_.Module.Views;
 
-namespace _S_LibraryProjectName_S_.Commands.Example
+namespace _S_LibraryProjectName_S_.Module.Commands.Example
 {
     public class ExampleCommandProvider : CommandProvider, IExampleCommandProvider
     {

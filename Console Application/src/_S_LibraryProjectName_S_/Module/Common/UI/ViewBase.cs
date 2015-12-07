@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace _S_LibraryProjectName_S_.Common.UI
+namespace _S_LibraryProjectName_S_.Module.Common.UI
 {
     public class ViewBase: UserControl
     {

@@ -1,7 +1,7 @@
-﻿using _S_LibraryProjectName_S_.Common.UI;
-using _S_LibraryProjectName_S_.ViewModels;
+﻿using _S_LibraryProjectName_S_.Module.Common.UI;
+using _S_LibraryProjectName_S_.Module.ViewModels;
 
-namespace _S_LibraryProjectName_S_.Views
+namespace _S_LibraryProjectName_S_.Module.Views
 {
     /// <summary>
     /// Interaction logic for MainView.xaml

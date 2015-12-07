@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace _S_LibraryProjectName_S_.Common.Install
+﻿namespace _S_LibraryProjectName_S_.Module.Common.Install
 {
     public interface IWindowsExplorerContextMenuInstaller
     {
