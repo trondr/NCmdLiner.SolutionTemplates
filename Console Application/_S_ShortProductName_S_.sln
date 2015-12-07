@@ -22,6 +22,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{95C9AB
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_S_ConsoleProjectName_S_.Gui", "src\_S_ConsoleProjectName_S_.Gui\_S_ConsoleProjectName_S_.Gui.csproj", "{52893A81-5995-41EB-8BE2-C8FDCB746FB6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4BE5C7BC-0E00-4D0C-A77F-091E7F3A0291} = {4BE5C7BC-0E00-4D0C-A77F-091E7F3A0291}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +76,18 @@ Global
 		{92A8FC86-184A-43C3-B1E8-AB56270132C2}.Release|Mixed Platforms.Build.0 = Release|x86
 		{92A8FC86-184A-43C3-B1E8-AB56270132C2}.Release|x86.ActiveCfg = Release|x86
 		{92A8FC86-184A-43C3-B1E8-AB56270132C2}.Release|x86.Build.0 = Release|x86
+		{52893A81-5995-41EB-8BE2-C8FDCB746FB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52893A81-5995-41EB-8BE2-C8FDCB746FB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52893A81-5995-41EB-8BE2-C8FDCB746FB6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{52893A81-5995-41EB-8BE2-C8FDCB746FB6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{52893A81-5995-41EB-8BE2-C8FDCB746FB6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{52893A81-5995-41EB-8BE2-C8FDCB746FB6}.Debug|x86.Build.0 = Debug|Any CPU
+		{52893A81-5995-41EB-8BE2-C8FDCB746FB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52893A81-5995-41EB-8BE2-C8FDCB746FB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52893A81-5995-41EB-8BE2-C8FDCB746FB6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{52893A81-5995-41EB-8BE2-C8FDCB746FB6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{52893A81-5995-41EB-8BE2-C8FDCB746FB6}.Release|x86.ActiveCfg = Release|Any CPU
+		{52893A81-5995-41EB-8BE2-C8FDCB746FB6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

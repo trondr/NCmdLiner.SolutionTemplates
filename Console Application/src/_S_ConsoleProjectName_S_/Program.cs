@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Common.Logging;
 using NCmdLiner;
 using NCmdLiner.Exceptions;
@@ -23,7 +24,8 @@ namespace _S_ConsoleProjectName_S_
                     // ReSharper disable once CoVariantArrayConversion
                     object[] commandTargets = BootStrapper.Container.ResolveAll<CommandDefinition>();
                     logger.InfoFormat("Start: {0}.{1}. Command line: {2}", applicationInfo.Name, applicationInfo.Version, Environment.CommandLine);                    
-                    return CmdLinery.Run(commandTargets, args, applicationInfo, new NotepadMessenger());
+                    returnValue = CmdLinery.Run(commandTargets, args, applicationInfo, new NotepadMessenger());
+                    return returnValue;
                 }
                 catch (MissingCommandException ex)
                 {
@@ -39,8 +41,8 @@ namespace _S_ConsoleProjectName_S_
                 {
                     logger.InfoFormat("Stop: {0}.{1}. Return value: {2}", applicationInfo.Name, applicationInfo.Version, returnValue);
 #if DEBUG
-                    Console.WriteLine("Press ENTER...");
-                    Console.ReadLine();
+                    Console.WriteLine("Terminating in 5 seconds...");
+                    Thread.Sleep(5000);
 #endif
                 }
             }

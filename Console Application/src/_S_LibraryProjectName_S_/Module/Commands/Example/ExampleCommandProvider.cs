@@ -20,7 +20,7 @@ namespace _S_LibraryProjectName_S_.Module.Commands.Example
 
         public int Create(string targetRootFolder)
         {
-            var returnValue = 0;
+            var returnValue = 1;
             _logger.Info("Showing main window as an example user interface.");
             var application = new Application();
             application.Run(_mainWindow);

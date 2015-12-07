@@ -222,6 +222,7 @@
   <Target Name="Compile" DependsOnTargets="Version">
     <MSBuild Projects="$(SrcDirectory)\_S_LibraryProjectName_S_\_S_LibraryProjectName_S_.csproj" Properties="Configuration=Release;" />
     <MSBuild Projects="$(SrcDirectory)\_S_ConsoleProjectName_S_\_S_ConsoleProjectName_S_.csproj" Properties="Configuration=Release;" />
+	<MSBuild Projects="$(SrcDirectory)\_S_ConsoleProjectName_S_.Gui\_S_ConsoleProjectName_S_.Gui.csproj" Properties="Configuration=Release;" />
   </Target>
 
   <Target Name="CompileTests" DependsOnTargets="Compile">
