@@ -43,6 +43,7 @@ Doc\Help
 */tools/NMultiTool/(null)
 */tools/NuGetPackages/Castle.Core.*/*
 */tools/NuGetPackages/Castle.Windsor.*/*
+*/tools/NuGetPackages/Castle.WcfIntegrationFacility.*/*
 */tools/NuGetPackages/Common.Logging.*/*
 */tools/NuGetPackages/Common.Logging.Core.*/*
 */tools/NuGetPackages/Common.Logging.Log4Net*/*
