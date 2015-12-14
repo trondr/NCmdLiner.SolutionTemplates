@@ -7,6 +7,7 @@
     <ProductName>_S_ShortProductName_S_</ProductName>
     <ProductCompany>_S_CompanyName_S_</ProductCompany>
     <ProductDescription>_S_ProductDescription_S_</ProductDescription>
+	<ServiceProductDescription>_S_ServiceDescription_S_</ServiceProductDescription>
     <ProductCopyright>Copyright &#169; _S_CompanyName_S_ $([System.DateTime]::Now.Year)</ProductCopyright>
     <ProductProjectName>$(ProductName)</ProductProjectName>
 
@@ -197,6 +198,41 @@
        AssemblyDescription="$(ProductDescription)"
        AssemblyCompany="$(ProductCompany)"
        AssemblyProduct="_S_LibraryProjectName_S_"
+       AssemblyCopyright="$(ProductCopyright)"
+       CLSCompliant="false"
+       AssemblyInformationalVersion="$(Major).$(Minor).$(Build).$(Revision).$(RevisionHash)"
+       AssemblyVersion="$(AssemblyVersion)"
+       AssemblyFileVersion="$(AssemblyVersion)"
+	  />
+	  
+	 <AssemblyInfo CodeLanguage="CS"
+       OutputFile="$(SrcDirectory)\_S_ServiceProjectName_S_\Properties\AssemblyInfo.cs"
+       AssemblyDescription="$(ServiceProductDescription)"
+       AssemblyCompany="$(ProductCompany)"
+       AssemblyProduct="_S_ServiceProjectName_S_"
+       AssemblyCopyright="$(ProductCopyright)"
+       CLSCompliant="false"
+       AssemblyInformationalVersion="$(Major).$(Minor).$(Build).$(Revision).$(RevisionHash)"
+       AssemblyVersion="$(AssemblyVersion)"
+       AssemblyFileVersion="$(AssemblyVersion)"
+	  />
+    <AssemblyInfo CodeLanguage="CS"
+       OutputFile="$(SrcDirectory)\_S_ServiceLibraryProjectName_S_\Properties\AssemblyInfo.cs"
+       AssemblyDescription="$(ServiceProductDescription)"
+       AssemblyCompany="$(ProductCompany)"
+       AssemblyProduct="_S_ServiceLibraryProjectName_S_"
+       AssemblyCopyright="$(ProductCopyright)"
+       CLSCompliant="false"
+       AssemblyInformationalVersion="$(Major).$(Minor).$(Build).$(Revision).$(RevisionHash)"
+       AssemblyVersion="$(AssemblyVersion)"
+       AssemblyFileVersion="$(AssemblyVersion)"
+	  />
+	
+	<AssemblyInfo CodeLanguage="CS"
+       OutputFile="$(SrcDirectory)\_S_ServiceContractsProjectName_S_\Properties\AssemblyInfo.cs"
+       AssemblyDescription="$(ServiceProductDescription)"
+       AssemblyCompany="$(ProductCompany)"
+       AssemblyProduct="_S_ServiceContractsProjectName_S_"
        AssemblyCopyright="$(ProductCopyright)"
        CLSCompliant="false"
        AssemblyInformationalVersion="$(Major).$(Minor).$(Build).$(Revision).$(RevisionHash)"
