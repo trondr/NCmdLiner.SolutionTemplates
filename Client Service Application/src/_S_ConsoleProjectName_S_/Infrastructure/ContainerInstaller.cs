@@ -36,8 +36,6 @@ namespace _S_ConsoleProjectName_S_.Infrastructure
             container.Register(Component.For<MainView>().Activator<StrictComponentActivator>());
             container.Register(Component.For<MainViewModel>().Activator<StrictComponentActivator>());
 
-            container.Register(Component.For<I_S_ShortProductName_S_ManagerFacade>().ImplementedBy<_S_ShortProductName_S_ManagerFacade>().LifestyleTransient());
-
             //Factory registrations example:
 
             //container.Register(Component.For<ITeamProviderFactory>().AsFactory());
@@ -86,13 +84,13 @@ namespace _S_ConsoleProjectName_S_.Infrastructure
             container.Register(Classes.FromAssemblyContaining<CommandDefinition>()
                 .InNamespace(libraryRootNameSpace, true)
                 .If(type => Attribute.IsDefined(type, typeof(SingletonAttribute)))
-                .WithService.DefaultInterfaces().LifestyleSingleton());
+                .WithService.FirstInterface().LifestyleSingleton());
             //
             //   Register all transients found in the library
             //
             container.Register(Classes.FromAssemblyContaining<CommandDefinition>()
                 .InNamespace(libraryRootNameSpace, true)
-                .WithService.DefaultInterfaces().LifestyleTransient());
+                .WithService.FirstInterface().LifestyleTransient());
             
             IApplicationInfo applicationInfo = new ApplicationInfo();
             container.Register(Component.For<IApplicationInfo>().Instance(applicationInfo).LifestyleSingleton());
