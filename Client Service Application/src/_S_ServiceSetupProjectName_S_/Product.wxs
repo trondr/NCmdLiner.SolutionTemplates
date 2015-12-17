@@ -21,7 +21,7 @@
 <?define ProductBaseDllBinFolder="..\..\bin\release\_S_LibraryProjectName_S_"?>
 
 <?define ProductHelpLink="https://_S_CompanyName_S_.com"?>
-<?define TargetFolderName="_S_ProductName_S_"?>
+<?define TargetFolderName="_S_ProductName_S_ Service"?>
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <Product

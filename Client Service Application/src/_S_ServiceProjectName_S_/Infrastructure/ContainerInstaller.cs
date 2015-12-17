@@ -93,13 +93,13 @@ namespace _S_ServiceProjectName_S_.Infrastructure
             container.Register(Classes.FromAssemblyContaining<CommandDefinition>()
                 .InNamespace(libraryRootNameSpace, true)
                 .If(type => Attribute.IsDefined(type, typeof(SingletonAttribute)))
-                .WithService.DefaultInterfaces().LifestyleSingleton());
+                .WithService.FirstInterface().LifestyleSingleton());
             //
             //   Register all transients found in the library
             //
             container.Register(Classes.FromAssemblyContaining<CommandDefinition>()
                 .InNamespace(libraryRootNameSpace, true)
-                .WithService.DefaultInterfaces().LifestyleTransient());
+                .WithService.FirstInterface().LifestyleTransient());
             
             IApplicationInfo applicationInfo = new ApplicationInfo();
             container.Register(Component.For<IApplicationInfo>().Instance(applicationInfo).LifestyleSingleton());

@@ -1,4 +1,6 @@
-﻿using _S_LibraryProjectName_S_.Service_References._S_ShortProductName_S_Service;
+﻿
+using _S_LibraryProjectName_S_._S_ShortProductName_S_Service;
+
 
 namespace _S_LibraryProjectName_S_.Module.Services
 {
@@ -8,7 +10,7 @@ namespace _S_LibraryProjectName_S_.Module.Services
     {
         public void SomeExampleServiceMethod(string someExampleparameter)
         {
-            var serviceClient = new I_S_ShortProductName_S_ManagerClient();
+            var serviceClient = new _S_ShortProductName_S_ManagerClient();
             serviceClient.SomeExampleServiceMethod(someExampleparameter);
         }
     }

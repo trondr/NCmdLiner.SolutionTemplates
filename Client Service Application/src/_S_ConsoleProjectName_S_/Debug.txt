@@ -1,2 +1,3 @@
 ﻿Help
 CreateSomething /exampleParameter="c:\temp"
+ExampleCreateUsingService /exampleParameter="c:\temp"

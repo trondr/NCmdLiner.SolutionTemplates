@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ServiceProcess;
+using System.Threading;
 using Common.Logging;
 using NCmdLiner;
 using NCmdLiner.Exceptions;
@@ -30,14 +31,15 @@ namespace _S_ServiceProjectName_S_
             }
             catch (Exception ex)
             {
-                if (logger.IsErrorEnabled) logger.Error(ex);                
+                if (logger.IsErrorEnabled) logger.Error(ex);
                 returnValue = 2;
             }
             finally
             {
                 if (logger.IsInfoEnabled) logger.InfoFormat("Stopping {0} - {1}. Return value: {2}", applicationInfo.Name, applicationInfo.Version, returnValue);
 #if DEBUG
-                Console.ReadLine();
+                Console.WriteLine("Terminating in 5 seconds...");
+                Thread.Sleep(5000);
 #endif
             }
             return returnValue;

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace _S_LibraryProjectName_S_.Service_References._S_ShortProductName_S_Service {
+namespace _S_LibraryProjectName_S_._S_ShortProductName_S_Service {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -25,29 +25,29 @@ namespace _S_LibraryProjectName_S_.Service_References._S_ShortProductName_S_Serv
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface I_S_ShortProductName_S_ManagerChannel : I_S_ShortProductName_S_Manager, System.ServiceModel.IClientChannel {
+    public interface I_S_ShortProductName_S_ManagerChannel : _S_LibraryProjectName_S_._S_ShortProductName_S_Service.I_S_ShortProductName_S_Manager, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class I_S_ShortProductName_S_ManagerClient : System.ServiceModel.ClientBase<I_S_ShortProductName_S_Manager>, I_S_ShortProductName_S_Manager {
+    public partial class _S_ShortProductName_S_ManagerClient : System.ServiceModel.ClientBase<_S_LibraryProjectName_S_._S_ShortProductName_S_Service.I_S_ShortProductName_S_Manager>, _S_LibraryProjectName_S_._S_ShortProductName_S_Service.I_S_ShortProductName_S_Manager {
         
-        public I_S_ShortProductName_S_ManagerClient() {
+        public _S_ShortProductName_S_ManagerClient() {
         }
         
-        public I_S_ShortProductName_S_ManagerClient(string endpointConfigurationName) : 
+        public _S_ShortProductName_S_ManagerClient(string endpointConfigurationName) : 
                 base(endpointConfigurationName) {
         }
         
-        public I_S_ShortProductName_S_ManagerClient(string endpointConfigurationName, string remoteAddress) : 
+        public _S_ShortProductName_S_ManagerClient(string endpointConfigurationName, string remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public I_S_ShortProductName_S_ManagerClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public _S_ShortProductName_S_ManagerClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public I_S_ShortProductName_S_ManagerClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public _S_ShortProductName_S_ManagerClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
         }
         
