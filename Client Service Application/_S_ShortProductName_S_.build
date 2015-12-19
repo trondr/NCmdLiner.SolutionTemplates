@@ -256,15 +256,26 @@
   <!--Compile-->
   
   <Target Name="Compile" DependsOnTargets="Version">
-    <MSBuild Projects="$(SrcDirectory)\_S_LibraryProjectName_S_\_S_LibraryProjectName_S_.csproj" Properties="Configuration=Release;" />
+    <MSBuild Projects="$(SrcDirectory)\_S_ServiceContractsProjectName_S_\_S_ServiceContractsProjectName_S_.csproj" Properties="Configuration=Release;" />
+	
+	<MSBuild Projects="$(SrcDirectory)\_S_LibraryProjectName_S_\_S_LibraryProjectName_S_.csproj" Properties="Configuration=Release;" />
     <MSBuild Projects="$(SrcDirectory)\_S_ConsoleProjectName_S_\_S_ConsoleProjectName_S_.csproj" Properties="Configuration=Release;" />
 	<MSBuild Projects="$(SrcDirectory)\_S_ConsoleProjectName_S_.Gui\_S_ConsoleProjectName_S_.Gui.csproj" Properties="Configuration=Release;" />
+	
+	<MSBuild Projects="$(SrcDirectory)\_S_ServiceLibraryProjectName_S_\_S_ServiceLibraryProjectName_S_.csproj" Properties="Configuration=Release;" />
+	<MSBuild Projects="$(SrcDirectory)\_S_ServiceProjectName_S_\_S_ServiceProjectName_S_.csproj" Properties="Configuration=Release;" />
+	<MSBuild Projects="$(SrcDirectory)\_S_ServiceConsoleProjectName_S_\_S_ServiceConsoleProjectName_S_.csproj" Properties="Configuration=Release;" />
   </Target>
 
   <Target Name="CompileTests" DependsOnTargets="Compile">
     <MSBuild Projects="$(SrcDirectory)\_S_TestsProjectName_S_\_S_TestsProjectName_S_.csproj" Properties="Configuration=Release"/>
   </Target>
 
+  <Target Name="CompileSetup" DependsOnTargets="UnitTests">
+    <MSBuild Projects="$(SrcDirectory)\_S_SetupProjectName_S_\_S_SetupProjectName_S_.wixproj" Properties="Configuration=Release"/>    
+	<MSBuild Projects="$(SrcDirectory)\_S_ServiceSetupProjectName_S_\_S_ServiceSetupProjectName_S_.wixproj" Properties="Configuration=Release"/>    
+  </Target>
+  
   <!--Prepare for test-->
   
   <Target Name="DownloadNunit" Condition=" '$(NUnitIsAvailable)' == 'false' ">
@@ -317,10 +328,6 @@
                Arguments="/nologo &quot;$(BinDirectory)\Release\_S_TestsProjectName_S_\_S_TestsProjectName_S_.dll&quot; /include=StandardUserIntegrationTests"/>
   </Target>
 
-  <Target Name="CompileSetup" DependsOnTargets="UnitTests">
-    <MSBuild Projects="$(SrcDirectory)\_S_SetupProjectName_S_\_S_SetupProjectName_S_.wixproj" Properties="Configuration=Release"/>    
-  </Target>
-  
   <ItemGroup>
     <ReleaseFiles Include="$(BinDirectory)\Release\$(ProductName)\**\*.exe" Exclude="$(BinDirectory)\Release\$(ProductName)\**\Libs\**" />
     <ReleaseFiles Include="$(BinDirectory)\Release\$(ProductName)\**\*.dll" Exclude="$(BinDirectory)\Release\$(ProductName)\**\Libs\**" />

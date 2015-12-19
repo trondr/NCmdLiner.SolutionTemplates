@@ -3,6 +3,7 @@ Set ProductName=_S_ShortProductName_S_
 
 IF EXIST "%VSDEVCMD%" goto Build
 IF EXIST "%MSBUILDPATH%" goto Build
+IF EXIST "%NET4XPATH%" goto Build
 
 :VSEnv
 Set VSDEVCMD=%VS140COMNTOOLS%VsDevCmd.bat
@@ -14,8 +15,14 @@ call "%VSDEVCMD%"
 :MSBuildEnv
 Set MSBUILDPATH=%ProgramFiles(x86)%\MSBuild\14.0\Bin
 Echo Checking to see if MSBuild is installed ("%MSBUILDPATH%")
-IF NOT EXIST "%MSBUILDPATH%" set BuildMessage="Neither Visual Studio 2015 or MSBuild  seem to be installed. Terminating." & goto end
+IF NOT EXIST "%MSBUILDPATH%" set BuildMessage="Neither Visual Studio 2015 or MSBuild  seem to be installed. Terminating." & goto End
 Set Path=%Path%;%MSBUILDPATH%
+
+:NetEnv
+Set NET4XPATH=%windir%\Microsoft.NET\Framework64\v4.0.30319
+Echo Checking to see if .NET 4.x is installed ("%NET4XPATH%")
+IF NOT EXIST "%NET4XPATH%" set BuildMessage=".NET 4.x does not seem to be installed. Terminating." & goto End
+Set Path=%Path%;%NET4XPATH%
 
 :Build
 Echo Building %ProductName%...
