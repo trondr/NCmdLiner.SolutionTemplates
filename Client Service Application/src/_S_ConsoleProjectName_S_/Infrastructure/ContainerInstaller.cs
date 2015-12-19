@@ -22,7 +22,8 @@ namespace _S_ConsoleProjectName_S_.Infrastructure
             container.Register(Component.For<IWindsorContainer>().Instance(container));
             container.AddFacility<TypedFactoryFacility>();
             container.Register(Component.For<ITypedFactoryComponentSelector>().ImplementedBy<CustomTypeFactoryComponentSelector>());
-            
+            container.Register(Component.For<IMessenger>().ImplementedBy<NotepadMessenger>());
+
             //Configure logging
             ILoggingConfiguration loggingConfiguration = new LoggingConfiguration();
             log4net.GlobalContext.Properties["LogFile"] = Path.Combine(loggingConfiguration.LogDirectoryPath, loggingConfiguration.LogFileName);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.ServiceProcess;
 using Castle.Core.Internal;
 using Castle.Facilities.TypedFactory;
 using Castle.Facilities.WcfIntegration;
@@ -12,8 +13,8 @@ using _S_LibraryProjectName_S_.Infrastructure;
 using _S_LibraryProjectName_S_.Module.ViewModels;
 using _S_LibraryProjectName_S_.Module.Views;
 using _S_ServiceContractsProjectName_S_;
-using _S_ServiceLibraryProjectName_S_;
 using _S_ServiceLibraryProjectName_S_.Module;
+using _S_ServiceProjectName_S_.Module;
 using SingletonAttribute = _S_LibraryProjectName_S_.Infrastructure.SingletonAttribute;
 
 namespace _S_ServiceProjectName_S_.Infrastructure
@@ -39,11 +40,11 @@ namespace _S_ServiceProjectName_S_.Infrastructure
             container.Register(Component.For<MainView>().Activator<StrictComponentActivator>());
             container.Register(Component.For<MainViewModel>().Activator<StrictComponentActivator>());
 
-            container.AddFacility<WcfFacility>();
-            container.Register(Component
-                .For<I_S_ShortProductName_S_Manager>()
-                .ImplementedBy<_S_ShortProductName_S_Manager>());
-
+            container.AddFacility<WcfFacility>(facility => facility.CloseTimeout = TimeSpan.Zero);
+            container.Register(Component.For<I_S_ShortProductName_S_Manager>().ImplementedBy<_S_ShortProductName_S_Manager>());
+            container.Register(Component.For<ServiceBase>().ImplementedBy<_S_ShortProductName_S_WindowsService>());
+            var defaultServiceHostFactory = new DefaultServiceHostFactory(container.Kernel);
+            container.Register(Component.For<DefaultServiceHostFactory>().Instance(defaultServiceHostFactory));
 
             //Factory registrations example:
 

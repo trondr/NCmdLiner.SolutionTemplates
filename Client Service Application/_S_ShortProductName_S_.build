@@ -362,7 +362,7 @@
          />
     <Message Text="_S_ConsoleProjectName_S_.Source.$(AssemblyVersion) zip complete" Importance="normal" />    
 	
-	  <ResolveScriptInstallPackage
+	<ResolveScriptInstallPackage
       ScriptInstallPackageSourcePath="$(SrcDirectory)\_S_ScriptInstallProjectName_S_"
       ScriptInstallPackageTargetPath="$(BinDirectory)\Release\_S_ScriptInstallProjectName_S_ $(AssemblyVersion)"
       SourceMsiFile="$(BinDirectory)\Release\_S_SetupProjectName_S_\en-us\_S_ConsoleProjectName_S_.$(AssemblyVersion).msi"

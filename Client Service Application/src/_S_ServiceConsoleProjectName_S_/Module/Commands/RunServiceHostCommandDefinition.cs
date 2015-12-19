@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Net;
 using System.Reflection;
 using System.ServiceModel;
 using Castle.Facilities.WcfIntegration;
 using Common.Logging;
 using NCmdLiner.Attributes;
 using _S_LibraryProjectName_S_.Infrastructure;
-using _S_LibraryProjectName_S_.Module.Common;
 using _S_LibraryProjectName_S_.Module.Common.Services;
 using _S_ServiceContractsProjectName_S_;
 
@@ -15,12 +13,14 @@ namespace _S_ServiceConsoleProjectName_S_.Module.Commands
     public class RunServiceHostCommandDefinition : CommandDefinition
     {
         private readonly IKeepAliveServiceFactory _keepAliveServiceFactory;
+        private readonly DefaultServiceHostFactory _defaultServiceHostFactory;
         private readonly ILog _logger;
         private string _keepAliveFile;
 
-        public RunServiceHostCommandDefinition(IKeepAliveServiceFactory keepAliveServiceFactory, ILog logger)
+        public RunServiceHostCommandDefinition(IKeepAliveServiceFactory keepAliveServiceFactory, DefaultServiceHostFactory defaultServiceHostFactory, ILog logger)
         {
             _keepAliveServiceFactory = keepAliveServiceFactory;
+            _defaultServiceHostFactory = defaultServiceHostFactory;
             _logger = logger;
         }
 
@@ -28,7 +28,7 @@ namespace _S_ServiceConsoleProjectName_S_.Module.Commands
         public int RunServiceHost()
         {
             _logger.Info("Starting Service Console...");
-            var serviceHost = (DefaultServiceHost)(new DefaultServiceHostFactory().CreateServiceHost(typeof(I_S_ShortProductName_S_Manager).AssemblyQualifiedName, new Uri[] { }));
+            var serviceHost = (DefaultServiceHost)(_defaultServiceHostFactory.CreateServiceHost(typeof(I_S_ShortProductName_S_Manager).AssemblyQualifiedName, new Uri[] { }));
             serviceHost.Faulted += ServiceHostFaulted;
             serviceHost.EndpointCreated += ServiceHostEndpointCreated;
             serviceHost.Closing += ServiceHostClosing;

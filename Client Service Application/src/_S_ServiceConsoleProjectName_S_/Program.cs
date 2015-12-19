@@ -24,7 +24,7 @@ namespace _S_ServiceConsoleProjectName_S_
                     // ReSharper disable once CoVariantArrayConversion
                     object[] commandTargets = BootStrapper.Container.ResolveAll<CommandDefinition>();
                     logger.InfoFormat("Start: {0}.{1}. Command line: {2}", applicationInfo.Name, applicationInfo.Version, Environment.CommandLine);                    
-                    returnValue = CmdLinery.Run(commandTargets, args, applicationInfo, new NotepadMessenger());
+                    returnValue = CmdLinery.Run(commandTargets, args, applicationInfo, BootStrapper.Container.Resolve<IMessenger>());
                     return returnValue;
                 }
                 catch (MissingCommandException ex)

@@ -20,8 +20,8 @@ namespace _S_ServiceProjectName_S_
             applicationInfo.Authors = "_S_Authors_S_";
             try
             {
-                if (logger.IsInfoEnabled) logger.InfoFormat("Starting {0} - {1}. Command Line: {2}.", applicationInfo.Name, applicationInfo.Version, Environment.CommandLine);
-                ServiceBase.Run(new ServiceBase[] { new _S_ShortProductName_S_WindowsService() });
+                if (logger.IsInfoEnabled) logger.InfoFormat("Starting {0} - {1}. Command Line: {2}.", applicationInfo.Name, applicationInfo.Version, Environment.CommandLine);                
+                ServiceBase.Run(new ServiceBase[] { BootStrapper.Container.Resolve<ServiceBase>() });
                 returnValue = 0;
             }
             catch (MissingCommandException ex)

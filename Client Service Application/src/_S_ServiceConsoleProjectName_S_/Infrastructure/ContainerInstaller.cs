@@ -26,6 +26,7 @@ namespace _S_ServiceProjectName_S_.Infrastructure
             container.Register(Component.For<IWindsorContainer>().Instance(container));
             container.AddFacility<TypedFactoryFacility>();
             container.Register(Component.For<ITypedFactoryComponentSelector>().ImplementedBy<CustomTypeFactoryComponentSelector>());
+            container.Register(Component.For<IMessenger>().ImplementedBy<NotepadMessenger>());
             
             //Configure logging
             ILoggingConfiguration loggingConfiguration = new LoggingConfiguration();
@@ -40,10 +41,15 @@ namespace _S_ServiceProjectName_S_.Infrastructure
             container.Register(Component.For<MainView>().Activator<StrictComponentActivator>());
             container.Register(Component.For<MainViewModel>().Activator<StrictComponentActivator>());
 
-            container.AddFacility<WcfFacility>();
-            container.Register(Component
-                .For<I_S_ShortProductName_S_Manager>()
-                .ImplementedBy<_S_ShortProductName_S_Manager>());
+            container.AddFacility<WcfFacility>(facility => facility.CloseTimeout = TimeSpan.Zero);
+            container.Register(Component.For<I_S_ShortProductName_S_Manager>().ImplementedBy<_S_ShortProductName_S_Manager>());
+            var defaultServiceHostFactory = new DefaultServiceHostFactory(container.Kernel);
+            container.Register(Component.For<DefaultServiceHostFactory>().Instance(defaultServiceHostFactory));
+
+            //container.AddFacility<WcfFacility>();
+            //container.Register(Component
+            //    .For<I_S_ShortProductName_S_Manager>()
+            //    .ImplementedBy<_S_ShortProductName_S_Manager>());
 
             container.Register(Component.For<IKeepAliveServiceFactory>().AsFactory());
             container.Register(
