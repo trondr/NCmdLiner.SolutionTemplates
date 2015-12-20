@@ -2,5 +2,5 @@
 <CreditInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ProductName>Common.Logging</ProductName>
   <ProductHome>http://netcommon.sourceforge.net/index.html</ProductHome>
-  <CreditText>_S_ConsoleProjectName_S_ uses Common.Logging to provide a logging abstraction around log4net. This enables loose coupling to log4net as logging mechanism.</CreditText>
+  <CreditText>_S_ServiceConsoleProjectName_S_ uses Common.Logging to provide a logging abstraction around log4net. This enables loose coupling to log4net as logging mechanism.</CreditText>
 </CreditInfo>

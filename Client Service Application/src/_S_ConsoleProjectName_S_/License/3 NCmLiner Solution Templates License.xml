@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LicenseInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <ProductName>NCmdLiner</ProductName>
+  <ProductName>NCmdLiner.SolutionTemplates</ProductName>
   <ProductHome>https://github.com/trondr</ProductHome>
   <License>New BSD License (BSD) http://www.opensource.org/licenses/BSD-3-Clause </License>
   <LicenseText>
-    Copyright &#169; &lt;github.com/trondr&gt; 2013-2015
+    Copyright &#169; &lt;github.com/trondr&gt; 2014-2015
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without

@@ -130,25 +130,19 @@
     <EmbeddedResource Include="Credits\2. NCmdLiner Credit.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Credits\3. Common.Logging Credit.xml" />
+    <EmbeddedResource Include="Credits\4. Common.Logging Credit.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Credits\4. Log4Net Credit.xml" />
+    <EmbeddedResource Include="Credits\5. Log4Net Credit.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="License\0 _S_ConsoleProjectName_S_ License.xml" />
+    <EmbeddedResource Include="License\_S_ServiceConsoleProjectName_S_ License.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="License\1 Castle Project License.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="License\2 NCmLiner License.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="License\3 Common.Logging License.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="License\4 Log4Net License.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\_S_LibraryProjectName_S_\_S_LibraryProjectName_S_.csproj">
@@ -163,6 +157,18 @@
       <Project>{1a8661ec-dff0-4d5b-8a2c-f94dfb9d45da}</Project>
       <Name>_S_ServiceLibraryProjectName_S_</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="License\3 NCmLiner Solution Templates License.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="License\4 Common.Logging License.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="License\5 Log4Net License.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Credits\3. NCmdLiner SolutionTemplates Credit.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

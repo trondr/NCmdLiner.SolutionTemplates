@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LicenseInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <ProductName>_S_ConsoleProjectName_S_</ProductName>
+  <ProductName>_S_ServiceConsoleProjectName_S_</ProductName>
   <ProductHome></ProductHome>
   <License>New BSD License (BSD) http://www.opensource.org/licenses/BSD-3-Clause </License>
   <LicenseText>
-    Copyright (c) _S_CompanyName_S_ 2014
+    Copyright (c) _S_CompanyName_S_ _S_Year_S_
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without
