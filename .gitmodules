@@ -1,3 +1,9 @@
 [submodule "Console Application/src/_S_ScriptInstallProjectName_S_"]
 	path = Console Application/src/_S_ScriptInstallProjectName_S_
 	url = https://github.com/trondr/Script.Install.Template.git
+[submodule "Client Service Application/src/_S_ServiceScriptInstallProjectName_S_"]
+	path = Client Service Application/src/_S_ServiceScriptInstallProjectName_S_
+	url = https://github.com/trondr/Script.Install.Template.git
+[submodule "Client Service Application/src/_S_ScriptInstallProjectName_S_"]
+	path = Client Service Application/src/_S_ScriptInstallProjectName_S_
+	url = https://github.com/trondr/Script.Install.Template.git
