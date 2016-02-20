@@ -17,7 +17,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("_S_ProductDescription_S_")]
 [assembly: AssemblyCompany("_S_CompanyName_S_")]
 [assembly: AssemblyProduct("_S_LibraryProjectName_S_")]
-[assembly: AssemblyCopyright("Copyright © _S_CompanyName_S_ 2015")]
+[assembly: AssemblyCopyright("Copyright © _S_CompanyName_S_ 2016")]
 [assembly: CLSCompliant(false)]
 [assembly: AssemblyInformationalVersion("1.0.15353.0.")]
 [assembly: AssemblyVersion("1.0.15353.0")]
