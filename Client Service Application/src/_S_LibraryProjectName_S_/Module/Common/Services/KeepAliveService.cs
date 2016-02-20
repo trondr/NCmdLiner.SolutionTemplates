@@ -23,17 +23,17 @@ namespace _S_LibraryProjectName_S_.Module.Common.Services
             _isActivated = true;
             do
             {
-                while (!Console.KeyAvailable && KeepAlive())
+                while (!System.Console.KeyAvailable && KeepAlive())
                 {
-                    Console.Write(".");
+                    System.Console.Write(".");
                     Thread.Sleep(1000);
                 }
-                Console.Write("+");
+                System.Console.Write("+");
                 if (!KeepAlive())
                     break;
                 Thread.Sleep(1000);
-            } while ((Console.ReadKey(true).Key != ConsoleKey.Escape) && KeepAlive());
-            Console.WriteLine();
+            } while ((System.Console.ReadKey(true).Key != ConsoleKey.Escape) && KeepAlive());
+            System.Console.WriteLine();
         }
 
         public bool KeepAlive()

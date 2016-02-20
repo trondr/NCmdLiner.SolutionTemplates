@@ -38,7 +38,7 @@ namespace _S_ServiceProjectName_S_
             {
                 if (logger.IsInfoEnabled) logger.InfoFormat("Stopping {0} - {1}. Return value: {2}", applicationInfo.Name, applicationInfo.Version, returnValue);
 #if DEBUG
-                Console.WriteLine("Terminating in 5 seconds...");
+                System.Console.WriteLine("Terminating in 5 seconds...");
                 Thread.Sleep(5000);
 #endif
             }

@@ -41,14 +41,14 @@ namespace _S_ServiceConsoleProjectName_S_
                 {
                     logger.InfoFormat("Stop: {0}.{1}. Return value: {2}", applicationInfo.Name, applicationInfo.Version, returnValue);
 #if DEBUG
-                    Console.WriteLine("Terminating in 5 seconds...");
+                    System.Console.WriteLine("Terminating in 5 seconds...");
                     Thread.Sleep(5000);
 #endif
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Fatal error when wiring up the application.{0}{1}", Environment.NewLine, ex);
+                System.Console.WriteLine("Fatal error when wiring up the application.{0}{1}", Environment.NewLine, ex);
                 returnValue = 3;
             }
             return returnValue;
