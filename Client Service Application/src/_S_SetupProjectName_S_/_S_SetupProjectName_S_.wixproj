@@ -62,6 +62,7 @@
 copy "$(TargetDir)..\$(TargetName)\%2a.dll" "$(TargetDir)..\$(TargetName)\Libs"
 del "$(TargetDir)..\$(TargetName)\Libs\$(TargetName)%2a.%2a"
 del "$(TargetDir)..\$(TargetName)\Libs\_S_LibraryProjectName_S_%2a.%2a"
+copy "$(TargetDir)..\$(TargetName)\_S_ServiceContractsProjectName_S_.dll" "$(TargetDir)..\$(TargetName)\Libs"
 mkdir "$(TargetDir)..\$(TargetName)\Libs\NMultiTool"
 xcopy "$(ProjectDir)..\..\tools\NMultiTool" "$(TargetDir)..\$(TargetName)\Libs\NMultiTool" /Y /E
 del "$(TargetDir)..\$(TargetName)\Libs\NMultiTool\(null)%2a"
