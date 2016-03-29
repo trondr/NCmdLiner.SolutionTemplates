@@ -61,28 +61,28 @@
     <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\..\tools\NuGetPackages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="Common.Logging, Version=3.3.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-      <HintPath>..\..\tools\NuGetPackages\Common.Logging.3.3.0\lib\net40\Common.Logging.dll</HintPath>
+    <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\..\tools\NuGetPackages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Common.Logging.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-      <HintPath>..\..\tools\NuGetPackages\Common.Logging.Core.3.3.0\lib\net40\Common.Logging.Core.dll</HintPath>
+    <Reference Include="Common.Logging.Core, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\..\tools\NuGetPackages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Common.Logging.Log4Net1213, Version=3.3.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-      <HintPath>..\..\tools\NuGetPackages\Common.Logging.Log4Net1213.3.3.0\lib\net40\Common.Logging.Log4Net1213.dll</HintPath>
+    <Reference Include="Common.Logging.Log4Net1213, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\..\tools\NuGetPackages\Common.Logging.Log4Net1213.3.3.1\lib\net40\Common.Logging.Log4Net1213.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\tools\NuGetPackages\log4net.2.0.4\lib\net45-full\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\tools\NuGetPackages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NCmdLiner, Version=1.0.15244.126, Culture=neutral, PublicKeyToken=37f01c356c8e03d5, processorArchitecture=MSIL">
       <HintPath>..\..\tools\NuGetPackages\NCmdLiner.1.0.15244.126\lib\net45\NCmdLiner.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\tools\NuGetPackages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\tools\NuGetPackages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -132,14 +132,16 @@
   <ItemGroup>
     <EmbeddedResource Include="Credits\1. Castle Windsor Credit.xml" />
     <EmbeddedResource Include="Credits\2. NCmdLiner Credit.xml" />
-    <EmbeddedResource Include="Credits\3. Common.Logging Credit.xml" />
-    <EmbeddedResource Include="Credits\4. Log4Net Credit.xml" />
+    <EmbeddedResource Include="Credits\3. NCmdLiner SolutionTemplates Credit.xml" />
+    <EmbeddedResource Include="Credits\4. Common.Logging Credit.xml" />
+    <EmbeddedResource Include="Credits\5. Log4Net Credit.xml" />
     <Content Include="Debug.txt" />
     <EmbeddedResource Include="License\0 _S_ConsoleProjectName_S_ License.xml" />
     <EmbeddedResource Include="License\1 Castle Project License.xml" />
     <EmbeddedResource Include="License\2 NCmLiner License.xml" />
-    <EmbeddedResource Include="License\3 Common.Logging License.xml" />
-    <EmbeddedResource Include="License\4 Log4Net License.xml" />
+    <EmbeddedResource Include="License\3 NCmLiner Solution Templates License.xml" />
+    <EmbeddedResource Include="License\4 Common.Logging License.xml" />
+    <EmbeddedResource Include="License\5 Log4Net License.xml" />
     <Content Include="NCmdLiner.ico" />
     <Content Include="References.txt" />
   </ItemGroup>
