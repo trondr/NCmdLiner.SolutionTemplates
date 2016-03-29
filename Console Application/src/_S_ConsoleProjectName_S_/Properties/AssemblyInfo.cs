@@ -17,10 +17,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("_S_ProductDescription_S_")]
 [assembly: AssemblyCompany("_S_CompanyName_S_")]
 [assembly: AssemblyProduct("_S_ConsoleProjectName_S_")]
-[assembly: AssemblyCopyright("Copyright © _S_CompanyName_S_ 2015")]
+[assembly: AssemblyCopyright("Copyright © _S_CompanyName_S_ 2016")]
 [assembly: CLSCompliant(false)]
-[assembly: AssemblyInformationalVersion("1.0.15318.1.")]
-[assembly: AssemblyVersion("1.0.15318.1")]
-[assembly: AssemblyFileVersion("1.0.15318.1")]
+[assembly: AssemblyInformationalVersion("1.0.16089.0.")]
+[assembly: AssemblyVersion("1.0.16089.0")]
+[assembly: AssemblyFileVersion("1.0.16089.0")]
 
 
