@@ -53,7 +53,7 @@ namespace _S_ConsoleProjectName_S_.Infrastructure
         static void Kernel_HandlerRegistered(Castle.MicroKernel.IHandler handler, ref bool stateChanged)
         {
           
-            Logger.DebugFormat("IOC Container: Handler registred. Handler: {0}, State Changed: {1}", handler.ComponentModel.Name, stateChanged);
+            //Logger.DebugFormat("IOC Container: Handler registred. Handler: {0}, State Changed: {1}", handler.ComponentModel.Name, stateChanged);
             if (Logger.IsDebugEnabled)
                 foreach (var service in handler.ComponentModel.Services)
                 {
