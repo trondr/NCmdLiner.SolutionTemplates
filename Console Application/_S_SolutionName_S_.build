@@ -192,6 +192,19 @@
        AssemblyVersion="$(AssemblyVersion)"
        AssemblyFileVersion="$(AssemblyVersion)"
 	  />
+	  
+	<AssemblyInfo CodeLanguage="CS"
+       OutputFile="$(SrcDirectory)\_S_ConsoleProjectName_S_.Gui\Properties\AssemblyInfo.cs"
+       AssemblyDescription="$(ProductDescription)"
+       AssemblyCompany="$(ProductCompany)"
+       AssemblyProduct="_S_ConsoleProjectName_S_.Gui"
+       AssemblyCopyright="$(ProductCopyright)"
+       CLSCompliant="false"
+       AssemblyInformationalVersion="$(Major).$(Minor).$(Build).$(Revision).$(RevisionHash)"
+       AssemblyVersion="$(AssemblyVersion)"
+       AssemblyFileVersion="$(AssemblyVersion)"
+	  />
+	  
     <AssemblyInfo CodeLanguage="CS"
        OutputFile="$(SrcDirectory)\_S_LibraryProjectName_S_\Properties\AssemblyInfo.cs"
        AssemblyDescription="$(ProductDescription)"
@@ -215,6 +228,7 @@
       AssemblyVersion="$(AssemblyVersion)"
       AssemblyFileVersion="$(AssemblyVersion)"
 	  />
+	    	  
   </Target>
   
   <!--Compile-->
