@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading;
 using NCmdLiner;
 
-namespace _S_ServiceProjectName_S_.Infrastructure
+namespace _S_ServiceConsoleProjectName_S_.Infrastructure
 {
     /// <summary>
     /// Output Help, License and Credits to file instead of to the console and show it in the default text file editor

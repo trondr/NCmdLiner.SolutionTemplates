@@ -2,7 +2,7 @@ using System;
 using Castle.DynamicProxy;
 using Common.Logging;
 
-namespace _S_ServiceProjectName_S_.Infrastructure
+namespace _S_ServiceConsoleProjectName_S_.Infrastructure
 {
     public class TraceLogAspect : IInterceptor
     {

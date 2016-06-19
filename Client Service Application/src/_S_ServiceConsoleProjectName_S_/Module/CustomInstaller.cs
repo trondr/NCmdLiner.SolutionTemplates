@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.ComponentModel;
 
-namespace _S_ServiceProjectName_S_.Module
+namespace _S_ServiceConsoleProjectName_S_.Module
 {
     [RunInstaller(true)]
     public partial class CustomInstaller : System.Configuration.Install.Installer

@@ -49,6 +49,18 @@
       <HintPath>..\..\tools\NuGetPackages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Common.Logging.Log4Net1215, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\..\tools\NuGetPackages\Common.Logging.Log4Net1215.3.3.1\lib\net40\Common.Logging.Log4Net1215.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\tools\NuGetPackages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NCmdLiner, Version=1.0.15244.126, Culture=neutral, PublicKeyToken=37f01c356c8e03d5, processorArchitecture=MSIL">
+      <HintPath>..\..\tools\NuGetPackages\NCmdLiner.1.0.15244.126\lib\net45\NCmdLiner.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\tools\NuGetPackages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
@@ -65,22 +77,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\BootStrapperTestsHelper.cs" />
     <Compile Include="IntegrationTests\AdminUser\AdminUserImpersonationTests.cs" />
     <Compile Include="Common\SecurityHelper.cs" />
     <Compile Include="IntegrationTests\AdminUser\ExampleStandardUserIntegrationTests.cs" />
     <Compile Include="IntegrationTests\ExampleIntegrationTests.cs" />
     <Compile Include="IntegrationTests\StandardUser\ExampleStandardUserIntegrationTests.cs" />
     <Compile Include="IntegrationTests\StandardUser\StandardUserImpersonationTests.cs" />
+    <Compile Include="UnitTests\BootStrapperInfrastructureTests.cs" />
+    <Compile Include="UnitTests\BootStrapperModuleTests.cs" />
     <Compile Include="UnitTests\UnitTestsTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\_S_ConsoleProjectName_S_\_S_ConsoleProjectName_S_.csproj">
+      <Project>{4BE5C7BC-0E00-4D0C-A77F-091E7F3A0291}</Project>
+      <Name>_S_ConsoleProjectName_S_</Name>
+    </ProjectReference>
     <ProjectReference Include="..\_S_LibraryProjectName_S_\_S_LibraryProjectName_S_.csproj">
       <Project>{88bbc1f8-f0e9-4259-9357-4e3da770a6d6}</Project>
       <Name>_S_LibraryProjectName_S_</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

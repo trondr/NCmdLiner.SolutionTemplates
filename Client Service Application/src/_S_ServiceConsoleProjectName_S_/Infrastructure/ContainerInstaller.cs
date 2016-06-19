@@ -12,12 +12,10 @@ using _S_LibraryProjectName_S_.Infrastructure;
 using _S_LibraryProjectName_S_.Module.Common.Services;
 using _S_LibraryProjectName_S_.Module.ViewModels;
 using _S_LibraryProjectName_S_.Module.Views;
-using _S_ServiceConsoleProjectName_S_;
 using _S_ServiceContractsProjectName_S_;
 using _S_ServiceLibraryProjectName_S_.Module;
 
-
-namespace _S_ServiceProjectName_S_.Infrastructure
+namespace _S_ServiceConsoleProjectName_S_.Infrastructure
 {
     public class ContainerInstaller : IWindsorInstaller
     {

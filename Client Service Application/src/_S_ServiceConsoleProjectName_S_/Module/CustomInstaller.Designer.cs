@@ -1,4 +1,4 @@
-﻿namespace _S_ServiceProjectName_S_.Module
+﻿namespace _S_ServiceConsoleProjectName_S_.Module
 {
     partial class CustomInstaller
     {

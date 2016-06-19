@@ -1,7 +1,7 @@
 using System.Reflection;
 using Castle.Facilities.TypedFactory;
 
-namespace _S_ServiceProjectName_S_.Infrastructure
+namespace _S_ServiceConsoleProjectName_S_.Infrastructure
 {
     public class CustomTypeFactoryComponentSelector : DefaultTypedFactoryComponentSelector
     {

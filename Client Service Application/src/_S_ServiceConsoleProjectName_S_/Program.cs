@@ -1,30 +1,47 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using Common.Logging;
 using NCmdLiner;
 using NCmdLiner.Exceptions;
 using _S_LibraryProjectName_S_.Infrastructure;
-using _S_ServiceProjectName_S_.Infrastructure;
+using _S_ServiceConsoleProjectName_S_.Infrastructure;
 
 namespace _S_ServiceConsoleProjectName_S_
 {
     class Program
     {
-                [STAThread]
+        [STAThread]
         static int Main(string[] args)
         {
-            var returnValue = 0;
+            int returnValue;
             try
+            {                
+                returnValue = WireUpAndRun(args);
+            }
+            catch (Exception ex)
             {
-                var logger = LogManager.GetLogger<Program>();
-                var applicationInfo = BootStrapper.Container.Resolve<IApplicationInfo>();
+                var message = string.Format("Fatal error when wiring up the application.{0}{1}", Environment.NewLine, ex);
+                WriteErrorToEventLog(message);
+                returnValue = 3;
+            }
+            return returnValue;
+        }
+
+        private static int WireUpAndRun(string[] args)
+        {
+            var returnValue = 0;
+            var logger = GetMainLogger();
+            using (var bootStrapper = new BootStrapper())
+            {
+                var applicationInfo = bootStrapper.Container.Resolve<IApplicationInfo>();
                 try
                 {
-                    applicationInfo.Authors = @"_S_Authors_S_";
+                    applicationInfo.Authors = @"trondr@outlook.com";
                     // ReSharper disable once CoVariantArrayConversion
-                    object[] commandTargets = BootStrapper.Container.ResolveAll<CommandDefinition>();
-                    logger.InfoFormat("Start: {0}.{1}. Command line: {2}", applicationInfo.Name, applicationInfo.Version, Environment.CommandLine);                    
-                    returnValue = CmdLinery.Run(commandTargets, args, applicationInfo, BootStrapper.Container.Resolve<IMessenger>());
+                    object[] commandTargets = bootStrapper.Container.ResolveAll<CommandDefinition>();
+                    logger.InfoFormat("Start: {0}.{1}. Command line: {2}", applicationInfo.Name, applicationInfo.Version, Environment.CommandLine);
+                    returnValue = CmdLinery.Run(commandTargets, args, applicationInfo, bootStrapper.Container.Resolve<IMessenger>());
                     return returnValue;
                 }
                 catch (MissingCommandException ex)
@@ -41,17 +58,40 @@ namespace _S_ServiceConsoleProjectName_S_
                 {
                     logger.InfoFormat("Stop: {0}.{1}. Return value: {2}", applicationInfo.Name, applicationInfo.Version, returnValue);
 #if DEBUG
+                    // ReSharper disable once RedundantNameQualifier
                     System.Console.WriteLine("Terminating in 5 seconds...");
                     Thread.Sleep(5000);
 #endif
                 }
             }
-            catch (Exception ex)
-            {
-                System.Console.WriteLine("Fatal error when wiring up the application.{0}{1}", Environment.NewLine, ex);
-                returnValue = 3;
-            }
             return returnValue;
         }
-    }    
+
+
+        private static ILog GetMainLogger()
+        {
+            try
+            {
+                var logger = LogManager.GetLogger<Program>();
+                return logger;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to get logger. ", ex);
+            }
+        }
+
+        private static void WriteErrorToEventLog(string message)
+        {
+            // ReSharper disable once RedundantNameQualifier
+            System.Console.WriteLine(message);
+            const string logName = "Application";
+            using (var eventLog = new EventLog(logName))
+            {
+                eventLog.Source = logName;
+                eventLog.WriteEntry(message, EventLogEntryType.Information, 101, 1);
+            }
+        }
+
+    }
 }
