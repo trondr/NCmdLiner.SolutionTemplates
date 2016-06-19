@@ -3,6 +3,7 @@ using System.IO;
 using Castle.Core.Internal;
 using Castle.Facilities.TypedFactory;
 using Castle.MicroKernel.Registration;
+using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Common.Logging;
@@ -19,6 +20,7 @@ namespace _S_ConsoleProjectName_S_.Infrastructure
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<IWindsorContainer>().Instance(container));
+            container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel));
             container.AddFacility<TypedFactoryFacility>();
             container.Register(Component.For<ITypedFactoryComponentSelector>().ImplementedBy<CustomTypeFactoryComponentSelector>());
             container.Register(Component.For<IMessenger>().ImplementedBy<NotepadMessenger>());
@@ -52,6 +54,8 @@ namespace _S_ConsoleProjectName_S_.Infrastructure
 
             container.Register(Component.For<IInvocationLogStringBuilder>().ImplementedBy<InvocationLogStringBuilder>().LifestyleSingleton());
             container.Register(Component.For<ILogFactory>().ImplementedBy<LogFactory>().LifestyleSingleton());
+
+            container.Register(Classes.FromAssemblyContaining<ITypeMapper>().IncludeNonPublicTypes().BasedOn<AutoMapper.Profile>().WithService.Base());
             ///////////////////////////////////////////////////////////////////
             //Automatic registrations
             ///////////////////////////////////////////////////////////////////
