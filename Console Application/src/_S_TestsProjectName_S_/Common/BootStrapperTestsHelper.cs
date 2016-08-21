@@ -1,4 +1,7 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+using NUnit.Framework;
+using NUnit.Framework.Constraints;
+using Rhino.Mocks.Constraints;
 using _S_ConsoleProjectName_S_.Infrastructure;
 
 namespace _S_TestsProjectName_S_.Common
@@ -19,12 +22,32 @@ namespace _S_TestsProjectName_S_.Common
             }
         }
 
+        public static void CheckThatOneOfTheResolvedServicesAre<T, TV>(string message)
+        {
+            using (var bootStrapper = new BootStrapper())
+            {
+                var target = bootStrapper.Container.ResolveAll<T>();
+                var actual = target.Any(type => type is TV);
+                var expected = true;
+                Assert.AreEqual(expected, actual, string.Format("Resolved '{0}' did not resolved to any '{1}'. {2}", typeof(T).Name, typeof(TV), message));
+            }
+        }
+
         public static void CheckThatResolvedServiceIsOfInstanceType<T, TV>()
         {
             using (var bootStrapper = new BootStrapper())
             {
                 var target = bootStrapper.Container.Resolve<T>();
-                Assert.AreEqual(typeof(TV), target.GetType(), string.Format("'{0}' was not of type '{1}'", typeof(T).Name, typeof(TV).Name));
+                Assert.AreEqual(typeof(TV), target.GetType(), string.Format("'{0}' was not of type '{1}'. Actual type: {2}", typeof(T).Name, typeof(TV).Name, target.GetType().FullName));
+            }
+        }
+
+        public static void CheckThatResolvedServiceIsOfInstanceTypeName<T>(string name)
+        {
+            using (var bootStrapper = new BootStrapper())
+            {
+                var target = bootStrapper.Container.Resolve<T>();
+                Assert.AreEqual(name, target.GetType().Name, string.Format("'{0}' was not of type '{1}'. Actual type: {2}", typeof(T).Name, name, target.GetType().Name));
             }
         }
 

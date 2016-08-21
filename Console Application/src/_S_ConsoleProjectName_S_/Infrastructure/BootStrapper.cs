@@ -46,7 +46,7 @@ namespace _S_ConsoleProjectName_S_.Infrastructure
                                 _container.Kernel.HandlerRegistered += Kernel_HandlerRegistered;                                
                                 _container.Kernel.DependencyResolving += Kernel_DependencyResolving;
                             }
-                            _container.Install(FromAssembly.InThisApplication());
+                            _container.Install(FromAssembly.InThisApplication(new ContainerInstallerFactory()));
                         }
                     }                
                 }

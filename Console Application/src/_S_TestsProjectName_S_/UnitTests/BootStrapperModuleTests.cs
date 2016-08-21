@@ -1,5 +1,8 @@
 using Common.Logging.Simple;
 using NUnit.Framework;
+using _S_ConsoleProjectName_S_.Module.Commands;
+using _S_LibraryProjectName_S_.Infrastructure;
+using _S_LibraryProjectName_S_.Module.Commands.Example;
 using _S_TestsProjectName_S_.Common;
 using LogLevel = Common.Logging.LogLevel;
 
@@ -22,6 +25,20 @@ namespace _S_TestsProjectName_S_.UnitTests
 
         }
 
-        
+        [Test, RequiresSTA]
+        public static void ExampleCommandDefinitionRegistrationTest()
+        {
+            BootStrapperTestsHelper.CheckThatOneOfTheResolvedServicesAre<CommandDefinition, ExampleCommandDefinition>("Not registered: " + typeof(ExampleCommandDefinition).FullName);
+        }
+
+
+        [Test, RequiresSTA]
+        public static void ExampleCommandProviderRegistrationTest()
+        {
+            BootStrapperTestsHelper.CheckThatNumberOfResolvedServicesAre<IExampleCommandProvider>(1);
+            BootStrapperTestsHelper.CheckThatResolvedServiceIsOfInstanceTypeName<IExampleCommandProvider>("IExampleCommandProviderProxy");
+            BootStrapperTestsHelper.CheckThatResolvedServiceHasSingletonLifeCycle<IExampleCommandProvider>();
+        }
+
     }
 }
