@@ -5,6 +5,7 @@ using Common.Logging;
 using Common.Logging.Simple;
 using NUnit.Framework;
 using _S_LibraryProjectName_S_.Infrastructure;
+using _S_LibraryProjectName_S_.Infrastructure.LifeStyles;
 
 namespace _S_TestsProjectName_S_.UnitTests
 {

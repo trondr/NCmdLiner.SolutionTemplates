@@ -49,6 +49,11 @@ namespace _S_ConsoleProjectName_S_
                     logger.ErrorFormat("Missing command. {0}", ex.Message);
                     returnValue = 1;
                 }
+                catch (UnknownCommandException ex)
+                {
+                    logger.Error(ex.Message);
+                    returnValue = 1;
+                }
                 catch (Exception ex)
                 {
                     logger.ErrorFormat("Error when exeuting command. {0}", ex.ToString());

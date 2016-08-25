@@ -1,6 +1,5 @@
 ﻿
-using _S_LibraryProjectName_S_._S_ShortProductName_S_Service;
-
+using _S_LibraryProjectName_S_.Service_References._S_ShortProductName_S_Service;
 
 namespace _S_LibraryProjectName_S_.Module.Services
 {    

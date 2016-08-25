@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AutoMapper;
 using Common.Logging;
+using _S_LibraryProjectName_S_.Infrastructure.LifeStyles;
 
 namespace _S_LibraryProjectName_S_.Infrastructure
 {

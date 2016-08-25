@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.ServiceProcess;
 using System.Threading;
 using Common.Logging;
 using NCmdLiner;
-using NCmdLiner.Exceptions;
-using _S_LibraryProjectName_S_.Infrastructure;
 using _S_ServiceProjectName_S_.Infrastructure;
 
 namespace _S_ServiceProjectName_S_
@@ -37,17 +36,13 @@ namespace _S_ServiceProjectName_S_
                 var applicationInfo = bootStrapper.Container.Resolve<IApplicationInfo>();
                 try
                 {
-                    applicationInfo.Authors = @"trondr@outlook.com";
-                    // ReSharper disable once CoVariantArrayConversion
-                    object[] commandTargets = bootStrapper.Container.ResolveAll<CommandDefinition>();
+                    applicationInfo.Authors = @"_S_Authors_S_";
                     logger.InfoFormat("Start: {0}.{1}. Command line: {2}", applicationInfo.Name, applicationInfo.Version, Environment.CommandLine);
-                    returnValue = CmdLinery.Run(commandTargets, args, applicationInfo, bootStrapper.Container.Resolve<IMessenger>());
+                    if (logger.IsInfoEnabled) logger.InfoFormat("Starting {0} - {1}. Command Line: {2}.", applicationInfo.Name, applicationInfo.Version, Environment.CommandLine);
+                    var service = bootStrapper.Container.Resolve<ServiceBase>();
+                    ServiceBase.Run(new[] { service });
+                    returnValue = 0;
                     return returnValue;
-                }
-                catch (MissingCommandException ex)
-                {
-                    logger.ErrorFormat("Missing command. {0}", ex.Message);
-                    returnValue = 1;
                 }
                 catch (Exception ex)
                 {

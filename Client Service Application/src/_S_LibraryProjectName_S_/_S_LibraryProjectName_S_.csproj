@@ -70,6 +70,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\ITypeMapper.cs" />
+    <Compile Include="Infrastructure\LifeStyles\SingletonAttribute.cs" />
+    <Compile Include="Infrastructure\LifeStyles\TrancientAttribute.cs" />
     <Compile Include="Infrastructure\TypeMapper.cs" />
     <Compile Include="Module\Commands\ExampleCreateUsingService\ExampleCreateUsingService.cs" />
     <Compile Include="Module\Commands\ExampleCreateUsingService\IExampleCreateUsingService.cs" />
@@ -84,7 +86,6 @@
     <Compile Include="Module\Commands\Example\ExampleCommandProvider.cs" />
     <Compile Include="Infrastructure\ApplicationInfoHelper.cs" />
     <Compile Include="Infrastructure\CommandDefinition.cs" />
-    <Compile Include="Infrastructure\SingletonAttribute.cs" />
     <Compile Include="Infrastructure\ToDo.cs" />
     <Compile Include="Infrastructure\ToDoPriority.cs" />
     <Compile Include="Module\Common\Services\KeepAliveService.cs" />

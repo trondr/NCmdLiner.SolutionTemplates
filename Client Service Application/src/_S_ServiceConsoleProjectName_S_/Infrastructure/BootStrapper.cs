@@ -2,6 +2,7 @@
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using Common.Logging;
+using _S_ServiceConsoleProjectName_S_.Infrastructure.ContainerExtensions;
 
 namespace _S_ServiceConsoleProjectName_S_.Infrastructure
 {
@@ -46,7 +47,7 @@ namespace _S_ServiceConsoleProjectName_S_.Infrastructure
                                 _container.Kernel.HandlerRegistered += Kernel_HandlerRegistered;                                
                                 _container.Kernel.DependencyResolving += Kernel_DependencyResolving;
                             }
-                            _container.Install(FromAssembly.InThisApplication());
+                            _container.Install(FromAssembly.InThisApplication(new ContainerInstallerFactory()));
                         }
                     }                
                 }

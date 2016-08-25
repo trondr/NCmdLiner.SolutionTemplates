@@ -37,7 +37,7 @@ namespace _S_ConsoleProjectName_S_
                 var applicationInfo = bootStrapper.Container.Resolve<IApplicationInfo>();
                 try
                 {
-                    applicationInfo.Authors = @"trondr@outlook.com";
+                    applicationInfo.Authors = @"_S_Authors_S_";
                     // ReSharper disable once CoVariantArrayConversion
                     object[] commandTargets = bootStrapper.Container.ResolveAll<CommandDefinition>();
                     logger.InfoFormat("Start: {0}.{1}. Command line: {2}", applicationInfo.Name, applicationInfo.Version, Environment.CommandLine);
@@ -47,6 +47,11 @@ namespace _S_ConsoleProjectName_S_
                 catch (MissingCommandException ex)
                 {
                     logger.ErrorFormat("Missing command. {0}", ex.Message);
+                    returnValue = 1;
+                }
+                catch (UnknownCommandException ex)
+                {
+                    logger.Error(ex.Message);
                     returnValue = 1;
                 }
                 catch (Exception ex)
