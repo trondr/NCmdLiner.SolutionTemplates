@@ -4,7 +4,9 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using NCmdLiner;
+using _S_ConsoleProjectName_S_.Infrastructure.ContainerExtensions;
 using _S_LibraryProjectName_S_.Infrastructure;
+using _S_LibraryProjectName_S_.Infrastructure.LifeStyles;
 
 namespace _S_ConsoleProjectName_S_.Infrastructure.ContainerConfiguration
 {
@@ -13,11 +15,7 @@ namespace _S_ConsoleProjectName_S_.Infrastructure.ContainerConfiguration
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IInvocationLogStringBuilder>().ImplementedBy<InvocationLogStringBuilder>().LifestyleSingleton());
-            container.Register(Component.For<ILogFactory>().ImplementedBy<LogFactory>().LifestyleSingleton());
-            container.Register(Classes.FromAssemblyContaining<ITypeMapper>().IncludeNonPublicTypes().BasedOn<AutoMapper.Profile>().WithService.Base());
-
-             ///////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////
             //Automatic registrations
             ///////////////////////////////////////////////////////////////////
             //

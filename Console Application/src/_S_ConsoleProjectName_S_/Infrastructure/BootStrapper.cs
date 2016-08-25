@@ -2,6 +2,7 @@
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using Common.Logging;
+using _S_ConsoleProjectName_S_.Infrastructure.ContainerExtensions;
 
 namespace _S_ConsoleProjectName_S_.Infrastructure
 {

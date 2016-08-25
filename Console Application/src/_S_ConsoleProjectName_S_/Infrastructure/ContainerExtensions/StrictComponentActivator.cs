@@ -5,7 +5,7 @@ using Castle.MicroKernel;
 using Castle.MicroKernel.ComponentActivator;
 using Castle.MicroKernel.Context;
 
-namespace _S_ConsoleProjectName_S_.Infrastructure
+namespace _S_ConsoleProjectName_S_.Infrastructure.ContainerExtensions
 {
     /// <summary>
     /// Make the activator of components throw excetions when errors occurs on resolving property dependencies

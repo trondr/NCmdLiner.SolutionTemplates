@@ -4,7 +4,7 @@ using System.Text;
 using Castle.DynamicProxy;
 using Newtonsoft.Json;
 
-namespace _S_ConsoleProjectName_S_.Infrastructure
+namespace _S_ConsoleProjectName_S_.Infrastructure.ContainerExtensions
 {
     public class InvocationLogStringBuilder : IInvocationLogStringBuilder
     {

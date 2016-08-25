@@ -1,6 +1,6 @@
 using Castle.DynamicProxy;
 
-namespace _S_ConsoleProjectName_S_.Infrastructure
+namespace _S_ConsoleProjectName_S_.Infrastructure.ContainerExtensions
 {
     public interface IInvocationLogStringBuilder
     {

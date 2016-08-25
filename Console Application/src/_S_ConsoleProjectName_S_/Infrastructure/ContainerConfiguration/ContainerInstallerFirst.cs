@@ -8,10 +8,11 @@ using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Common.Logging;
 using NCmdLiner;
+using _S_ConsoleProjectName_S_.Infrastructure.ContainerExtensions;
 using _S_LibraryProjectName_S_.Infrastructure;
 using _S_LibraryProjectName_S_.Module.ViewModels;
 using _S_LibraryProjectName_S_.Module.Views;
-using SingletonAttribute = _S_LibraryProjectName_S_.Infrastructure.SingletonAttribute;
+using SingletonAttribute = _S_LibraryProjectName_S_.Infrastructure.LifeStyles.SingletonAttribute;
 
 namespace _S_ConsoleProjectName_S_.Infrastructure.ContainerConfiguration
 {
@@ -20,11 +21,13 @@ namespace _S_ConsoleProjectName_S_.Infrastructure.ContainerConfiguration
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            //
+            // Configure container
+            //
             container.Register(Component.For<IWindsorContainer>().Instance(container));
             container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel));
             container.AddFacility<TypedFactoryFacility>();
-            container.Register(Component.For<ITypedFactoryComponentSelector>().ImplementedBy<CustomTypeFactoryComponentSelector>());
-            container.Register(Component.For<IMessenger>().ImplementedBy<NotepadMessenger>());
+            container.Register(Component.For<ITypedFactoryComponentSelector>().ImplementedBy<CustomTypeFactoryComponentSelector>());            
             //
             //   Configure logging
             //
@@ -33,7 +36,14 @@ namespace _S_ConsoleProjectName_S_.Infrastructure.ContainerConfiguration
             log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile));
             var applicationRootNameSpace = typeof (Program).Namespace;
             container.Kernel.Register(Component.For<ILog>().Instance(LogManager.GetLogger(applicationRootNameSpace))); //Default logger
-            container.Kernel.Resolver.AddSubResolver(new LoggerSubDependencyResolver()); //Enable injection of class specific loggers            
+            container.Kernel.Resolver.AddSubResolver(new LoggerSubDependencyResolver()); //Enable injection of class specific loggers
+            container.Register(Component.For<IInvocationLogStringBuilder>().ImplementedBy<InvocationLogStringBuilder>().LifestyleSingleton());
+            container.Register(Component.For<ILogFactory>().ImplementedBy<LogFactory>().LifestyleSingleton()); 
+            container.Register(Classes.FromAssemblyContaining<ITypeMapper>().IncludeNonPublicTypes().BasedOn<AutoMapper.Profile>().WithService.Base());   
+            //
+            //   Configure NCmdLiner
+            //
+            container.Register(Component.For<IMessenger>().ImplementedBy<NotepadMessenger>());
         }
     }
 }

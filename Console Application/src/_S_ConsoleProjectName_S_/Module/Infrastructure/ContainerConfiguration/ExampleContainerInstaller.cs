@@ -3,6 +3,7 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using _S_ConsoleProjectName_S_.Infrastructure;
+using _S_ConsoleProjectName_S_.Infrastructure.ContainerExtensions;
 using _S_LibraryProjectName_S_.Module.ViewModels;
 using _S_LibraryProjectName_S_.Module.Views;
 

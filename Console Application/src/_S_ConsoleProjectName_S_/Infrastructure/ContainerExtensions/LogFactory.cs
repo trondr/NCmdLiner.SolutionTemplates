@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Common.Logging;
 
-namespace _S_ConsoleProjectName_S_.Infrastructure
+namespace _S_ConsoleProjectName_S_.Infrastructure.ContainerExtensions
 {
     public class LogFactory : ILogFactory
     {   

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Castle.Windsor.Installer;
 
-namespace _S_ConsoleProjectName_S_.Infrastructure
+namespace _S_ConsoleProjectName_S_.Infrastructure.ContainerExtensions
 {
     public class ContainerInstallerFactory : InstallerFactory
     {

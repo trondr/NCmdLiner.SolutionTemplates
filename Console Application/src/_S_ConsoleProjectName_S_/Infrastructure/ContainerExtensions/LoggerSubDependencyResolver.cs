@@ -3,7 +3,7 @@ using Castle.MicroKernel;
 using Castle.MicroKernel.Context;
 using Common.Logging;
 
-namespace _S_ConsoleProjectName_S_.Infrastructure
+namespace _S_ConsoleProjectName_S_.Infrastructure.ContainerExtensions
 {
     /// <summary>
     /// When added to the container LoggerSubDependencyResolver instructs the
