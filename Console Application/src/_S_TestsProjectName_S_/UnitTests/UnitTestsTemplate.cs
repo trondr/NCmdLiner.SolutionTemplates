@@ -88,7 +88,7 @@ namespace _S_TestsProjectName_S_.UnitTests
                         //
                         //   Register all command providers and attach logging interceptor
                         //
-                        const string libraryRootNameSpace = "github.trondr.LogViewer.Library";
+                        const string libraryRootNameSpace = "_S_LibraryProjectName_S_";
                         
                         //
                         //   Register all singletons found in the library

@@ -8,12 +8,12 @@ namespace _S_ConsoleProjectName_S_.Module.Commands
 {
     public class ExampleServiceCommandDefinition: CommandDefinition
     {
-        private readonly IExampleCreateUsingService _exampleCreateUsingService;
+        private readonly IExampleCreateUsingServiceCommandProvider _exampleCreateUsingServiceCommandProvider;
         private readonly ILog _logger;
 
-        public ExampleServiceCommandDefinition(IExampleCreateUsingService exampleCreateUsingService, ILog logger)
+        public ExampleServiceCommandDefinition(IExampleCreateUsingServiceCommandProvider exampleCreateUsingServiceCommandProvider, ILog logger)
         {
-            _exampleCreateUsingService = exampleCreateUsingService;
+            _exampleCreateUsingServiceCommandProvider = exampleCreateUsingServiceCommandProvider;
             _logger = logger;
         }
 
@@ -23,7 +23,7 @@ namespace _S_ConsoleProjectName_S_.Module.Commands
             string exampleParameter
             )
         {            
-            return _exampleCreateUsingService.Create(exampleParameter);
+            return _exampleCreateUsingServiceCommandProvider.Create(exampleParameter);
         }
     }
 

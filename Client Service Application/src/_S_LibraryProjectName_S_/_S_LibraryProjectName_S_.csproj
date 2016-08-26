@@ -73,8 +73,8 @@
     <Compile Include="Infrastructure\LifeStyles\SingletonAttribute.cs" />
     <Compile Include="Infrastructure\LifeStyles\TrancientAttribute.cs" />
     <Compile Include="Infrastructure\TypeMapper.cs" />
-    <Compile Include="Module\Commands\ExampleCreateUsingService\ExampleCreateUsingService.cs" />
-    <Compile Include="Module\Commands\ExampleCreateUsingService\IExampleCreateUsingService.cs" />
+    <Compile Include="Module\Commands\ExampleCreateUsingService\ExampleCreateUsingServiceCommandProvider.cs" />
+    <Compile Include="Module\Commands\ExampleCreateUsingService\IExampleCreateUsingServiceCommandProvider.cs" />
     <Compile Include="Module\Common\Services\IKeepAliveService.cs" />
     <Compile Include="Module\Common\Services\IKeepAliveServiceFactory.cs" />
     <Compile Include="Module\Common\Install\IWindowsExplorerContextMenuInstaller.cs" />
