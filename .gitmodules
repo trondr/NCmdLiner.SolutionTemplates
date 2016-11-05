@@ -10,3 +10,6 @@
 [submodule "Console Application/tools/MsBuildCustomTasks"]
 	path = Console Application/tools/MsBuildCustomTasks
 	url = https://github.com/trondr/MsBuildCustomTasks.git
+[submodule "Client Service Application/tools/MsBuildCustomTasks"]
+	path = Client Service Application/tools/MsBuildCustomTasks
+	url = https://github.com/trondr/MsBuildCustomTasks.git
