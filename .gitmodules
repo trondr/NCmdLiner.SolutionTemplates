@@ -7,3 +7,6 @@
 [submodule "Client Service Application/src/_S_ScriptInstallProjectName_S_"]
 	path = Client Service Application/src/_S_ScriptInstallProjectName_S_
 	url = https://github.com/trondr/Script.Install.Template.git
+[submodule "Console Application/tools/MsBuildCustomTasks"]
+	path = Console Application/tools/MsBuildCustomTasks
+	url = https://github.com/trondr/MsBuildCustomTasks.git
