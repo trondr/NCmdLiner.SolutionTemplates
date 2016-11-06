@@ -271,7 +271,7 @@
     <MSBuild Projects="$(SrcDirectory)\_S_TestsProjectName_S_\_S_TestsProjectName_S_.csproj" Properties="Configuration=Release"/>
   </Target>
 
-  <Target Name="CompileSetup" DependsOnTargets="UnitTests">
+  <Target Name="CompileSetup" DependsOnTargets="SignExeAndDll">
     <MSBuild Projects="$(SrcDirectory)\_S_SetupProjectName_S_\_S_SetupProjectName_S_.wixproj" Properties="Configuration=Release"/>    
 	<MSBuild Projects="$(SrcDirectory)\_S_ServiceSetupProjectName_S_\_S_ServiceSetupProjectName_S_.wixproj" Properties="Configuration=Release"/>    
   </Target>
@@ -335,7 +335,83 @@
     <ReleaseFiles Include="$(BinDirectory)\Release\$(ProductName)\**\*.config" Exclude="$(BinDirectory)\Release\$(ProductName)\**\Libs\**" />
   </ItemGroup>
   
-  <Target Name="Deploy" DependsOnTargets="CompileSetup">
+  <ItemGroup>
+    <SignExeAndDllFiles Include="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\*.exe" />
+    <SignExeAndDllFiles Include="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\*.dll" />
+	
+	<SignExeAndDllFiles Include="$(BinDirectory)\Release\_S_ServiceProjectName_S_\**\*.exe" />
+    <SignExeAndDllFiles Include="$(BinDirectory)\Release\_S_ServiceProjectName_S_\**\*.dll" />
+	
+	<SignExeAndDllFiles Include="$(BinDirectory)\Release\_S_LibraryProjectName_S_\**\*.exe" />
+    <SignExeAndDllFiles Include="$(BinDirectory)\Release\_S_LibraryProjectName_S_\**\*.dll" />
+
+	<SignExeAndDllFiles Include="$(BinDirectory)\Release\_S_ServiceLibraryProjectName_S_\**\*.exe" />
+    <SignExeAndDllFiles Include="$(BinDirectory)\Release\_S_ServiceLibraryProjectName_S_\**\*.dll" />
+	
+	<SignExeAndDllFiles Include="$(BinDirectory)\Release\_S_ServiceContractsProjectName_S_\**\*.exe" />
+    <SignExeAndDllFiles Include="$(BinDirectory)\Release\_S_ServiceContractsProjectName_S_\**\*.dll" />
+	
+  </ItemGroup>
+  
+  <Target Name="SignExeAndDll" DependsOnTargets="UnitTests" >
+  
+	<!--
+	
+	Ref http://stackoverflow.com/questions/17710357/how-do-i-securely-store-a-pfx-password-to-use-in-msbuild
+	
+	1. Log in as the build user
+	2. Run certmgr.msc
+	3. Right-click Certificates - Current User / Personal / Certificates, and select All Tasks / Import...
+	4. Select your .pfx file, enter the password, and click Next and Finish
+	5. Double-click on the imported certificate
+	6. In the Details page, the thumbprint algorithm should be sha1
+	7. Copy the thumbprint, it looks something like 12 34 56 78 90 ab cd ef 12 34 56 78 90 ab cd ef 12 34 56 78
+	8. Update the PfxSha1Thumbprint parameter below with the looked up sha1 thumbprint
+	9. Optionally also update the Description parameter.
+
+	-->
+	<SignTool 
+		PfxSha1Thumbprint="b34e1136986f0f1e8d7fd7b9adffa0be7e1f8688"
+		TimeStampServer="http://timestamp.comodoca.com/authenticode;http://timestamp.verisign.com/scripts/timstamp.dll;http://timestamp.globalsign.com/scripts/timstamp.dll"
+		Description="_S_ConsoleProjectName_S_ Description"
+		SignFiles="@(SignExeAndDllFiles)"
+		ContinueBuildOnFailure="True"
+	/>
+  </Target>
+  
+  
+  <ItemGroup>
+    <SignMsiFiles Include="$(BinDirectory)\Release\_S_SetupProjectName_S_\**\*.msi" />    
+	<SignMsiFiles Include="$(BinDirectory)\Release\_S_ServiceSetupProjectName_S_\**\*.msi" />
+  </ItemGroup>
+    
+  <Target Name="SignMsi" DependsOnTargets="CompileSetup">
+	<!--
+	
+	Ref http://stackoverflow.com/questions/17710357/how-do-i-securely-store-a-pfx-password-to-use-in-msbuild
+	
+	1. Log in as the build user
+	2. Run certmgr.msc
+	3. Right-click Certificates - Current User / Personal / Certificates, and select All Tasks / Import...
+	4. Select your .pfx file, enter the password, and click Next and Finish
+	5. Double-click on the imported certificate
+	6. In the Details page, the thumbprint algorithm should be sha1
+	7. Copy the thumbprint, it looks something like 12 34 56 78 90 ab cd ef 12 34 56 78 90 ab cd ef 12 34 56 78
+	8. Update the PfxSha1Thumbprint parameter below with the looked up sha1 thumbprint
+	9. Optionally also update the Description parameter.
+	
+	-->
+  
+	<SignTool 
+		PfxSha1Thumbprint="b34e1136986f0f1e8d7fd7b9adffa0be7e1f8688"
+		TimeStampServer="http://timestamp.comodoca.com/authenticode;http://timestamp.verisign.com/scripts/timstamp.dll;http://timestamp.globalsign.com/scripts/timstamp.dll"
+		Description="_S_ConsoleProjectName_S_ Description"
+		SignFiles="@(SignMsiFiles)"
+		ContinueBuildOnFailure="True"
+	/>
+  </Target>  
+  
+  <Target Name="Deploy" DependsOnTargets="SignMsi">
     
     <Zip Files="@(ReleaseFiles)"
          WorkingDirectory="$(BinDirectory)\Release\$(ProductName)"
