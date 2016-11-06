@@ -302,6 +302,10 @@
   <ItemGroup>
     <SignExeAndDllFiles Include="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\*.exe" />
     <SignExeAndDllFiles Include="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\*.dll" />
+	
+    <SignExeAndDllFiles Include="$(BinDirectory)\Release\_S_LibraryProjectName_S_\**\*.exe" />
+    <SignExeAndDllFiles Include="$(BinDirectory)\Release\_S_LibraryProjectName_S_\**\*.dll" />
+	
   </ItemGroup>
   
   <Target Name="SignExeAndDll" DependsOnTargets="UnitTests" >
