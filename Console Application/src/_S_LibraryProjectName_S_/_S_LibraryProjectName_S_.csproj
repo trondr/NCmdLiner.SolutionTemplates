@@ -83,7 +83,6 @@
     <Compile Include="Infrastructure\ToDo.cs" />
     <Compile Include="Infrastructure\ToDoPriority.cs" />
     <Compile Include="Module\Common\UI\CommandHandler.cs" />
-    <Compile Include="Module\Common\UI\ViewHelper.cs" />
     <Compile Include="Module\Mapping\ExampleMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Module\ViewModels\DesignTimeMainViewModel.cs" />
