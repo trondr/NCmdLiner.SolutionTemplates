@@ -11,6 +11,7 @@ namespace _S_LibraryProjectName_S_.Module.Views
         public MainView(MainViewModel viewModel)
         {
             this.ViewModel = viewModel;
+            ViewHelper.LoadViewModel(this,ViewModel);
             InitializeComponent();
         }
     }

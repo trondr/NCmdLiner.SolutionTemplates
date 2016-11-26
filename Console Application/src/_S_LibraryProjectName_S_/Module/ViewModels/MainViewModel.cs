@@ -2,6 +2,7 @@ using System;
 using System.Windows;
 using System.Windows.Input;
 using _S_LibraryProjectName_S_.Module.Common.UI;
+using _S_LibraryProjectName_S_.Module.Views;
 
 namespace _S_LibraryProjectName_S_.Module.ViewModels
 {
@@ -9,9 +10,7 @@ namespace _S_LibraryProjectName_S_.Module.ViewModels
     {
         public MainViewModel()
         {
-            ProductDescriptionLabelText = "Product Description:";
-            MaxLabelWidth = 200 ;
-            OkCommand = new CommandHandler(this.Exit, true);
+            
         }
 
         public static readonly DependencyProperty ProductDescriptionProperty = DependencyProperty.Register(
@@ -43,16 +42,15 @@ namespace _S_LibraryProjectName_S_.Module.ViewModels
 
         public ICommand OkCommand { get; set; }
 
-        private void Exit()
+        
+        public override void Load()
         {
-            if (MainWindow != null)
-            {
-                MainWindow.Close();
-            }
-            else
-            {
-                throw new Exception("Unable to close main window because reference to the main window has not been set.");
-            }
-        }        
+            ProductDescriptionLabelText = "Product Description:";
+            ProductDescription = "My Product";
+            MaxLabelWidth = 200 ;
+            OkCommand = new CommandHandler(this.CloseWindow, true);
+        }
+
+        public override Action CloseWindow { get; set; }
     }
 }

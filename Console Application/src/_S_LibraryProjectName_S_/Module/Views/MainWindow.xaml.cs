@@ -26,8 +26,7 @@ namespace _S_LibraryProjectName_S_.Module.Views
             Logger.Debug("MainWindow is loaded.");
             if(this.View == null) throw new NullReferenceException("View has not been initialized. Has view been registered with the container?");
             this.View.HorizontalAlignment = HorizontalAlignment.Stretch;
-            this.View.VerticalAlignment = VerticalAlignment.Stretch;
-            this.View.ViewModel.MainWindow = this;
+            this.View.VerticalAlignment = VerticalAlignment.Stretch;            
             if (MainWindowDockPanel.Children.Count == 0)
                 MainWindowDockPanel.Children.Add(this.View);
         }

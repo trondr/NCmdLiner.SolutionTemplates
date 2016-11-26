@@ -1,3 +1,4 @@
+using System;
 using System.Windows.Input;
 using _S_LibraryProjectName_S_.Module.Common.UI;
 
@@ -17,5 +18,11 @@ namespace _S_LibraryProjectName_S_.Module.ViewModels
         public string ProductDescriptionLabelText { get; set; }
         public ICommand OkCommand { get; set; }
 
+        public override void Load()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Action CloseWindow { get; set; }
     }
 }
