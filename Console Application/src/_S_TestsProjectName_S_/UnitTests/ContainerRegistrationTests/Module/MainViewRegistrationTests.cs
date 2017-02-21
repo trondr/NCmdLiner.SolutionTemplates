@@ -13,12 +13,7 @@ namespace _S_TestsProjectName_S_.UnitTests.ContainerRegistrationTests.Module
         {
             BootStrapperTestsHelper.CheckThatNumberOfResolvedServicesAre<MainView>(1);
             BootStrapperTestsHelper.CheckThatResolvedServiceIsOfInstanceType<MainView, MainView>();
-            BootStrapperTestsHelper.CheckThatResolvedServiceHasSingletonLifeCycle<MainView>();
-            using (var bootStrapper = new BootStrapper())
-            {
-                var target = bootStrapper.Container.ResolveAll<MainView>();
-                Assert.IsNotNull(target[0].ViewModel, "ViewModel was null");
-            }
+            BootStrapperTestsHelper.CheckThatResolvedServiceHasSingletonLifeCycle<MainView>();            
         }
     }
 }

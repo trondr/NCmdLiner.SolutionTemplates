@@ -24,10 +24,10 @@ namespace _S_LibraryProjectName_S_.Module.Commands.Example
             _logger.Info("Showing main window as an example user interface.");
             var application = new Application();
             application.Run(_mainWindow);
-            var viewModel = _mainWindow.View.ViewModel as MainViewModel;
+            var viewModel = _mainWindow.ViewModel as MainWindowViewModel;
             if (viewModel != null)
             {
-                _logger.Info("Getting info from the user interface and do something with it: " + viewModel.ProductDescription);
+                _logger.Info("Getting info from the user interface and do something with it: " + viewModel.SelectedViewModel);
             }
             else
             {

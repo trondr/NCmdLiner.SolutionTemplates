@@ -1,5 +1,7 @@
 using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using GalaSoft.MvvmLight;
 using _S_LibraryProjectName_S_.Module.Common.UI;
 
 namespace _S_LibraryProjectName_S_.Module.ViewModels
@@ -16,13 +18,20 @@ namespace _S_LibraryProjectName_S_.Module.ViewModels
         public int MaxLabelWidth { get; set; }
         public string ProductDescription { get; set; }
         public string ProductDescriptionLabelText { get; set; }
-        public ICommand OkCommand { get; set; }
-
-        public override void Load()
+        
+        public async Task LoadAsync()
         {
-            throw new NotImplementedException();
+            await Task.FromResult(true);
         }
 
-        public override Action CloseWindow { get; set; }
+        public async Task UnloadAsync()
+        {
+            await Task.FromResult(true);
+        }
+
+        public LoadStatus LoadStatus { get; set; }
+        public ICommand ExitCommand { get; set; }
+        public ICommand LoadCommand { get; set; }
+        public ICommand UnLoadCommand { get; set; }
     }
 }

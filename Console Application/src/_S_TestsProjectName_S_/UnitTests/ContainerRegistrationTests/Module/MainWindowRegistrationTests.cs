@@ -17,8 +17,7 @@ namespace _S_TestsProjectName_S_.UnitTests.ContainerRegistrationTests.Module
             using (var bootStrapper = new BootStrapper())
             {
                 var target = bootStrapper.Container.ResolveAll<MainWindow>();
-                Assert.IsNotNull(target[0].View, "View was null");
-                Assert.IsNotNull(target[0].View.ViewModel, "View.ViewModel was null");
+                Assert.IsNotNull(target[0].ViewModel, "View was null");                
             }
         }
     }
