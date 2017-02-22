@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using Castle.Core.Internal;
 using Castle.Facilities.TypedFactory;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
@@ -10,9 +9,6 @@ using Common.Logging;
 using NCmdLiner;
 using _S_ConsoleProjectName_S_.Infrastructure.ContainerExtensions;
 using _S_LibraryProjectName_S_.Infrastructure;
-using _S_LibraryProjectName_S_.Module.ViewModels;
-using _S_LibraryProjectName_S_.Module.Views;
-using SingletonAttribute = _S_LibraryProjectName_S_.Infrastructure.LifeStyles.SingletonAttribute;
 
 namespace _S_ConsoleProjectName_S_.Infrastructure.ContainerConfiguration
 {
@@ -38,7 +34,10 @@ namespace _S_ConsoleProjectName_S_.Infrastructure.ContainerConfiguration
             container.Kernel.Register(Component.For<ILog>().Instance(LogManager.GetLogger(applicationRootNameSpace))); //Default logger
             container.Kernel.Resolver.AddSubResolver(new LoggerSubDependencyResolver()); //Enable injection of class specific loggers
             container.Register(Component.For<IInvocationLogStringBuilder>().ImplementedBy<InvocationLogStringBuilder>().LifestyleSingleton());
-            container.Register(Component.For<ILogFactory>().ImplementedBy<LogFactory>().LifestyleSingleton()); 
+            container.Register(Component.For<ILogFactory>().ImplementedBy<LogFactory>().LifestyleSingleton());
+            //
+            //   Configure type mapper (AutoMapper)
+            //
             container.Register(Classes.FromAssemblyContaining<ITypeMapper>().IncludeNonPublicTypes().BasedOn<AutoMapper.Profile>().WithService.Base());   
             //
             //   Configure NCmdLiner

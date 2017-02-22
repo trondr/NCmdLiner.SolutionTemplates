@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Windows;
 using Common.Logging;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using _S_LibraryProjectName_S_.Infrastructure;
+using _S_LibraryProjectName_S_.Module.Messages;
+using _S_LibraryProjectName_S_.Module.ViewModels;
 
 namespace _S_LibraryProjectName_S_.Module.Views
 {
@@ -10,26 +14,45 @@ namespace _S_LibraryProjectName_S_.Module.Views
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainWindowViewModel _viewModel;
+
         public ILog Logger { get; set; }
 
-        public MainView View { get; set; }
-        
+        public IMessenger Messenger { get; set; }
+
+        public MainWindowViewModel ViewModel
+        {
+            get { return _viewModel; }
+            set
+            {
+                _viewModel = value;
+                if(_viewModel != null)
+                    this.DataContext = _viewModel;
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
             this.Title = ApplicationInfoHelper.ApplicationName + " " + ApplicationInfoHelper.ApplicationVersion;
             Loaded += OnLoaded;
+            Unloaded += OnUnloaded;
         }
 
         void OnLoaded(object sender, RoutedEventArgs e)
         {
-            Logger.Debug("MainWindow is loaded.");
-            if(this.View == null) throw new NullReferenceException("View has not been initialized. Has view been registered with the container?");
-            this.View.HorizontalAlignment = HorizontalAlignment.Stretch;
-            this.View.VerticalAlignment = VerticalAlignment.Stretch;
-            this.View.ViewModel.MainWindow = this;
-            if (MainWindowDockPanel.Children.Count == 0)
-                MainWindowDockPanel.Children.Add(this.View);
+            if (ViewModelBase.IsInDesignModeStatic) return;
+            Logger?.Debug("MainWindow is loaded.");
+            if(ViewModel == null)
+                throw new NullReferenceException($"ViewModel has not been initialized. Has {typeof(MainWindowViewModel).Namespace} been registered with the container?");
+            if(Messenger == null)
+                throw new NullReferenceException($"Messenger has not been initialized. Has {typeof(IMessenger).Namespace} been registered with the container?");
+            Messenger?.Register<CloseWindowMessage>(this, message => Close());
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+            Messenger?.Unregister<CloseWindowMessage>(this);
         }
     }
 }

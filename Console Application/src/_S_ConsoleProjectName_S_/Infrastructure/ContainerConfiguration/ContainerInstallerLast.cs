@@ -40,7 +40,7 @@ namespace _S_ConsoleProjectName_S_.Infrastructure.ContainerConfiguration
             container.Register(
                 Classes.FromAssemblyInThisApplication()
                 .BasedOn<CommandDefinition>()
-                .WithServiceBase()
+                .WithServiceBase().LifestyleSingleton()
                 );
             //
             //   Register all singletons found in the library

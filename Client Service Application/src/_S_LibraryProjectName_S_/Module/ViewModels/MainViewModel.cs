@@ -1,58 +1,97 @@
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Common.Logging;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 using _S_LibraryProjectName_S_.Module.Common.UI;
+using _S_LibraryProjectName_S_.Module.Messages;
+using _S_LibraryProjectName_S_.Module.Views;
 
 namespace _S_LibraryProjectName_S_.Module.ViewModels
 {
     public class MainViewModel : ViewModelBase, IMainViewModel
     {
-        public MainViewModel()
+        private readonly ILog _logger;
+        private int _maxLabelWidth;
+        private string _productDescription;
+        private string _productDescriptionLabelText;
+        private ICommand _loadCommand;
+        private ICommand _unLoadCommand;
+        private ICommand _exitCommand;
+
+        public MainViewModel(IMessenger messenger, ILog logger) : base(messenger)
         {
-            ProductDescriptionLabelText = "Product Description:";
-            MaxLabelWidth = 200 ;
-            OkCommand = new CommandHandler(this.Exit, true);
+            _logger = logger;
         }
-
-        public static readonly DependencyProperty ProductDescriptionProperty = DependencyProperty.Register(
-            "ProductDescription", typeof(string), typeof(MainViewModel), new PropertyMetadata(default(string)));
-
-        public string ProductDescription
-        {
-            get { return (string)GetValue(ProductDescriptionProperty); }
-            set { SetValue(ProductDescriptionProperty, value); }
-        }
-
-        public static readonly DependencyProperty ProductDescriptionLabelTextProperty = DependencyProperty.Register(
-            "ProductDescriptionLabelText", typeof(string), typeof(MainViewModel), new PropertyMetadata(default(string)));
-
-        public string ProductDescriptionLabelText
-        {
-            get { return (string)GetValue(ProductDescriptionLabelTextProperty); }
-            set { SetValue(ProductDescriptionLabelTextProperty, value); }
-        }
-
-        public static readonly DependencyProperty MaxLabelWidthProperty = DependencyProperty.Register(
-            "MaxLabelWidth", typeof(int), typeof(MainViewModel), new PropertyMetadata(default(int)));
 
         public int MaxLabelWidth
         {
-            get { return (int)GetValue(MaxLabelWidthProperty); }
-            set { SetValue(MaxLabelWidthProperty, value); }
+            get { return _maxLabelWidth; }
+            set { this.SetProperty(ref _maxLabelWidth, value); }
         }
 
-        public ICommand OkCommand { get; set; }
-
-        private void Exit()
+        public string ProductDescription
         {
-            if (MainWindow != null)
-            {
-                MainWindow.Close();
-            }
-            else
-            {
-                throw new Exception("Unable to close main window because reference to the main window has not been set.");
-            }
-        }        
+            get { return _productDescription; }
+            set { this.SetProperty(ref _productDescription, value); }
+        }
+
+        public string ProductDescriptionLabelText
+        {
+            get { return _productDescriptionLabelText; }
+            set { this.SetProperty(ref _productDescriptionLabelText, value); }
+        }
+
+        public Task LoadAsync()
+        {
+            if (LoadStatus == LoadStatus.Loaded || LoadStatus == LoadStatus.Loading || LoadStatus == LoadStatus.UnLoading )
+                return Task.FromResult(true);
+            
+            LoadStatus = LoadStatus.Loading;
+            _logger.Info($"Loading {this.GetType().Name}");
+            ProductDescriptionLabelText = "Product Description:";
+            ProductDescription = "My Product";
+            MaxLabelWidth = 200;
+            ExitCommand = new RelayCommand(() => MessengerInstance.Send(new CloseWindowMessage()));
+            LoadStatus = LoadStatus.Loaded;
+            return Task.FromResult(true);
+        }
+
+        public Task UnloadAsync()
+        {
+            if (LoadStatus == LoadStatus.NotLoaded || LoadStatus == LoadStatus.Loading || LoadStatus == LoadStatus.UnLoading )
+                return Task.FromResult(true);
+            
+            LoadStatus = LoadStatus.UnLoading;
+            _logger.Info($"Unloading {this.GetType().Name}");
+            ProductDescriptionLabelText = string.Empty;
+            ProductDescription = string.Empty;
+            MaxLabelWidth = 0;            
+            LoadStatus = LoadStatus.NotLoaded;
+            return Task.FromResult(true);
+        }
+
+        public ICommand ExitCommand
+        {
+            get { return _exitCommand ?? (_exitCommand = new RelayCommand(() => MessengerInstance?.Send(new CloseWindowMessage()))); }
+            set { _exitCommand = value; }
+        }
+
+        public LoadStatus LoadStatus { get; set; }
+
+        public ICommand LoadCommand
+        {
+            get { return _loadCommand ?? (_loadCommand = new RelayCommand(async () => await LoadAsync())); }
+            set { _loadCommand = value; }
+        }
+
+        public ICommand UnLoadCommand
+        {
+            get { return _unLoadCommand ?? (_unLoadCommand = new RelayCommand(async () => await UnloadAsync())); }
+            set { _unLoadCommand = value; }
+        }
     }
 }

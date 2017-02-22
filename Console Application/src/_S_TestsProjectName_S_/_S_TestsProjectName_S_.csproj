@@ -88,7 +88,7 @@
     <Compile Include="Common\BootStrapperTestsHelper.cs" />
     <Compile Include="IntegrationTests\AdminUser\AdminUserImpersonationTests.cs" />
     <Compile Include="Common\SecurityHelper.cs" />
-    <Compile Include="IntegrationTests\AdminUser\ExampleStandardUserIntegrationTests.cs" />
+    <Compile Include="IntegrationTests\AdminUser\ExampleAdminUserIntegrationTests.cs" />
     <Compile Include="IntegrationTests\ExampleIntegrationTests.cs" />
     <Compile Include="IntegrationTests\StandardUser\ExampleStandardUserIntegrationTests.cs" />
     <Compile Include="IntegrationTests\StandardUser\StandardUserImpersonationTests.cs" />

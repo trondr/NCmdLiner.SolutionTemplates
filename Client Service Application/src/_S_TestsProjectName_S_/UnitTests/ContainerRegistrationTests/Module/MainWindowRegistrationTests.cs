@@ -5,7 +5,7 @@ using _S_TestsProjectName_S_.Common;
 
 namespace _S_TestsProjectName_S_.UnitTests.ContainerRegistrationTests.Module
 {
-    [TestFixture(Category = "UnitTests")]
+    [TestFixture(Category=TestCategory.UnitTests)]
     public class MainWindowRegistrationTests
     {
         [Test, RequiresSTA]
@@ -17,8 +17,7 @@ namespace _S_TestsProjectName_S_.UnitTests.ContainerRegistrationTests.Module
             using (var bootStrapper = new BootStrapper())
             {
                 var target = bootStrapper.Container.ResolveAll<MainWindow>();
-                Assert.IsNotNull(target[0].View, "View was null");
-                Assert.IsNotNull(target[0].View.ViewModel, "View.ViewModel was null");
+                Assert.IsNotNull(target[0].ViewModel, "ViewModel was null");
             }
         }
     }

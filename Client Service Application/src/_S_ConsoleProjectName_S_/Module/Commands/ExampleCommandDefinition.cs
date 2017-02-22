@@ -16,7 +16,7 @@ namespace _S_ConsoleProjectName_S_.Module.Commands
             _logger = logger;
         }
 
-        [Command(Description = "Just an example command. To be deleted or renamed for your own use")]
+        [Command(Description = "Just an example command. To be deleted or renamed for your own use.", Summary="Summary of the example command.")]
         public int CreateSomething(
             [RequiredCommandParameter(Description = "Just an example parameter.", AlternativeName = "xp", ExampleValue = @"c:\temp")]
             string exampleParameter

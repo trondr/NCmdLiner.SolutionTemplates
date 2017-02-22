@@ -34,6 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\tools\NuGetPackages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\..\tools\NuGetPackages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
@@ -78,9 +82,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\BootStrapperTestsHelper.cs" />
+    <Compile Include="Common\TestCategory.cs" />
     <Compile Include="IntegrationTests\AdminUser\AdminUserImpersonationTests.cs" />
     <Compile Include="Common\SecurityHelper.cs" />
-    <Compile Include="IntegrationTests\AdminUser\ExampleStandardUserIntegrationTests.cs" />
+    <Compile Include="IntegrationTests\AdminUser\ExampleAdminUserIntegrationTests.cs" />
     <Compile Include="IntegrationTests\ExampleIntegrationTests.cs" />
     <Compile Include="IntegrationTests\StandardUser\ExampleStandardUserIntegrationTests.cs" />
     <Compile Include="IntegrationTests\StandardUser\StandardUserImpersonationTests.cs" />
@@ -103,8 +108,9 @@
     <Compile Include="UnitTests\ContainerRegistrationTests\Module\MainViewModelRegistrationTests.cs" />
     <Compile Include="UnitTests\ContainerRegistrationTests\Module\MainViewRegistrationTests.cs" />
     <Compile Include="UnitTests\ContainerRegistrationTests\Module\MainWindowRegistrationTests.cs" />
+    <Compile Include="UnitTests\ContainerRegistrationTests\Module\MainWindowViewModelRegistrationTests.cs" />
+    <Compile Include="UnitTests\ContainerRegistrationTests\Module\MappingRegistrationTests.cs" />
     <Compile Include="UnitTests\ContainerRegistrationTests\Module\WindowsExplorerContextMenuInstallerRegistrationTests.cs" />
-    <Compile Include="UnitTests\UnitTestsTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -6,7 +6,7 @@ using _S_TestsProjectName_S_.Common;
 
 namespace _S_TestsProjectName_S_.IntegrationTests.StandardUser
 {
-    [TestFixture(Category = "StandardUserIntegrationTests")]
+    [TestFixture(Category = TestCategory.StandardUserIntegrationTests)]
     public class StandardUserImpersonationTests
     {
         private ILog _logger;

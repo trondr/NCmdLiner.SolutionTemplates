@@ -5,7 +5,7 @@ using _S_TestsProjectName_S_.Common;
 
 namespace _S_TestsProjectName_S_.UnitTests.ContainerRegistrationTests.Infrastructure
 {
-    [TestFixture(Category = "UnitTests")]
+    [TestFixture(Category=TestCategory.UnitTests)]
     public class NCmdLinerIMessengerRegistrationTests
     {
         [Test, RequiresSTA]
