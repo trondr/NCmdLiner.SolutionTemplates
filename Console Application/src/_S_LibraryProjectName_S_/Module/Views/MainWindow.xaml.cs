@@ -4,6 +4,7 @@ using Common.Logging;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using _S_LibraryProjectName_S_.Infrastructure;
+using _S_LibraryProjectName_S_.Module.Messages;
 using _S_LibraryProjectName_S_.Module.ViewModels;
 
 namespace _S_LibraryProjectName_S_.Module.Views

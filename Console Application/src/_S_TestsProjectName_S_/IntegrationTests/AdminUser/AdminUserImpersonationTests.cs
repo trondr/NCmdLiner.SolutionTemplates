@@ -6,7 +6,7 @@ using _S_TestsProjectName_S_.Common;
 
 namespace _S_TestsProjectName_S_.IntegrationTests.AdminUser
 {
-    [TestFixture(Category = "AdminUserIntegrationTests")]
+    [TestFixture(Category = TestCategory.AdminUserIntegrationTests)]
     public class AdminUserImpersonationTests
     {
         private ILog _logger;

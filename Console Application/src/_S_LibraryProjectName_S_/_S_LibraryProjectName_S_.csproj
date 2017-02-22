@@ -105,11 +105,11 @@
     <Compile Include="Module\Common\UI\CommandHandler.cs" />
     <Compile Include="Module\Common\UI\ViewModelBaseExtensions.cs" />
     <Compile Include="Module\Mapping\ExampleMapping.cs" />
-    <Compile Include="Module\ViewModels\CloseWindowMessage.cs" />
+    <Compile Include="Module\Messages\CloseWindowMessage.cs" />
     <Compile Include="Module\ViewModels\DesignTimeMainWindowsViewModel.cs" />
-    <Compile Include="Module\ViewModels\ILoadable.cs" />
+    <Compile Include="Module\Common\UI\ILoadable.cs" />
     <Compile Include="Module\ViewModels\IMainWindowsViewModel.cs" />
-    <Compile Include="Module\ViewModels\LoadStatus.cs" />
+    <Compile Include="Module\Common\UI\LoadStatus.cs" />
     <Compile Include="Module\ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Module\ViewModels\DesignTimeMainViewModel.cs" />

@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using _S_LibraryProjectName_S_.Module.Common.UI;
+using _S_LibraryProjectName_S_.Module.Messages;
 using _S_LibraryProjectName_S_.Module.Views;
 
 namespace _S_LibraryProjectName_S_.Module.ViewModels

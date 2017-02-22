@@ -5,7 +5,7 @@ using _S_TestsProjectName_S_.Common;
 
 namespace _S_TestsProjectName_S_.UnitTests.ContainerRegistrationTests.Module
 {
-    [TestFixture(Category = "UnitTests")]
+    [TestFixture(Category=TestCategory.UnitTests)]
     public class MainViewRegistrationTests
     {
         [Test, RequiresSTA]

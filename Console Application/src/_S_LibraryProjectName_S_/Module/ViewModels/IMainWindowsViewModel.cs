@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using GalaSoft.MvvmLight;
+using _S_LibraryProjectName_S_.Module.Common.UI;
 
 namespace _S_LibraryProjectName_S_.Module.ViewModels
 {
