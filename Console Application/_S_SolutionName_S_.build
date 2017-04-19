@@ -413,7 +413,14 @@
       PackageDefinitionUnInstallCommandLine="Install.cmd UnInstall > &quot;%Public%\Logs\_S_ScriptInstallProjectNameU_S_$(AssemblyVersionU)_UnInstall.cmd.log&quot;"
      />
   </Target>
-
+  
+  <Target Name="DeployToSccm" DependsOnTargets="Deploy">
+	<!-- Move packages to packages source on sccm server-->
+	<Warning Text="TODO: Move packages to packages source on sccm server" />
+	<!-- Create sccm application of each package-->
+	<Warning Text="TODO: Create sccm application of each package"/>
+  </Target>
+  
   <Target Name="Build" DependsOnTargets="CompileSetup">
     <Message Text="$(ProductProjectName).$(AssemblyVersion) build complete" Importance="normal" />
   </Target>
