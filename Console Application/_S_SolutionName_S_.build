@@ -409,16 +409,18 @@
       PackageDefinitionName="_S_ProductName_S_"
       PackageDefinitionVersion="$(AssemblyVersion)"
       PackageDefinitionPublisher="_S_CompanyName_S_"
-      PackageDefinitionInstallCommandLine="Install.cmd Install > &quot;%Public%\Logs\_S_ScriptInstallProjectNameU_S_$(AssemblyVersionU)_Install.cmd.log&quot;"
+      PackageDefinitionComment="_S_ProductDescription_S_"
+	  PackageDefinitionInstallCommandLine="Install.cmd Install > &quot;%Public%\Logs\_S_ScriptInstallProjectNameU_S_$(AssemblyVersionU)_Install.cmd.log&quot;"
       PackageDefinitionUnInstallCommandLine="Install.cmd UnInstall > &quot;%Public%\Logs\_S_ScriptInstallProjectNameU_S_$(AssemblyVersionU)_UnInstall.cmd.log&quot;"
      />
   </Target>
   
   <Target Name="DeployToSccm" DependsOnTargets="Deploy">
-	<!-- Move packages to packages source on sccm server-->
-	<Warning Text="TODO: Move packages to packages source on sccm server" />
-	<!-- Create sccm application of each package-->
-	<Warning Text="TODO: Create sccm application of each package"/>
+	<CreateSccmApplication 
+		PackageDefinitionFile="$(BinDirectory)\Release\_S_ScriptInstallProjectName_S_ $(AssemblyVersion)\PackageDefinition.sms"
+		ApplicationSourceFolder="$(BinDirectory)\Release\_S_ScriptInstallProjectName_S_ $(AssemblyVersion)" 
+		ApplicationTargetRootFolder="\\edbwp004894-cm\pkgsrc\Applications"
+		/>	
   </Target>
   
   <Target Name="Build" DependsOnTargets="CompileSetup">
