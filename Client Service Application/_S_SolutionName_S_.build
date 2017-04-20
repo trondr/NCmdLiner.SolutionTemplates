@@ -445,9 +445,10 @@
       TargetMsiFile="$(BinDirectory)\Release\_S_ScriptInstallProjectName_S_ $(AssemblyVersion)\VendorInstall\_S_ConsoleProjectName_S_.$(AssemblyVersion).msi"
       VendorInstallIni="$(BinDirectory)\Release\_S_ScriptInstallProjectName_S_ $(AssemblyVersion)\VendorInstall\VendorInstall.ini"
       PackageDefinitionSms="$(BinDirectory)\Release\_S_ScriptInstallProjectName_S_ $(AssemblyVersion)\PackageDefinition.sms"
-      PackageDefinitionName="_S_ProductName_S_"
+      PackageDefinitionName="_S_ProductName_S_ $(AssemblyVersion)"
       PackageDefinitionVersion="$(AssemblyVersion)"
       PackageDefinitionPublisher="_S_CompanyName_S_"
+	  PackageDefinitionComment="_S_ProductDescription_S_"
       PackageDefinitionInstallCommandLine="Install.cmd Install > &quot;%Public%\Logs\_S_ScriptInstallProjectNameU_S_$(AssemblyVersionU)_Install.cmd.log&quot;"
       PackageDefinitionUnInstallCommandLine="Install.cmd UnInstall > &quot;%Public%\Logs\_S_ScriptInstallProjectNameU_S_$(AssemblyVersionU)_UnInstall.cmd.log&quot;"
      />
@@ -459,14 +460,30 @@
       TargetMsiFile="$(BinDirectory)\Release\_S_ServiceScriptInstallProjectName_S_ $(AssemblyVersion)\VendorInstall\_S_ServiceProjectName_S_.$(AssemblyVersion).msi"
       VendorInstallIni="$(BinDirectory)\Release\_S_ServiceScriptInstallProjectName_S_ $(AssemblyVersion)\VendorInstall\VendorInstall.ini"
       PackageDefinitionSms="$(BinDirectory)\Release\_S_ServiceScriptInstallProjectName_S_ $(AssemblyVersion)\PackageDefinition.sms"
-      PackageDefinitionName="_S_ProductName_S_"
+      PackageDefinitionName="_S_ProductName_S_ Service $(AssemblyVersion)"
       PackageDefinitionVersion="$(AssemblyVersion)"
       PackageDefinitionPublisher="_S_CompanyName_S_"
+	  PackageDefinitionComment="_S_ServiceDescription_S_"	  
       PackageDefinitionInstallCommandLine="Install.cmd Install > &quot;%Public%\Logs\_S_ServiceScriptInstallProjectNameU_S_$(AssemblyVersionU)_Install.cmd.log&quot;"
       PackageDefinitionUnInstallCommandLine="Install.cmd UnInstall > &quot;%Public%\Logs\_S_ServiceScriptInstallProjectNameU_S_$(AssemblyVersionU)_UnInstall.cmd.log&quot;"
      />
   </Target>
 
+  <Target Name="DeployToSccm" DependsOnTargets="Deploy">
+	<CreateSccmApplication 
+		PackageDefinitionFile="$(BinDirectory)\Release\_S_ServiceScriptInstallProjectName_S_ $(AssemblyVersion)\PackageDefinition.sms"
+		ApplicationSourceFolder="$(BinDirectory)\Release\_S_ServiceScriptInstallProjectName_S_ $(AssemblyVersion)" 
+		ApplicationTargetRootFolder="\\edbwp004894-cm\pkgsrc\Applications"
+		/>
+	
+	<CreateSccmApplication 
+		PackageDefinitionFile="$(BinDirectory)\Release\_S_ScriptInstallProjectName_S_ $(AssemblyVersion)\PackageDefinition.sms"
+		ApplicationSourceFolder="$(BinDirectory)\Release\_S_ScriptInstallProjectName_S_ $(AssemblyVersion)" 
+		ApplicationTargetRootFolder="\\edbwp004894-cm\pkgsrc\Applications"
+		/>
+	
+  </Target>
+  
   <Target Name="Build" DependsOnTargets="CompileSetup">
     <Message Text="$(ProductProjectName).$(AssemblyVersion) build complete" Importance="normal" />
   </Target>
