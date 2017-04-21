@@ -418,8 +418,7 @@
   <Target Name="DeployToSccm" DependsOnTargets="Deploy">
 	<CreateSccmApplication 
 		PackageDefinitionFile="$(BinDirectory)\Release\_S_ScriptInstallProjectName_S_ $(AssemblyVersion)\PackageDefinition.sms"
-		ApplicationSourceFolder="$(BinDirectory)\Release\_S_ScriptInstallProjectName_S_ $(AssemblyVersion)" 
-		ApplicationTargetRootFolder="\\edbwp004894-cm\pkgsrc\Applications"
+		ApplicationSourceFolder="$(BinDirectory)\Release\_S_ScriptInstallProjectName_S_ $(AssemblyVersion)"		
 		/>	
   </Target>
   
