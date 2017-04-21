@@ -451,6 +451,7 @@
 	  PackageDefinitionComment="_S_ProductDescription_S_"
       PackageDefinitionInstallCommandLine="Install.cmd Install > &quot;%Public%\Logs\_S_ScriptInstallProjectNameU_S_$(AssemblyVersionU)_Install.cmd.log&quot;"
       PackageDefinitionUnInstallCommandLine="Install.cmd UnInstall > &quot;%Public%\Logs\_S_ScriptInstallProjectNameU_S_$(AssemblyVersionU)_UnInstall.cmd.log&quot;"
+	  PackageDefinitionDependenciesDependency1="&quot;_S_ProductName_S_ Service $(AssemblyVersion)&quot;;&quot;$(AssemblyVersion)&quot;"
      />
 	 
 	<ResolveScriptInstallPackage
@@ -465,7 +466,7 @@
       PackageDefinitionPublisher="_S_CompanyName_S_"
 	  PackageDefinitionComment="_S_ServiceDescription_S_"	  
       PackageDefinitionInstallCommandLine="Install.cmd Install > &quot;%Public%\Logs\_S_ServiceScriptInstallProjectNameU_S_$(AssemblyVersionU)_Install.cmd.log&quot;"
-      PackageDefinitionUnInstallCommandLine="Install.cmd UnInstall > &quot;%Public%\Logs\_S_ServiceScriptInstallProjectNameU_S_$(AssemblyVersionU)_UnInstall.cmd.log&quot;"
+      PackageDefinitionUnInstallCommandLine="Install.cmd UnInstall > &quot;%Public%\Logs\_S_ServiceScriptInstallProjectNameU_S_$(AssemblyVersionU)_UnInstall.cmd.log&quot;"	  
      />
   </Target>
 
