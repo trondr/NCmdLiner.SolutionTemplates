@@ -81,11 +81,11 @@ namespace _S_LibraryProjectName_S_.Infrastructure
             return 0;
         }
 
-        private void ConfigureTypeMappers(IMapperConfiguration mapperConfiguration)
+        private void ConfigureTypeMappers(IMapperConfigurationExpression mapperConfigurationExpression)
         {
             foreach (var profile in _typeMapperProfiles)
             {
-                mapperConfiguration.AddProfile(profile);
+                mapperConfigurationExpression.AddProfile(profile);
                 //((MapperConfiguration)mapperConfiguration).AssertConfigurationIsValid(profile.ProfileName);
             }
         }

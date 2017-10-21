@@ -1,13 +1,18 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 
 namespace _S_LibraryProjectName_S_.Module.Mapping
 {
     public class ExampleMapping1 : Profile
     {
-        protected override void Configure()
+        public ExampleMapping1()
         {
-            throw new NotImplementedException();
+            Configure();
+        }
+
+        private void Configure()
+        {
+            //Configure
+            //CreateMap<SomeType1, SomeType2>();
         }
     }
 }
