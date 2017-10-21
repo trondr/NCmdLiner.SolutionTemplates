@@ -5,9 +5,15 @@ namespace _S_LibraryProjectName_S_.Module.Mapping
 {
     public class ExampleMapping1 : Profile
     {
-        protected override void Configure()
+        public ExampleMapping1()
         {
-            throw new NotImplementedException();
+            Configure();
+        }
+
+        protected void Configure()
+        {
+            //Configure
+            //CreateMap<Foo, Bar>();            
         }
     }
 }
