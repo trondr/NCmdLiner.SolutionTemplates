@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\BootStrapperTestsHelper.cs" />
+    <Compile Include="Infrastructure\ContainerExtensions\LogFactoryTests.cs" />
     <Compile Include="IntegrationTests\AdminUser\AdminUserImpersonationTests.cs" />
     <Compile Include="Common\SecurityHelper.cs" />
     <Compile Include="IntegrationTests\AdminUser\ExampleAdminUserIntegrationTests.cs" />

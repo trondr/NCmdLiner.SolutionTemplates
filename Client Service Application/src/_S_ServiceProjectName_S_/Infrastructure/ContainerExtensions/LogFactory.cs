@@ -1,23 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
+using System.Threading;
 using Common.Logging;
 
-namespace _S_ServiceProjectName_S_.Infrastructure.ContainerExtensions
+namespace _S_ConsoleProjectName_S_.Infrastructure.ContainerExtensions
 {
     public class LogFactory : ILogFactory
-    {   
-        private Dictionary<Type, ILog> LoggersDictionary
+    {
+        private ConcurrentDictionary<Type, ILog> LoggersDictionary
         {
-            get { return _loggersDictionary ?? (_loggersDictionary = new Dictionary<Type, ILog>()); }
+            get
+            {
+                if (_loggersDictionary == null)
+                {
+                    lock (_sync)
+                    {
+                        if (_loggersDictionary == null)
+                        {
+                            _loggersDictionary = new ConcurrentDictionary<Type, ILog>();
+                        }
+                    }
+                }
+                return _loggersDictionary;
+            }
         }
-        private Dictionary<Type, ILog> _loggersDictionary;
-        
+        private ConcurrentDictionary<Type, ILog> _loggersDictionary;
+        private readonly object _sync = new object();
+
         public ILog GetLogger(Type type)
         {
+            Console.WriteLine($"Checking logger for type {type.Name} on thread {Thread.CurrentThread.ManagedThreadId}");
             if (!LoggersDictionary.ContainsKey(type))
             {
-                LoggersDictionary.Add(type, LogManager.GetLogger(type));
+                var logger = LogManager.GetLogger(type);
+                LoggersDictionary.AddOrUpdate(type, logger, (type1, log) => logger);
             }
+            Console.WriteLine($"Returning logger for type {type.Name} on thread {Thread.CurrentThread.ManagedThreadId}");
             return LoggersDictionary[type];
         }
     }
