@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Threading;
 using Common.Logging;
 
-namespace _S_ConsoleProjectName_S_.Infrastructure.ContainerExtensions
+namespace _S_ServiceProjectName_S_.Infrastructure.ContainerExtensions
 {
     public class LogFactory : ILogFactory
     {
