@@ -65,15 +65,13 @@
 
     <CustomAction Id="NoDowngrade" Error="A later version of $(var.ProductName) is already installed." />
     <CustomAction Id="NoSelf" Error="Same version of $(var.ProductName) is already installed." />
-    <CustomAction Id="Install_Assemblies_CustomAction"             Directory="TargetFolder" Return="check" Execute="deferred" Impersonate="no" ExeCommand="&quot;[TargetFolder]\NMultiTool\NMultiTool.Gui.exe&quot; InstallUtil /installAction=Install /directory=&quot;[TargetFolder].&quot; /includeFileSpecs=&quot;{'_S_ServiceProjectName_S_.exe'}&quot; /excludeFileSpecs=&quot;{'excludeNothing'}&quot;" />
-    <!--<CustomAction Id="Install_Assemblies_AfterCommit_CustomAction" Directory="TargetFolder" Return="check" Execute="commit"   Impersonate="no" ExeCommand="&quot;[TargetFolder]\NMultiTool\NMultiTool.Gui.exe&quot; InstallUtil /installAction=Install /directory=&quot;[TargetFolder].&quot; /includeFileSpecs=&quot;{'_S_ServiceProjectName_S_.exe'}&quot; /excludeFileSpecs=&quot;{'excludeNothing'}&quot;" />-->
+    <CustomAction Id="Install_Assemblies_CustomAction"             Directory="TargetFolder" Return="check" Execute="deferred" Impersonate="no" ExeCommand="&quot;[TargetFolder]\NMultiTool\NMultiTool.Gui.exe&quot; InstallUtil /installAction=Install /directory=&quot;[TargetFolder].&quot; /includeFileSpecs=&quot;{'_S_ServiceProjectName_S_.exe'}&quot; /excludeFileSpecs=&quot;{'excludeNothing'}&quot;" />    
     <CustomAction Id="UnInstall_Assemblies_CustomAction"           Directory="TargetFolder" Return="check" Execute="deferred" Impersonate="no" ExeCommand="&quot;[TargetFolder]\NMultiTool\NMultiTool.Gui.exe&quot; InstallUtil /installAction=UnInstall /directory=&quot;[TargetFolder].&quot; /includeFileSpecs=&quot;{'_S_ServiceProjectName_S_.exe'}&quot; /excludeFileSpecs=&quot;{'excludeNothing'}&quot;" />
 
     <InstallExecuteSequence>
       <Custom Action="NoDowngrade" After="FindRelatedProducts"><![CDATA[NEWERFOUND]]></Custom>
       <Custom Action="NoSelf" After="FindRelatedProducts"><![CDATA[SELFFOUND]]></Custom>
-      <Custom Action="Install_Assemblies_CustomAction" After="InstallFiles">($ProductExe_WiXComponent&gt;2)</Custom>
-      <!--<Custom Action="Install_Assemblies_AfterCommit_CustomAction" After="InstallFiles">($ProductExe_WiXComponent&gt;2)</Custom>-->
+      <Custom Action="Install_Assemblies_CustomAction" After="InstallFiles">($ProductExe_WiXComponent&gt;2)</Custom>      
       <Custom Action="UnInstall_Assemblies_CustomAction" After="UnpublishFeatures">($ProductExe_WiXComponent=2)</Custom>
       <RemoveExistingProducts After="InstallInitialize"/>
       <LaunchConditions After="AppSearch"/>
@@ -121,24 +119,6 @@
         <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\$(var.ProductExeBaseName).exe" Value="[#ProductExe]" Type="string" Action="write" />
         <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\$(var.ProductExeBaseName).exe" Name="path" Value="[TargetFolder]" Type="string" Action="write" />
 
-        <!--<ServiceInstall
-          Id="_S_ShortProductName_S_ServiceInstaller"
-          Type="ownProcess"
-          Vital="yes"
-          Name="_S_ShortProductName_S_Service"
-          DisplayName="_S_ProductName_S_ Service"
-          Description="$(var.PackageDescription)"
-          Start="demand"
-          Account="LocalSystem"
-          ErrorControl="ignore"
-          Interactive="yes" >
-          --><!--1. First use the following to set the permissions: <util:PermissionEx User="Users" ServiceStart="yes" ServiceStop="yes"  />--><!--
-          --><!--2. Since User='Users' probably will not work on any operating system different from English, use sddl in stead. --><!--
-          --><!--3. Command that gives Sddl: SC.exe SDSHOW ItoClientInfoService--><!--
-          <PermissionEx Id="_S_ShortProductName_S_Permissions" Sddl="D:(A;;CCLCSWRPWPLO;;;BU)(A;;CCLCSWRPWPDTLOCRRC;;;SY)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;BA)(A;;CCLCSWLOCRRC;;;IU)(A;;CCLCSWLOCRRC;;;SU)S:(AU;FA;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;WD)"/>
-        </ServiceInstall>
-        <ServiceControl Id="StartService" Stop="both" Remove="uninstall" Name="_S_ShortProductName_S_Service" Wait="yes" />
-        -->
       </Component>
         
       <Component Id="ProductLibraryDll_WixComponent" Guid="*">
