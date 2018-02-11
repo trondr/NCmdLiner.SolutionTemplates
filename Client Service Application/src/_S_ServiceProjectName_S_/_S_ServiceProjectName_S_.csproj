@@ -102,6 +102,12 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="Topshelf, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
+      <HintPath>..\..\tools\NuGetPackages\Topshelf.4.0.3\lib\net452\Topshelf.dll</HintPath>
+    </Reference>
+    <Reference Include="Topshelf.Log4Net, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
+      <HintPath>..\..\tools\NuGetPackages\Topshelf.Log4Net.4.0.3\lib\net452\Topshelf.Log4Net.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -122,6 +128,9 @@
     <Compile Include="Infrastructure\ContainerExtensions\StrictComponentActivator.cs" />
     <Compile Include="Infrastructure\ContainerExtensions\TraceLogAspect.cs" />
     <Compile Include="Infrastructure\NotepadMessenger.cs" />
+    <Compile Include="Infrastructure\Security\ServiceSecurity.cs" />
+    <Compile Include="Infrastructure\Security\ServiceAccessRights.cs" />
+    <Compile Include="Infrastructure\Security\ServiceAccessRule.cs" />
     <Compile Include="Module\CustomInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -130,6 +139,7 @@
     </Compile>
     <Compile Include="Module\Infrastructure\ContainerConfiguration\ContainerInstallerWindowsService.cs" />
     <Compile Include="Module\Infrastructure\ContainerConfiguration\ExampleContainerInstaller.cs" />
+    <Compile Include="Module\I_S_ShortProductName_S_WindowsService2.cs" />
     <Compile Include="Module\_S_ShortProductName_S_ServiceInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -142,6 +152,7 @@
     <Compile Include="Module\_S_ShortProductName_S_WindowsService.Designer.cs">
       <DependentUpon>_S_ShortProductName_S_WindowsService.cs</DependentUpon>
     </Compile>
+    <Compile Include="Module\_S_ShortProductName_S_WindowsService2.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

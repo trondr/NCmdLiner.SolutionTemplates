@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using System.ServiceProcess;
 using System.Threading;
 using Common.Logging;
 using NCmdLiner;
+using Topshelf;
 using _S_ServiceProjectName_S_.Infrastructure;
+using _S_ServiceProjectName_S_.Infrastructure.Security;
+using _S_ServiceProjectName_S_.Module;
 
 namespace _S_ServiceProjectName_S_
 {
@@ -16,16 +21,76 @@ namespace _S_ServiceProjectName_S_
             int returnValue;
             try
             {                
-                returnValue = WireUpAndRun(args);
+                returnValue = WireUpAndRunNew(args);
             }
             catch (Exception ex)
             {
-                var message = string.Format("Fatal error when wiring up the application.{0}{1}", Environment.NewLine, ex);
-                WriteErrorToEventLog(message);
+                WriteErrorToEventLog($"Fatal error when wiring up the application.{Environment.NewLine}{ex}");
                 returnValue = 3;
             }
             return returnValue;
         }
+
+        private static int WireUpAndRunNew(string[] args)
+        {
+            var returnValue = 0;
+            var logger = GetMainLogger();
+            using (var bootStrapper = new BootStrapper())
+            {
+                var applicationInfo = bootStrapper.Container.Resolve<IApplicationInfo>();
+                try
+                {
+                    applicationInfo.Authors = @"_S_Authors_S_";
+                    logger.Info($"Start: {applicationInfo.Name}.{applicationInfo.Version}. Command line: {Environment.CommandLine}");                    
+                    var returnCode = HostFactory.Run(configurator =>
+                        {
+                            configurator.UseLog4Net();
+                            configurator.Service<I_S_ShortProductName_S_WindowsService2>(settings =>
+                                {
+                                    settings.ConstructUsing(hostSettings => bootStrapper.Container.Resolve<I_S_ShortProductName_S_WindowsService2>());
+                                    settings.WhenStarted(service => service.Start());
+                                    settings.WhenStopped(service => service.Stop());
+                                    
+                                });
+                            configurator.RunAsLocalSystem();
+                            configurator.SetDescription("_S_ServiceDescription_S_");
+                            configurator.SetDisplayName("_S_ProductName_S_ Service");
+                            configurator.SetServiceName("_S_ShortProductName_S_Service");
+                            configurator.AfterInstall(settings =>
+                            {
+                                logger.Info($"Configuring service permissions allowing built in users to stop and start {settings.Name} service.");
+                                using (var serviceController = new ServiceController(settings.Name))
+                                {
+                                    var serviceSecurity = new ServiceSecurity(serviceController.ServiceHandle);
+                                    var identity = new SecurityIdentifier(WellKnownSidType.BuiltinUsersSid, null);
+                                    serviceSecurity.AddAccessRule(new ServiceAccessRule(identity, ServiceAccessRights.ServiceStop | ServiceAccessRights.ServiceStart, false, InheritanceFlags.None, PropagationFlags.None, AccessControlType.Allow));
+                                    serviceSecurity.SaveChanges(serviceController.ServiceHandle);
+                                }
+                            });
+                        });
+                    var exitCode = (int)Convert.ChangeType(returnCode, typeCode: returnCode.GetTypeCode());
+                    Environment.ExitCode = exitCode;
+                    returnValue = 0;                    
+                    return returnValue;
+                }
+                catch (Exception ex)
+                {
+                    logger.Error($"Error when exeuting command. {ex}");
+                    returnValue = 2;
+                }
+                finally
+                {
+                    logger.Info($"Stop: {applicationInfo.Name}.{applicationInfo.Version}. Return value: {returnValue}");
+#if DEBUG
+                    // ReSharper disable once RedundantNameQualifier
+                    System.Console.WriteLine("Terminating in 5 seconds...");
+                    Thread.Sleep(5000);
+#endif
+                }
+            }
+            return returnValue;
+        }
+
 
         private static int WireUpAndRun(string[] args)
         {
