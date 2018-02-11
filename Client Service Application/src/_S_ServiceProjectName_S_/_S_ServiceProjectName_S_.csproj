@@ -138,20 +138,7 @@
       <DependentUpon>CustomInstaller.cs</DependentUpon>
     </Compile>
     <Compile Include="Module\Infrastructure\ContainerConfiguration\ContainerInstallerWindowsService.cs" />
-    <Compile Include="Module\Infrastructure\ContainerConfiguration\ExampleContainerInstaller.cs" />
     <Compile Include="Module\I_S_ShortProductName_S_WindowsService2.cs" />
-    <Compile Include="Module\_S_ShortProductName_S_ServiceInstaller.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Module\_S_ShortProductName_S_ServiceInstaller.Designer.cs">
-      <DependentUpon>_S_ShortProductName_S_ServiceInstaller.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Module\_S_ShortProductName_S_WindowsService.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Module\_S_ShortProductName_S_WindowsService.Designer.cs">
-      <DependentUpon>_S_ShortProductName_S_WindowsService.cs</DependentUpon>
-    </Compile>
     <Compile Include="Module\_S_ShortProductName_S_WindowsService2.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -162,12 +149,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Credits\1. Castle Windsor Credit.xml" />
-    <EmbeddedResource Include="Module\_S_ShortProductName_S_ServiceInstaller.resx">
-      <DependentUpon>_S_ShortProductName_S_ServiceInstaller.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Module\_S_ShortProductName_S_WindowsService.resx">
-      <DependentUpon>_S_ShortProductName_S_WindowsService.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Credits\2. NCmdLiner Credit.xml" />

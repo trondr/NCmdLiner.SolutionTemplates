@@ -21,7 +21,7 @@ namespace _S_ServiceProjectName_S_
             int returnValue;
             try
             {                
-                returnValue = WireUpAndRunNew(args);
+                returnValue = WireUpAndRun(args);
             }
             catch (Exception ex)
             {
@@ -31,7 +31,7 @@ namespace _S_ServiceProjectName_S_
             return returnValue;
         }
 
-        private static int WireUpAndRunNew(string[] args)
+        private static int WireUpAndRun(string[] args)
         {
             var returnValue = 0;
             var logger = GetMainLogger();
@@ -90,44 +90,7 @@ namespace _S_ServiceProjectName_S_
             }
             return returnValue;
         }
-
-
-        private static int WireUpAndRun(string[] args)
-        {
-            var returnValue = 0;
-            var logger = GetMainLogger();
-            using (var bootStrapper = new BootStrapper())
-            {
-                var applicationInfo = bootStrapper.Container.Resolve<IApplicationInfo>();
-                try
-                {
-                    applicationInfo.Authors = @"_S_Authors_S_";
-                    logger.InfoFormat("Start: {0}.{1}. Command line: {2}", applicationInfo.Name, applicationInfo.Version, Environment.CommandLine);
-                    if (logger.IsInfoEnabled) logger.InfoFormat("Starting {0} - {1}. Command Line: {2}.", applicationInfo.Name, applicationInfo.Version, Environment.CommandLine);
-                    var service = bootStrapper.Container.Resolve<ServiceBase>();
-                    ServiceBase.Run(new[] { service });
-                    returnValue = 0;
-                    return returnValue;
-                }
-                catch (Exception ex)
-                {
-                    logger.ErrorFormat("Error when exeuting command. {0}", ex.ToString());
-                    returnValue = 2;
-                }
-                finally
-                {
-                    logger.InfoFormat("Stop: {0}.{1}. Return value: {2}", applicationInfo.Name, applicationInfo.Version, returnValue);
-#if DEBUG
-                    // ReSharper disable once RedundantNameQualifier
-                    System.Console.WriteLine("Terminating in 5 seconds...");
-                    Thread.Sleep(5000);
-#endif
-                }
-            }
-            return returnValue;
-        }
-
-
+        
         private static ILog GetMainLogger()
         {
             try
