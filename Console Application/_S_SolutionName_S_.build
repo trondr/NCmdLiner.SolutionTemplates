@@ -22,6 +22,33 @@
     <ToolsDirectory>$(MSBuildProjectDirectory)\tools</ToolsDirectory>
   
     <NunitVersion>2.6.4</NunitVersion>
+	
+	<!-- Update the SigningPfxSha1Thumbprint below with the thumbprint of your certificate.
+	
+	Creating a Selfsigned certificate for developement, example in powershell:
+	
+		New-SelfSignedCertificate -certstorelocation cert:\currentuser\my -dnsname "Development and Test - trondr" -Type CodeSigningCert
+		Thumbprint                                Subject
+		F8B61231E99586AA6EBE6CA3B334C0BF4DCD2F56  CN=Development and Test - trondr
+	
+	Update the thumbprint to the SigningPfxSha1Thumbprint property below
+		
+	A production certificate should be imported on the production build server:
+		
+		Ref http://stackoverflow.com/questions/17710357/how-do-i-securely-store-a-pfx-password-to-use-in-msbuild
+		
+		1. Log in as the build user
+		2. Run certmgr.msc
+		3. Right-click Certificates - Current User / Personal / Certificates, and select All Tasks / Import...
+		4. Select your .pfx file, enter the password, and click Next and Finish
+		5. Double-click on the imported certificate
+		6. In the Details page, the thumbprint algorithm should be sha1
+		7. Copy the thumbprint, it looks something like 12 34 56 78 90 ab cd ef 12 34 56 78 90 ab cd ef 12 34 56 78
+		8. Update the thumbprint to the SigningPfxSha1Thumbprint property below
+		9. Optionally also update the Description parameter.
+	
+	-->
+	<SigningPfxSha1Thumbprint>F8B61231E99586AA6EBE6CA3B334C0BF4DCD2F56</SigningPfxSha1Thumbprint>
     
   </PropertyGroup>
 
@@ -109,12 +136,6 @@
 	<DefaultExclude Include="$(MSBuildProjectDirectory)\**\TestResult.xml" />
   </ItemGroup>
 
-  <ItemGroup>
-    <SourceFiles Include="$(SrcDirectory)\**\*.*" Exclude="@(DefaultExclude)" />
-	<SourceFiles Include="$(MSBuildProjectDirectory)\*.*" Exclude="@(DefaultExclude)" />
-	<SourceFiles Include="$(ToolsDirectory)\**\*.*" Exclude="@(DefaultExclude)" />
-  </ItemGroup>
-  
   <Target Name="GitHashInit">
     <CreateProperty Value="unknown">
       <Output TaskParameter="Value" PropertyName="RevisionHash" />
@@ -299,34 +320,18 @@
     <MSBuild Projects="$(SrcDirectory)\_S_SetupProjectName_S_\_S_SetupProjectName_S_.wixproj" Properties="Configuration=Release"/>    
   </Target>
   
-  <ItemGroup>
-    <SignExeAndDllFiles Include="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\*.exe" />
-    <SignExeAndDllFiles Include="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\*.dll" />
-	
-    <SignExeAndDllFiles Include="$(BinDirectory)\Release\_S_LibraryProjectName_S_\**\*.exe" />
-    <SignExeAndDllFiles Include="$(BinDirectory)\Release\_S_LibraryProjectName_S_\**\*.dll" />
-	
-  </ItemGroup>
-  
   <Target Name="SignExeAndDll" DependsOnTargets="UnitTests" >
-  
-	<!--
-	
-	Ref http://stackoverflow.com/questions/17710357/how-do-i-securely-store-a-pfx-password-to-use-in-msbuild
-	
-	1. Log in as the build user
-	2. Run certmgr.msc
-	3. Right-click Certificates - Current User / Personal / Certificates, and select All Tasks / Import...
-	4. Select your .pfx file, enter the password, and click Next and Finish
-	5. Double-click on the imported certificate
-	6. In the Details page, the thumbprint algorithm should be sha1
-	7. Copy the thumbprint, it looks something like 12 34 56 78 90 ab cd ef 12 34 56 78 90 ab cd ef 12 34 56 78
-	8. Update the PfxSha1Thumbprint parameter below with the looked up sha1 thumbprint
-	9. Optionally also update the Description parameter.
 
-	-->
+	<ItemGroup>
+		<SignExeAndDllFiles Include="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\*.exe" />
+		<SignExeAndDllFiles Include="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\*.dll" />
+
+		<SignExeAndDllFiles Include="$(BinDirectory)\Release\_S_LibraryProjectName_S_\**\*.exe" />
+		<SignExeAndDllFiles Include="$(BinDirectory)\Release\_S_LibraryProjectName_S_\**\*.dll" />
+	</ItemGroup>
+  
 	<SignTool 
-		PfxSha1Thumbprint="b34e1136986f0f1e8d7fd7b9adffa0be7e1f8688"
+		PfxSha1Thumbprint="$(SigningPfxSha1Thumbprint)"
 		TimeStampServer="http://timestamp.comodoca.com/authenticode;http://timestamp.verisign.com/scripts/timstamp.dll;http://timestamp.globalsign.com/scripts/timstamp.dll"
 		Description="_S_ConsoleProjectName_S_ Description"
 		SignFiles="@(SignExeAndDllFiles)"
@@ -335,45 +340,30 @@
   </Target>
   
   
-  <ItemGroup>
-    <SignMsiFiles Include="$(BinDirectory)\Release\_S_SetupProjectName_S_\**\*.msi" />    
-  </ItemGroup>
-    
   <Target Name="SignMsi" DependsOnTargets="CompileSetup">
-	<!--
-	
-	Ref http://stackoverflow.com/questions/17710357/how-do-i-securely-store-a-pfx-password-to-use-in-msbuild
-	
-	1. Log in as the build user
-	2. Run certmgr.msc
-	3. Right-click Certificates - Current User / Personal / Certificates, and select All Tasks / Import...
-	4. Select your .pfx file, enter the password, and click Next and Finish
-	5. Double-click on the imported certificate
-	6. In the Details page, the thumbprint algorithm should be sha1
-	7. Copy the thumbprint, it looks something like 12 34 56 78 90 ab cd ef 12 34 56 78 90 ab cd ef 12 34 56 78
-	8. Update the PfxSha1Thumbprint parameter below with the looked up sha1 thumbprint
-	9. Optionally also update the Description parameter.
-	
-	-->
-  
+
+	<ItemGroup>
+		<SignMsiFiles Include="$(BinDirectory)\Release\_S_SetupProjectName_S_\**\*.msi" />    
+	</ItemGroup>
+
 	<SignTool 
-		PfxSha1Thumbprint="b34e1136986f0f1e8d7fd7b9adffa0be7e1f8688"
+		PfxSha1Thumbprint="$(SigningPfxSha1Thumbprint)"
 		TimeStampServer="http://timestamp.comodoca.com/authenticode;http://timestamp.verisign.com/scripts/timstamp.dll;http://timestamp.globalsign.com/scripts/timstamp.dll"
 		Description="_S_ConsoleProjectName_S_ Description"
 		SignFiles="@(SignMsiFiles)"
 		ContinueBuildOnFailure="True"
 	/>
   </Target>
-
-  <ItemGroup>
-    <ReleaseFiles Include="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\*.exe" Exclude="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\Libs\**" />
-    <ReleaseFiles Include="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\*.dll" Exclude="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\Libs\**" />
-    <ReleaseFiles Include="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\*.pdb" Exclude="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\Libs\**" />
-    <ReleaseFiles Include="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\*.config" Exclude="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\Libs\**" />
-  </ItemGroup>  
   
   <Target Name="Deploy" DependsOnTargets="SignMsi">
-    
+
+	<ItemGroup>
+		<ReleaseFiles Include="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\*.exe" Exclude="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\Libs\**" />
+		<ReleaseFiles Include="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\*.dll" Exclude="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\Libs\**" />
+		<ReleaseFiles Include="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\*.pdb" Exclude="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\Libs\**" />
+		<ReleaseFiles Include="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\*.config" Exclude="$(BinDirectory)\Release\_S_ConsoleProjectName_S_\**\Libs\**" />
+	</ItemGroup>
+  
     <Zip Files="@(ReleaseFiles)"
          WorkingDirectory="$(BinDirectory)\Release\$(ProductName)"
          ZipFileName="$(BinDirectory)\Release\_S_ConsoleProjectName_S_.$(AssemblyVersion).zip"
@@ -392,6 +382,12 @@
          />
     <Message Text="_S_ConsoleProjectName_S_.$(AssemblyVersion).msi zip complete" Importance="normal" />
 
+	<ItemGroup>
+		<SourceFiles Include="$(SrcDirectory)\**\*.*" Exclude="@(DefaultExclude)" />
+		<SourceFiles Include="$(MSBuildProjectDirectory)\*.*" Exclude="@(DefaultExclude)" />
+		<SourceFiles Include="$(ToolsDirectory)\**\*.*" Exclude="@(DefaultExclude)" />
+	</ItemGroup>
+	
     <Zip Files="@(SourceFiles)"
          WorkingDirectory="$(MSBuildProjectDirectory)"
          ZipFileName="$(BinDirectory)\Release\_S_ConsoleProjectName_S_.Source.$(AssemblyVersion).zip"

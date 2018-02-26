@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Threading;
 using Common.Logging;
 using NCmdLiner;
-using NCmdLiner.Exceptions;
 using _S_ConsoleProjectName_S_.Infrastructure;
 using _S_LibraryProjectName_S_.Infrastructure;
 
@@ -21,8 +20,7 @@ namespace _S_ConsoleProjectName_S_
             }
             catch (Exception ex)
             {
-                var message = string.Format("Fatal error when wiring up the application.{0}{1}", Environment.NewLine, ex);
-                WriteErrorToEventLog(message);
+                WriteErrorToEventLog($"Fatal error when wiring up the application.{Environment.NewLine}{ex}");
                 returnValue = 3;
             }
             return returnValue;
@@ -30,46 +28,47 @@ namespace _S_ConsoleProjectName_S_
 
         private static int WireUpAndRun(string[] args)
         {
-            var returnValue = 0;
+            var exitCode = 0;
             var logger = GetMainLogger();
             using (var bootStrapper = new BootStrapper())
             {
-                var applicationInfo = bootStrapper.Container.Resolve<IApplicationInfo>();
-                try
-                {
-                    applicationInfo.Authors = @"_S_Authors_S_";
-                    // ReSharper disable once CoVariantArrayConversion
-                    object[] commandTargets = bootStrapper.Container.ResolveAll<CommandDefinition>();
-                    logger.InfoFormat("Start: {0}.{1}. Command line: {2}", applicationInfo.Name, applicationInfo.Version, Environment.CommandLine);
-                    returnValue = CmdLinery.Run(commandTargets, args, applicationInfo, bootStrapper.Container.Resolve<IMessenger>());
-                    return returnValue;
-                }
-                catch (MissingCommandException ex)
-                {
-                    logger.ErrorFormat("Missing command. {0}", ex.Message);
-                    returnValue = 1;
-                }
-                catch (UnknownCommandException ex)
-                {
-                    logger.Error(ex.Message);
-                    returnValue = 1;
-                }
-                catch (Exception ex)
-                {
-                    logger.ErrorFormat("Error when exeuting command. {0}", ex.ToString());
-                    returnValue = 2;
-                }
-                finally
-                {
-                    logger.InfoFormat("Stop: {0}.{1}. Return value: {2}", applicationInfo.Name, applicationInfo.Version, returnValue);
-#if DEBUG
-                    // ReSharper disable once RedundantNameQualifier
-                    System.Console.WriteLine("Terminating in 5 seconds...");
-                    Thread.Sleep(5000);
-#endif
-                }
+                exitCode = Run(args, bootStrapper, logger);
             }
-            return returnValue;
+            return exitCode;
+        }
+
+        private static int Run(string[] args, BootStrapper bootStrapper, ILog logger)
+        {
+            var exitCode = 0;
+            var applicationInfo = bootStrapper.Container.Resolve<IApplicationInfo>();
+            try
+            {
+                applicationInfo.Authors = @"_S_Authors_S_";
+                // ReSharper disable once CoVariantArrayConversion
+                object[] commandTargets = bootStrapper.Container.ResolveAll<CommandDefinition>();
+                logger.Info($"Start: {applicationInfo.Name}.{applicationInfo.Version}. Command line: {Environment.CommandLine}");
+                CmdLinery.RunEx(commandTargets, args, applicationInfo, bootStrapper.Container.Resolve<IMessenger>())
+                    .OnFailure(exception =>
+                    {
+                        exitCode = 1;
+                        logger.Error(exception.Message);
+                    });                
+            }
+            catch (Exception ex)
+            {
+                logger.ErrorFormat($"Error when exeuting command.{Environment.NewLine}{ex}");
+                exitCode = 2;
+            }
+            finally
+            {
+                logger.Info($"Stop: {applicationInfo.Name}.{applicationInfo.Version}. Return value: {exitCode}");
+#if DEBUG
+                // ReSharper disable once RedundantNameQualifier
+                System.Console.WriteLine("Terminating in 5 seconds...");
+                Thread.Sleep(5000);
+#endif
+            }
+            return exitCode;
         }
 
 
@@ -97,6 +96,5 @@ namespace _S_ConsoleProjectName_S_
                 eventLog.WriteEntry(message, EventLogEntryType.Information, 101, 1);
             }
         }
-
     }
 }
