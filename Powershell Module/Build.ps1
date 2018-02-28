@@ -11,7 +11,7 @@ properties {
   $versionXml = Join-Path -Path $baseFolder -ChildPath "version.xml"
 }
 
-$VerbosePreference = "SilentlyContinue"
+$VerbosePreference = "Continue"
 
 Task default -depends Deploy
 
@@ -34,7 +34,15 @@ Task Deploy -depends Test,CompileModuleManifest {
 }
 
 Task CompileModuleManifest -depends Test {
-    New-ModuleManifest -Path "$(Get-ModuleManifestPath)" -ModuleVersion "$(Get-AssemblyVersion)" -Guid "$(New-Guid)" -Author "$(Get-Authors)" -CompanyName "$(Get-CompanyName)" -Copyright "$(Get-Copyright)" -Description "$(Get-Description)" -DotNetFrameworkVersion "4.5.2" -PowerShellVersion "5.0" | Out-Null
+    Update-ModuleManifest `
+    -Path "$(Get-SourceModuleManifestPath)" `
+    -ModuleVersion "$(Get-AssemblyVersion)" `
+    -Author "$(Get-Authors)" `
+    -CompanyName "$(Get-CompanyName)" `
+    -Copyright "$(Get-Copyright)" `
+    -DotNetFrameworkVersion "4.5.2" `
+    -PowerShellVersion "5.0" `
+    -FunctionsToExport @($(Get-FunctionsToExport))
     "Executed CompileModuleManifest!"
 }
 
@@ -85,6 +93,15 @@ function Get-ArtifactsFolder
     Write-Verbose "ArtifactsFolder=$artifactsFolder"
     return $artifactsFolder
 }
+
+function Get-SourceFolder
+{
+    Write-Verbose "Get-SourceFolder"
+    $sourceFolder = [System.IO.Path]::Combine("$(Get-BaseFolderPath)","src")
+    Write-Verbose "SourceFolder=$sourceFolder"
+    return $sourceFolder
+}
+
 
 function Get-ModuleName
 {
@@ -157,6 +174,13 @@ function Get-ArtifactsModuleFolder
     return $artifactsModuleFolder
 }
 
+function Get-SourceModuleFolder
+{
+    Write-Verbose "Get-SourceModuleFolder"
+    $sourceModuleFolder = [System.IO.Path]::Combine("$(Get-SourceFolder)", "$(Get-ModuleName)")
+    Write-Verbose "SourceModuleFolder=$sourceModuleFolder"
+    return $sourceModuleFolder
+}
 
 function Get-ModuleManifestPath
 {
@@ -165,3 +189,36 @@ function Get-ModuleManifestPath
     Write-Verbose "ModuleManifestPath=$moduleManifestPath"
     return $moduleManifestPath
 }
+
+function Get-SourceModuleManifestPath
+{
+    Write-Verbose "Get-SourceModuleManifestPath"
+    $sourceModuleManifestPath = [System.IO.Path]::Combine("$(Get-SourceModuleFolder)", "$(Get-ModuleName).psd1")
+    Write-Verbose "SourceModuleManifestPath=$sourceModuleManifestPath"
+    return $sourceModuleManifestPath
+}
+
+function Get-FunctionsFolder
+{
+    Write-Verbose "Get-FunctionsFolder"
+    $functionsFolder = [System.IO.Path]::Combine("$(Get-SourceModuleFolder)","Functions")
+    Write-Verbose "FunctionsFolder=$($functionsFolder)"
+    return $functionsFolder
+}
+
+function Get-FunctionsToExport
+{
+    Write-Verbose "Get-FunctionsToExport"
+    $functionsToExport = [System.Collections.ArrayList]@()    
+    Get-ChildItem -Path "$(Get-FunctionsFolder)" -Filter '*.ps1' | 
+                    Where-Object { $_.Name -notmatch '-Private' } |
+                    ForEach-Object {                        
+                        $functionName = [System.IO.Path]::GetFileNameWithoutExtension($_.Name)
+                        Write-Verbose ("Adding function $($functionName)") 
+                        $functionsToExport.Add($functionName)
+                        
+                    }| Out-Null
+
+    return $functionsToExport.ToArray()
+}
+#TEST: Get-FunctionsToExport
