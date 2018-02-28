@@ -56,3 +56,4 @@ Doc\Help
 */tools/NuGetPackages/ini-parser.*/*
 Client Service Application/.vs/
 Console Application/.vs/
+Powershell Module/artifacts/
