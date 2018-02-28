@@ -11,6 +11,8 @@ properties {
   $versionXml = Join-Path -Path $baseFolder -ChildPath "version.xml"
 }
 
+$VerbosePreference = "SilentlyContinue"
+
 Task default -depends Deploy
 
 Task Test -depends Compile, Clean {
@@ -28,11 +30,12 @@ Task Clean {
 
 Task Deploy -depends Test,CompileModuleManifest {
 
-    "Executed CompileModuleManifest!"
+    "Executed Deploy!"
 }
 
 Task CompileModuleManifest -depends Test {
-    New-ModuleManifest -Path "$(Get-ModuleManifestPath)" -ModuleVersion "$(Get-AssemblyVersion)" -Guid "$(New-Guid)" -Author "$(Get-Authors)" -CompanyName "$(Get-CompanyName)" -Copyright "$(Get-Copyright)" -Description "$(Get-Description)" -DotNetFrameworkVersion "4.5.2"
+    New-ModuleManifest -Path "$(Get-ModuleManifestPath)" -ModuleVersion "$(Get-AssemblyVersion)" -Guid "$(New-Guid)" -Author "$(Get-Authors)" -CompanyName "$(Get-CompanyName)" -Copyright "$(Get-Copyright)" -Description "$(Get-Description)" -DotNetFrameworkVersion "4.5.2" -PowerShellVersion "5.0" | Out-Null
+    "Executed CompileModuleManifest!"
 }
 
 Task UpdateVersion {    
@@ -47,8 +50,13 @@ Task ? -Description "Helper to display task info" {
   Write-Documentation
 }
 
+###############################################################################
+### Helper functions
+###############################################################################
+
 function Get-AssemblyVersion
 {
+    Write-Verbose "Get-AssemblyVersion"
     if([String]::IsNullOrWhiteSpace($global:AssemblyVersion) -eq $true)
     {
         $xml = [xml](Get-Content $versionXml)            
@@ -58,37 +66,53 @@ function Get-AssemblyVersion
         $global:RevisionVersion = "$($xml.version.property[3].value)"
         $global:AssemblyVersion = "$($global:MajorVersion).$($global:MinorVersion).$($global:BuildVersion).$($global:RevisionVersion)"
     }
+    Write-Verbose "AssemblyVersion=$($global:AssemblyVersion)"
     return $global:AssemblyVersion
 }
 
 function Get-BaseFolderPath
 {
-    $baseFolder = $PSScriptRoot
-    return $baseFolder
+    Write-Verbose "Get-BaseFolderPath"
+    $baseFolderPath = $PSScriptRoot
+    Write-Verbose "BaseFolderPath=$baseFolderPath"
+    return $baseFolderPath
 }
 
 function Get-ArtifactsFolder
 {
-    Join-Path -Path "$(Get-BaseFolderPath)" -ChildPath "artifacts"
+    Write-Verbose "Get-ArtifactsFolder"
+    $artifactsFolder = [System.IO.Path]::Combine("$(Get-BaseFolderPath)","artifacts")
+    Write-Verbose "ArtifactsFolder=$artifactsFolder"
+    return $artifactsFolder
 }
 
 function Get-ModuleName
 {
-    return "_S_PowerShellModuleName_S_"
+    Write-Verbose "Get-ModuleName"
+    $moduleName = "_S_PowerShellModuleName_S_"
+    Write-Verbose "ModuleName=$($moduleName)"
+    return $moduleName
 }
 
 function Get-Authors
-{
-    return "_S_Authors_S_"
+{    
+    Write-Verbose "Get-Authors"
+    $authors = "_S_Authors_S_"
+    Write-Verbose "Authors=$($authors)"
+    return $authors
 }
 
 function Get-CompanyName
 {
-    return "_S_CompanyName_S_"
+    Write-Verbose "Get-CompanyName"
+    $companyName = "_S_CompanyName_S_"
+    Write-Verbose "CompanyName=$($companyName)"
+    return $companyName
 }
 
 function Get-Year
 {
+    Write-Verbose "Get-Year"
     $year = "_S_Year_S_"
     if($year -notmatch "\d{4}")
     {
@@ -97,35 +121,47 @@ function Get-Year
     $currentYear = [System.DateTime]::Now.Year
     if($year -lt $currentYear)
     {
-        return "$year-$currentYear"
+        $year = "$year-$currentYear"
     }
+    Write-Verbose "Year=$year"
     return $year
 }
 #TEST: Get-Year
 
 function Get-Copyright
-{
-    return "Copyright © $(Get-CompanyName) $(Get-Year). All rights reserved."
+{    
+    Write-Verbose "Get-Copyright"
+    $copyright = "Copyright © $(Get-CompanyName) $(Get-Year). All rights reserved."
+    Write-Verbose "Copyright=$copyright"
+    return $copyright
 }
 #TEST: Get-Copyright
 
 function Get-Description
 {
-    return "_S_ProductDescription_S_"
+    Write-Verbose "Get-Description"
+    $description = "_S_ProductDescription_S_"
+    Write-Verbose "Description=$description"
+    return $description
 }
 
 function Get-ArtifactsModuleFolder
 {
+    Write-Verbose "Get-ArtifactsModuleFolder"
     $artifactsModuleFolder = [System.IO.Path]::Combine("$(Get-ArtifactsFolder)", "$(Get-ModuleName)", "$(Get-AssemblyVersion)")
     if([System.IO.Directory]::Exists($artifactsModuleFolder) -eq $false)
     {
-        [System.IO.Directory]::CreateDirectory($artifactsModuleFolder)
+        $dir = [System.IO.Directory]::CreateDirectory($artifactsModuleFolder)
     }
+    Write-Verbose "ArtifactsModuleFolder=$artifactsModuleFolder"
     return $artifactsModuleFolder
 }
 
 
 function Get-ModuleManifestPath
 {
-    Join-Path -Path "$(Get-ArtifactsModuleFolder)" -ChildPath "$(Get-ModuleName).psd1"
+    Write-Verbose "Get-ModuleManifestPath"
+    $moduleManifestPath = [System.IO.Path]::Combine("$(Get-ArtifactsModuleFolder)", "$(Get-ModuleName).psd1")
+    Write-Verbose "ModuleManifestPath=$moduleManifestPath"
+    return $moduleManifestPath
 }
