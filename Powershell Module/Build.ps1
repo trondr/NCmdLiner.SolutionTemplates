@@ -177,7 +177,7 @@ function Get-ArtifactsModuleFolder
 function Get-SourceModuleFolder
 {
     Write-Verbose "Get-SourceModuleFolder"
-    $sourceModuleFolder = [System.IO.Path]::Combine("$(Get-SourceFolder)", "$(Get-ModuleName)")
+    $sourceModuleFolder = [System.IO.Path]::Combine("$(Get-SourceFolder)","Modules", "$(Get-ModuleName)")
     Write-Verbose "SourceModuleFolder=$sourceModuleFolder"
     return $sourceModuleFolder
 }

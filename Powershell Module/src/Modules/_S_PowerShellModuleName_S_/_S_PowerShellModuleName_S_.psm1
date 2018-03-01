@@ -16,14 +16,6 @@ function Get-ModuleName
     return $moduleName
 }
 
-function Get-ModuleManifestPath
-{
-    Write-Verbose "Get-ModuleManifestPath"
-    $moduleManifestPath = [System.IO.Path]::Combine("$(Get-ModuleFolder)", "$(Get-ModuleName).psd1")
-    Write-Verbose "ModuleManifestPath=$moduleManifestPath"
-    return $moduleManifestPath
-}
-
 function Get-FuctionsFolder
 {
     Write-Verbose "Get-FuctionsFolder"
@@ -37,10 +29,3 @@ Get-ChildItem -Path "$(Get-FuctionsFolder)" -Filter '*.ps1' |
                         Write-Verbose ("Importing function '$($_.FullName)'.")
                         . $_.FullName | Out-Null
                     }
-
-$module = Test-ModuleManifest -Path "$(Get-ModuleManifestPath)"
-if( -not $module )
-{
-    return
-}
-Export-ModuleMember -Alias '*' -Function ([string[]]$module.ExportedFunctions.Keys)
