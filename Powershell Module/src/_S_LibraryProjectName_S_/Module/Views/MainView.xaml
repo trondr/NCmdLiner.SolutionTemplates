@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="_S_LibraryProjectName_S_.Module.Views.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:diag ="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+             xmlns:ui="clr-namespace:_S_LibraryProjectName_S_.Module.Common.UI"
+             xmlns:viewModels="clr-namespace:_S_LibraryProjectName_S_.Module.ViewModels"
+             xmlns:views="clr-namespace:_S_LibraryProjectName_S_.Module.Views"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="330" d:DesignWidth="500">
+    <DockPanel d:DataContext="{d:DesignInstance Type=viewModels:DesignTimeMainViewModel, IsDesignTimeCreatable=True}" Margin="5" >
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+                <i:InvokeCommandAction Command="{Binding LoadCommand}" />
+            </i:EventTrigger>
+            <i:EventTrigger EventName="UnLoaded">
+                <i:InvokeCommandAction Command="{Binding UnLoadCommand}" />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        <DockPanel DockPanel.Dock="Left">
+            <DockPanel Dock="Top" Margin="2">
+                <Label Content="{Binding Path=ProductDescriptionLabelText, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Width="{Binding Path=MaxLabelWidth, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Text="{Binding Path=ProductDescription, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+            </DockPanel>
+            <DockPanel Dock="Bottom" Margin="2">
+                <Button Command="{Binding ExitCommand}" Width="50">OK</Button>                
+            </DockPanel>
+            <Label></Label>
+        </DockPanel>
+    </DockPanel>
+</UserControl>
+

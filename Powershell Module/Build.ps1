@@ -1,8 +1,7 @@
 properties {
-  $testMessage = 'Executed Test!'
-  $compileMessage = 'Executed Compile!'
-  $cleanMessage = 'Executed Clean!'
-  $updateVersionMessage = 'Executed UpdateVersion!'
+    
+  
+  
   $baseFolder = Resolve-Path .
   $buildFolder = [System.IO.Path]::Combine($baseFolder, "build")
   $srcFolder = [System.IO.Path]::Combine($baseFolder,"src")
@@ -15,19 +14,26 @@ $VerbosePreference = "Continue"
 
 Task default -depends Deploy
 
+Task Init {
+    #$BuildLibrary = [System.IO.Path]::Combine($PSScriptRoot,"BuildLibrary.ps1")
+    #Write-Verbose "BuildLibrary=$BuildLibrary"    
+    . ".\BuildLibrary.ps1"
+}
+
 Task Test -depends Compile, Clean {
-  $testMessage
+  
+  'Executed Test!'
 }
 
 Task Compile -depends Clean {
   xcopy "$(Get-SourceModuleFolder)" "$(Get-BuildModuleFolder)" /e /q /y /i
-  $compileMessage
+  'Executed Compile!'
 }
 
 Task Clean {
   rd -Path "$(Get-ArtifactsFolder)" -recurse -force  -ErrorAction SilentlyContinue | out-null
   rd -Path "$(Get-BuildFolder)" -recurse -force  -ErrorAction SilentlyContinue | out-null
-  $cleanMessage
+  'Executed Clean!'
 }
 
 Task Deploy -depends Test, UpdateModuleManifest {
@@ -47,13 +53,30 @@ Task UpdateModuleManifest -depends Test {
     "Executed UpdateModuleManifest!"
 }
 
-Task UpdateVersion {    
+Task UpdateVersion -depends Init -postaction UpdateAssemblyInfos {    
     $xml = [xml](Get-Content $versionXml)            
     $xml.version.property[2].value = "$([System.DateTime]::Now.ToString('yy'))$([System.DateTime]::Now.DayOfYear.ToString('000'))"
     $xml.version.property[3].value = "$([System.Convert]::ToInt32($xml.version.property[3].value) + 1)"
     $xml.Save($versionXml)    
     "$updateVersionMessage $($xml.version.property[0].value).$($xml.version.property[1].value).$($xml.version.property[2].value).$($xml.version.property[3].value)"
+    'Executed UpdateVersion!'
 }
+
+Task UpdateAssemblyInfos {
+    $assemblyInfo = @{
+        Path = "$(Get-SourceFolder)\_S_LibraryProjectName_S_\Properties\AssemblyInfo.cs"
+        Description = "$(Get-Description)"
+        Company = "$(Get-CompanyName)"
+        Product = "$(Get-ModuleName)"
+        Copyright = "$(Get-Copyright)"
+        CLSCompliant = $true
+        InformationalVersion="$(Get-AssemblyVersion).$(Get-RevisionHash)"
+        Version="$(Get-AssemblyVersion)"
+        FileVersion="$(Get-AssemblyVersion)"
+    }    
+    Update-AssemblyInfo @assemblyInfo
+}
+
 
 Task ? -Description "Helper to display task info" {
   Write-Documentation
@@ -200,18 +223,10 @@ function Get-ArtifactsModuleFolder
     return $artifactsModuleFolder
 }
 
-function Get-SourceModulesFolder
-{
-    Write-Verbose "Get-SourceModulesFolder"
-    $SourceModulesFolder = [System.IO.Path]::Combine("$(Get-SourceFolder)","Modules")
-    Write-Verbose "SourceModulesFolder=$SourceModulesFolder"
-    return $SourceModulesFolder
-}
-
 function Get-SourceModuleFolder
 {
     Write-Verbose "Get-SourceModuleFolder"
-    $sourceModuleFolder = [System.IO.Path]::Combine("$(Get-SourceModulesFolder)", "$(Get-ModuleName)")
+    $sourceModuleFolder = [System.IO.Path]::Combine("$(Get-SourceFolder)", "$(Get-ModuleName)")
     Write-Verbose "SourceModuleFolder=$sourceModuleFolder"
     return $sourceModuleFolder
 }

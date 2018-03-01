@@ -1,0 +1,8 @@
+﻿Library:
+----
+Install-Package AutoMapper
+Install-Package Castle.Windsor
+Install-Package log4Net
+Install-Package Common.Logging.Log4Net208
+Install-Package MvvmLightLibs
+Install-Package Newtonsoft.Json
