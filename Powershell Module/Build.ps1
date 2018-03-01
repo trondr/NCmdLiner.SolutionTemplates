@@ -20,7 +20,7 @@ Task Test -depends Compile, Clean {
 }
 
 Task Compile -depends Clean {
-  copy -Path "$(Get-SourceModulesFolder)" -Destination "$(Get-BuildModulesFolder)" -Recurse -Force  
+  xcopy "$(Get-SourceModuleFolder)" "$(Get-BuildModuleFolder)" /e /q /y /i
   $compileMessage
 }
 
@@ -31,7 +31,8 @@ Task Clean {
 }
 
 Task Deploy -depends Test, UpdateModuleManifest {
-
+    Write-Verbose "Copy: '$(Get-BuildModuleFolder)' -> '$(Get-ArtifactsModuleFolder)'"
+    xcopy "$(Get-BuildModuleFolder)" "$(Get-ArtifactsModuleFolder)" /e /q /y /i
     "Executed Deploy!"
 }
 
@@ -179,10 +180,18 @@ function Get-Description
     return $description
 }
 
+function Get-ArtifactsModulesFolder
+{
+    Write-Verbose "Get-ArtifactsModulesFolder"
+    $ArtifactsModulesFolder = [System.IO.Path]::Combine("$(Get-ArtifactsFolder)","Modules")
+    Write-Verbose "ArtifactsModulesFolder=$ArtifactsModulesFolder"
+    return $ArtifactsModulesFolder
+}
+
 function Get-ArtifactsModuleFolder
 {
     Write-Verbose "Get-ArtifactsModuleFolder"
-    $artifactsModuleFolder = [System.IO.Path]::Combine("$(Get-ArtifactsFolder)", "$(Get-ModuleName)", "$(Get-AssemblyVersion)")
+    $artifactsModuleFolder = [System.IO.Path]::Combine("$(Get-ArtifactsModulesFolder)", "$(Get-ModuleName)", "$(Get-AssemblyVersion)")
     if([System.IO.Directory]::Exists($artifactsModuleFolder) -eq $false)
     {
         $dir = [System.IO.Directory]::CreateDirectory($artifactsModuleFolder)
