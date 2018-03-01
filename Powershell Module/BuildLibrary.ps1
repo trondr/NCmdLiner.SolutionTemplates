@@ -1,9 +1,17 @@
+function Get-VersionXml
+{
+    Write-Verbose "Get-VersionXml"
+    $VersionXml = [System.IO.Path]::Combine($(Get-BaseFolderPath),"version.xml")
+    Write-Verbose "VersionXml=$VersionXml"
+    return $VersionXml
+}
+
 function Get-AssemblyVersion
 {
     Write-Verbose "Get-AssemblyVersion"
     if([String]::IsNullOrWhiteSpace($global:AssemblyVersion) -eq $true)
     {
-        $xml = [xml](Get-Content $versionXml)            
+        $xml = [xml](Get-Content -Path "$(Get-VersionXml)")
         $global:MajorVersion = "$($xml.version.property[0].value)"
         $global:MinorVersion = "$($xml.version.property[1].value)"
         $global:BuildVersion = "$($xml.version.property[2].value)"
@@ -45,7 +53,6 @@ function Get-BuildModulesFolder
     Write-Verbose "BuildModulesFolder=$buildModulesFolder"
     return $buildModulesFolder
 }
-
 
 function Get-SourceFolder
 {
@@ -255,13 +262,12 @@ function Update-AssemblyInfo
         [void]$sb.AppendLine("")
         [void]$sb.AppendLine("using System;")
         [void]$sb.AppendLine("using System.Reflection;")
-        [void]$sb.AppendLine("")
-        [void]$sb.AppendLine("")
+        [void]$sb.AppendLine("")        
         [void]$sb.AppendLine("[assembly: AssemblyDescription(`"$($Description)`")]")
         [void]$sb.AppendLine("[assembly: AssemblyCompany(`"$($Company)`")]")
         [void]$sb.AppendLine("[assembly: AssemblyProduct(`"$($Product)`")]")
         [void]$sb.AppendLine("[assembly: AssemblyCopyright(`"$($Copyright)`")]")
-        [void]$sb.AppendLine("[assembly: CLSCompliant($($CLSCompliant))]")
+        [void]$sb.AppendLine("[assembly: CLSCompliant($($CLSCompliant.ToString().ToLower()))]")
         [void]$sb.AppendLine("[assembly: AssemblyInformationalVersion(`"$($InformationalVersion)`")]")
         [void]$sb.AppendLine("[assembly: AssemblyVersion(`"$($Version)`")]")
         [void]$sb.AppendLine("[assembly: AssemblyFileVersion(`"$($FileVersion)`")]")

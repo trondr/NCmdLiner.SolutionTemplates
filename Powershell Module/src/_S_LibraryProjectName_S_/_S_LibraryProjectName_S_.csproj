@@ -11,8 +11,8 @@
     <AssemblyName>_S_LibraryProjectName_S_</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-	<BinDirectory Condition=" '$(BinDirectory)' == ''">..\..\build\bin</BinDirectory>
-	<BaseIntermediateOutputPath>$(BinDirectory)\obj\$(AssemblyName)\</BaseIntermediateOutputPath>
+    <BinDirectory Condition=" '$(BinDirectory)' == ''">..\..\build\bin</BinDirectory>
+    <BaseIntermediateOutputPath>$(BinDirectory)\obj\$(AssemblyName)\</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
