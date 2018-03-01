@@ -20,30 +20,30 @@ Task Test -depends Compile, Clean {
 }
 
 Task Compile -depends Clean {
+  copy -Path "$(Get-SourceModulesFolder)" -Destination "$(Get-BuildModulesFolder)" -Recurse -Force  
   $compileMessage
 }
 
 Task Clean {
-  rd -Path "$(Get-ArtifactsFolder)" -recurse -force  -ErrorAction SilentlyContinue | out-null  
+  rd -Path "$(Get-ArtifactsFolder)" -recurse -force  -ErrorAction SilentlyContinue | out-null
+  rd -Path "$(Get-BuildFolder)" -recurse -force  -ErrorAction SilentlyContinue | out-null
   $cleanMessage
 }
 
-Task Deploy -depends Test,CompileModuleManifest {
+Task Deploy -depends Test, UpdateModuleManifest {
 
     "Executed Deploy!"
 }
 
-Task CompileModuleManifest -depends Test {
+Task UpdateModuleManifest -depends Test {
     Update-ModuleManifest `
-    -Path "$(Get-SourceModuleManifestPath)" `
+    -Path "$(Get-BuildModuleManifestPath)" `
     -ModuleVersion "$(Get-AssemblyVersion)" `
     -Author "$(Get-Authors)" `
     -CompanyName "$(Get-CompanyName)" `
     -Copyright "$(Get-Copyright)" `
-    -DotNetFrameworkVersion "4.5.2" `
-    -PowerShellVersion "5.0" `
     -FunctionsToExport @($(Get-FunctionsToExport))
-    "Executed CompileModuleManifest!"
+    "Executed UpdateModuleManifest!"
 }
 
 Task UpdateVersion {    
@@ -93,6 +93,23 @@ function Get-ArtifactsFolder
     Write-Verbose "ArtifactsFolder=$artifactsFolder"
     return $artifactsFolder
 }
+
+function Get-BuildFolder
+{
+    Write-Verbose "Get-BuildFolder"
+    $buildFolder = [System.IO.Path]::Combine("$(Get-BaseFolderPath)","build")
+    Write-Verbose "BuildFolder=$buildFolder"
+    return $buildFolder
+}
+
+function Get-BuildModulesFolder
+{
+    Write-Verbose "Get-BuildModulesFolder"
+    $buildModulesFolder = [System.IO.Path]::Combine("$(Get-BuildFolder)","Modules")
+    Write-Verbose "BuildModulesFolder=$buildModulesFolder"
+    return $buildModulesFolder
+}
+
 
 function Get-SourceFolder
 {
@@ -174,12 +191,28 @@ function Get-ArtifactsModuleFolder
     return $artifactsModuleFolder
 }
 
+function Get-SourceModulesFolder
+{
+    Write-Verbose "Get-SourceModulesFolder"
+    $SourceModulesFolder = [System.IO.Path]::Combine("$(Get-SourceFolder)","Modules")
+    Write-Verbose "SourceModulesFolder=$SourceModulesFolder"
+    return $SourceModulesFolder
+}
+
 function Get-SourceModuleFolder
 {
     Write-Verbose "Get-SourceModuleFolder"
-    $sourceModuleFolder = [System.IO.Path]::Combine("$(Get-SourceFolder)","Modules", "$(Get-ModuleName)")
+    $sourceModuleFolder = [System.IO.Path]::Combine("$(Get-SourceModulesFolder)", "$(Get-ModuleName)")
     Write-Verbose "SourceModuleFolder=$sourceModuleFolder"
     return $sourceModuleFolder
+}
+
+function Get-BuildModuleFolder
+{
+    Write-Verbose "Get-BuildModuleFolder"
+    $BuildModuleFolder = [System.IO.Path]::Combine("$(Get-BuildModulesFolder)", "$(Get-ModuleName)")
+    Write-Verbose "BuildModuleFolder=$BuildModuleFolder"
+    return $BuildModuleFolder
 }
 
 function Get-ModuleManifestPath
@@ -196,6 +229,14 @@ function Get-SourceModuleManifestPath
     $sourceModuleManifestPath = [System.IO.Path]::Combine("$(Get-SourceModuleFolder)", "$(Get-ModuleName).psd1")
     Write-Verbose "SourceModuleManifestPath=$sourceModuleManifestPath"
     return $sourceModuleManifestPath
+}
+
+function Get-BuildModuleManifestPath
+{
+    Write-Verbose "Get-BuildModuleManifestPath"
+    $BuildModuleManifestPath = [System.IO.Path]::Combine("$(Get-BuildModuleFolder)", "$(Get-ModuleName).psd1")
+    Write-Verbose "BuildModuleManifestPath=$BuildModuleManifestPath"
+    return $BuildModuleManifestPath
 }
 
 function Get-FunctionsFolder
