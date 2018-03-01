@@ -3,25 +3,17 @@ $VerbosePreference = "Continue"
 function Get-ModuleFolder
 {
     Write-Verbose "Get-ModuleFolder"
-    $moduleFolder = $PSScriptRoot
-    Write-Verbose "ModuleFolder=$moduleFolder"
-    return $moduleFolder
-}
-
-function Get-ModuleName
-{
-    Write-Verbose "Get-ModuleName"
-    $moduleName = "_S_PowerShellModuleName_S_"
-    Write-Verbose "ModuleName=$($moduleName)"
-    return $moduleName
+    $ModuleFolder = $PSScriptRoot
+    Write-Verbose "ModuleFolder=$ModuleFolder"
+    return $ModuleFolder
 }
 
 function Get-FuctionsFolder
 {
     Write-Verbose "Get-FuctionsFolder"
-    $fuctionsFolder = [System.IO.Path]::Combine("$(Get-ModuleFolder)", "Functions")
-    Write-Verbose "fuctionsFolder=$fuctionsFolder"
-    return $fuctionsFolder
+    $FuctionsFolder = [System.IO.Path]::Combine("$(Get-ModuleFolder)", "Functions")
+    Write-Verbose "FuctionsFolder=$FuctionsFolder"
+    return $FuctionsFolder
 }
 
 Get-ChildItem -Path "$(Get-FuctionsFolder)" -Filter '*.ps1' | 
