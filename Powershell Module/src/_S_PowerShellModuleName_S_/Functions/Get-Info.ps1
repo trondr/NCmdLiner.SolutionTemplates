@@ -26,5 +26,5 @@ function Get-Info
 
     Use-CallerPreference -Cmdlet $PSCmdlet -Session $ExecutionContext.SessionState
 
-    Write-Output $env:ComputerName
+    Write-Output "$($env:ComputerName):$($env:UserName)"
 }
