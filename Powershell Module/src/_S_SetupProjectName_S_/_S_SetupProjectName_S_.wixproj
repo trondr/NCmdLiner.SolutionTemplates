@@ -13,13 +13,22 @@
     <DefineSolutionProperties>false</DefineSolutionProperties>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <OutputPath>$(MSBuildProjectDirectory)\..\..\build\bin\$(Configuration)\_S_SetupProjectName_S_</OutputPath>
-    <IntermediateOutputPath>$(MSBuildProjectDirectory)\..\..\build\obj\$(Configuration)\</IntermediateOutputPath>
+    <OutputPath>$(MSBuildProjectDirectory)\..\..\build\bin\$(Platform)\$(Configuration)\_S_SetupProjectName_S_</OutputPath>
+    <IntermediateOutputPath>$(MSBuildProjectDirectory)\..\..\build\obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>Debug</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <OutputPath>$(MSBuildProjectDirectory)\..\..\build\bin\$(Configuration)\_S_SetupProjectName_S_</OutputPath>
-    <IntermediateOutputPath>$(MSBuildProjectDirectory)\..\..\build\obj\$(Configuration)\</IntermediateOutputPath>
+    <OutputPath>$(MSBuildProjectDirectory)\..\..\build\bin\$(Platform)\$(Configuration)\_S_SetupProjectName_S_</OutputPath>
+    <IntermediateOutputPath>$(MSBuildProjectDirectory)\..\..\build\obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <OutputPath>$(MSBuildProjectDirectory)\..\..\build\bin\$(Platform)\$(Configuration)\_S_SetupProjectName_S_</OutputPath>
+    <IntermediateOutputPath>$(MSBuildProjectDirectory)\..\..\build\obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <OutputPath>$(MSBuildProjectDirectory)\..\..\build\bin\$(Platform)\$(Configuration)\_S_SetupProjectName_S_</OutputPath>
+    <IntermediateOutputPath>$(MSBuildProjectDirectory)\..\..\build\obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Components.wxs" />
@@ -54,15 +63,15 @@
     <GetAssemblyIdentity AssemblyFiles="$(MSBuildProjectDirectory)\..\..\build\bin\$(Configuration)\_S_LibraryProjectName_S_\_S_LibraryProjectName_S_.dll">
       <Output TaskParameter="Assemblies" ItemName="AssemblyVersion" />
     </GetAssemblyIdentity>
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\build\bin\$(Configuration)\_S_SetupProjectName_S_\en-us\$(OutputName).msi" DestinationFiles="$(MSBuildProjectDirectory)\..\..\build\bin\$(Configuration)\_S_SetupProjectName_S_\en-us\$(OutputName).%(AssemblyVersion.Version).msi" />
-    <Delete Files="$(MSBuildProjectDirectory)\..\..\build\bin\$(Configuration)\_S_SetupProjectName_S_\en-us\$(OutputName).msi" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\build\bin\$(Platform)\$(Configuration)\_S_SetupProjectName_S_\en-us\$(OutputName).msi" DestinationFiles="$(MSBuildProjectDirectory)\..\..\build\$(Platform)\bin\$(Configuration)\_S_SetupProjectName_S_\en-us\$(OutputName).%(AssemblyVersion.Version).$(Platform).msi" />
+    <Delete Files="$(MSBuildProjectDirectory)\..\..\build\bin\$(Platform)\$(Configuration)\_S_SetupProjectName_S_\en-us\$(OutputName).msi" />
   </Target>
   <PropertyGroup>
-    <PreBuildEvent>mkdir "$(TargetDir)..\..\..\..\build\Modules\_S_PowerShellModuleName_S_\Libs"
-xcopy "$(TargetDir)..\_S_LibraryProjectName_S_\%2a.dll" "$(TargetDir)..\..\..\..\build\Modules\_S_PowerShellModuleName_S_\Libs" /E /Y
-xcopy "$(ProjectDir)..\_S_PowerShellModuleName_S_" "$(TargetDir)..\..\..\..\build\Modules\_S_PowerShellModuleName_S_" /E /Y
-mkdir "$(TargetDir)..\..\..\..\build\Modules\_S_PowerShellModuleName_S_\NMultiTool"
-xcopy "$(ProjectDir)..\..\Tools\NMultiTool" "$(TargetDir)..\..\..\..\build\Modules\_S_PowerShellModuleName_S_\NMultiTool" /E /Y
-"$(ProjectDir)..\..\Tools\NMultiTool\NMultiTool.exe" Folder2Wxs /harvestFolder="$(TargetDir)..\..\..\..\build\Modules\_S_PowerShellModuleName_S_" /wxsFileName="$(ProjectDir)Components.wxs" /targetFolderId="TargetFolder" /componentGroupId="Components_WiXComponentGroup" /diskIds="[%271%27]" /addExecutables2AppsPath="False"</PreBuildEvent>
+    <PreBuildEvent>mkdir "$(TargetDir)..\..\..\..\..\build\Modules\_S_PowerShellModuleName_S_\Libs"
+xcopy "$(TargetDir)..\..\..\..\$(ConfigurationName)\_S_LibraryProjectName_S_\%2a.dll" "$(TargetDir)..\..\..\..\..\build\Modules\_S_PowerShellModuleName_S_\Libs" /E /Y
+xcopy "$(ProjectDir)..\_S_PowerShellModuleName_S_" "$(TargetDir)..\..\..\..\..\build\Modules\_S_PowerShellModuleName_S_" /E /Y
+mkdir "$(TargetDir)..\..\..\..\..\build\Modules\_S_PowerShellModuleName_S_\NMultiTool"
+xcopy "$(ProjectDir)..\..\Tools\NMultiTool" "$(TargetDir)..\..\..\..\..\build\Modules\_S_PowerShellModuleName_S_\NMultiTool" /E /Y
+"$(ProjectDir)..\..\Tools\NMultiTool\NMultiTool.exe" Folder2Wxs /harvestFolder="$(TargetDir)..\..\..\..\..\build\Modules\_S_PowerShellModuleName_S_" /wxsFileName="$(ProjectDir)Components.wxs" /targetFolderId="TargetFolder" /componentGroupId="Components_WiXComponentGroup" /diskIds="[%271%27]" /addExecutables2AppsPath="False" /isWin64="var.Win64"</PreBuildEvent>
   </PropertyGroup>
 </Project>
