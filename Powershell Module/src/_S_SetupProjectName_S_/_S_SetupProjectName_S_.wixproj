@@ -6,7 +6,7 @@
     <ProductVersion>3.11</ProductVersion>
     <ProjectGuid>92a8fc86-184a-43c3-b1e8-ab56270132c2</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>_S_PowerShellModuleName_S_</OutputName>
+    <OutputName>_S_PowerShellModuleName_S_.$(Platform)</OutputName>
     <OutputType>Package</OutputType>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
@@ -63,7 +63,7 @@
     <GetAssemblyIdentity AssemblyFiles="$(MSBuildProjectDirectory)\..\..\build\bin\$(Configuration)\_S_LibraryProjectName_S_\_S_LibraryProjectName_S_.dll">
       <Output TaskParameter="Assemblies" ItemName="AssemblyVersion" />
     </GetAssemblyIdentity>
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\build\bin\$(Configuration)\$(Platform)\_S_SetupProjectName_S_\en-us\$(OutputName).msi" DestinationFiles="$(MSBuildProjectDirectory)\..\..\build\bin\$(Configuration)\$(Platform)\_S_SetupProjectName_S_\en-us\$(OutputName).%(AssemblyVersion.Version).$(Platform).msi" />    
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\build\bin\$(Configuration)\$(Platform)\_S_SetupProjectName_S_\en-us\$(OutputName).msi" DestinationFiles="$(MSBuildProjectDirectory)\..\..\build\bin\$(Configuration)\$(Platform)\_S_SetupProjectName_S_\en-us\$(OutputName).%(AssemblyVersion.Version).msi" />    
   </Target>
   <PropertyGroup>
     <PreBuildEvent>mkdir "$(TargetDir)..\..\..\..\..\build\Modules\_S_PowerShellModuleName_S_\Libs"
