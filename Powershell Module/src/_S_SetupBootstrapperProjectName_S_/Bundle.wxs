@@ -11,7 +11,9 @@
 	<Bundle Name="_S_SetupBootstrapperProjectName_S_" 
 	        Version="!(bind.packageVersion.MyAppNameX86)" 
 	        Manufacturer="$(var.CompanyName)" 
-	        UpgradeCode="$(var.ProductUpgradeCode)">
+	        UpgradeCode="$(var.ProductUpgradeCode)" 
+	        IconSourceFile="Product.ico"	        
+	        >
     <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" >
       <bal:WixStandardBootstrapperApplication 
         LicenseFile="License.rtf" 
