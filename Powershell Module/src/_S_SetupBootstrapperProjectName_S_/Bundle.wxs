@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?define ProductName="_S_ProductName_S_" ?>
+<?define ProductUpgradeCode="ECD7A685-EDCC-474C-AD38-000000000021" ?>
+<?define CompanyName="_S_CompanyName_S_" ?>
+<?define MsiX86Path="..\..\build\bin\Release\x86\_S_SetupProjectName_S_\en-us\_S_PowerShellModuleName_S_.1.0.18060.9.x86.msi" ?>
+<?define MsiX64Path="..\..\build\bin\Release\x64\_S_SetupProjectName_S_\en-us\_S_PowerShellModuleName_S_.1.0.18060.9.x64.msi" ?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:bal="http://schemas.microsoft.com/wix/BalExtension"
+     
+     >
+	<Bundle Name="_S_SetupBootstrapperProjectName_S_" 
+	        Version="!(bind.packageVersion.MyAppNameX86)" 
+	        Manufacturer="$(var.CompanyName)" 
+	        UpgradeCode="$(var.ProductUpgradeCode)">
+    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" >
+      <bal:WixStandardBootstrapperApplication 
+        LicenseFile="License.rtf" 
+        LogoFile="Logo.png"
+        
+        />
+    </BootstrapperApplicationRef>
+	  <Chain>
+      <MsiPackage InstallCondition="NOT VersionNT64" SourceFile="$(var.MsiX86Path)" Id="MyAppNameX86" Vital="yes" />
+		  <MsiPackage InstallCondition="VersionNT64" SourceFile="$(var.MsiX64Path)" Id="MyAppNameX64" Vital="yes" />
+		</Chain>
+	</Bundle>
+</Wix>
