@@ -63,8 +63,7 @@
     <GetAssemblyIdentity AssemblyFiles="$(MSBuildProjectDirectory)\..\..\build\bin\$(Configuration)\_S_LibraryProjectName_S_\_S_LibraryProjectName_S_.dll">
       <Output TaskParameter="Assemblies" ItemName="AssemblyVersion" />
     </GetAssemblyIdentity>
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\build\bin\$(Configuration)\$(Platform)\_S_SetupProjectName_S_\en-us\$(OutputName).msi" DestinationFiles="$(MSBuildProjectDirectory)\..\..\build\bin\$(Configuration)\$(Platform)\_S_SetupProjectName_S_\en-us\$(OutputName).%(AssemblyVersion.Version).$(Platform).msi" />
-    <Delete Files="$(MSBuildProjectDirectory)\..\..\build\bin\$(Configuration)\$(Platform)\_S_SetupProjectName_S_\en-us\$(OutputName).msi" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\build\bin\$(Configuration)\$(Platform)\_S_SetupProjectName_S_\en-us\$(OutputName).msi" DestinationFiles="$(MSBuildProjectDirectory)\..\..\build\bin\$(Configuration)\$(Platform)\_S_SetupProjectName_S_\en-us\$(OutputName).%(AssemblyVersion.Version).$(Platform).msi" />    
   </Target>
   <PropertyGroup>
     <PreBuildEvent>mkdir "$(TargetDir)..\..\..\..\..\build\Modules\_S_PowerShellModuleName_S_\Libs"
