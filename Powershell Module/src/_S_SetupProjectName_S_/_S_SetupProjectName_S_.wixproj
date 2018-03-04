@@ -69,7 +69,7 @@
     <PreBuildEvent>mkdir "$(TargetDir)..\..\..\..\..\build\Modules\_S_PowerShellModuleName_S_\Libs"
 xcopy "$(ProjectDir)..\..\build\bin\$(ConfigurationName)\_S_LibraryProjectName_S_\%2a.dll" "$(TargetDir)..\..\..\..\..\build\Modules\_S_PowerShellModuleName_S_\Libs" /E /Y
 xcopy "$(ProjectDir)..\..\build\bin\$(ConfigurationName)\_S_LibraryProjectName_S_\%2a.config" "$(TargetDir)..\..\..\..\..\build\Modules\_S_PowerShellModuleName_S_\Libs" /E /Y
-xcopy "$(ProjectDir)..\_S_PowerShellModuleName_S_" "$(TargetDir)..\..\..\..\..\build\Modules\_S_PowerShellModuleName_S_" /E /Y
+xcopy "$(ProjectDir)..\_S_PowerShellModuleName_S_" "$(TargetDir)..\..\..\..\..\build\Modules\_S_PowerShellModuleName_S_" /E /Y /D
 mkdir "$(TargetDir)..\..\..\..\..\build\Modules\_S_PowerShellModuleName_S_\NMultiTool"
 xcopy "$(ProjectDir)..\..\Tools\NMultiTool" "$(TargetDir)..\..\..\..\..\build\Modules\_S_PowerShellModuleName_S_\NMultiTool" /E /Y
 "$(ProjectDir)..\..\Tools\NMultiTool\NMultiTool.exe" Folder2Wxs /harvestFolder="$(TargetDir)..\..\..\..\..\build\Modules\_S_PowerShellModuleName_S_" /wxsFileName="$(ProjectDir)Components.wxs" /targetFolderId="TargetFolder" /componentGroupId="Components_WiXComponentGroup" /diskIds="[%271%27]" /addExecutables2AppsPath="False" /isWin64="var.Win64"</PreBuildEvent>
