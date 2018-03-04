@@ -1,3 +1,68 @@
+function Get-LibraryProjectPath
+{
+    Write-Verbose "Get-LibraryProjectPath"
+    $LibraryProjectPath = [System.IO.Path]::Combine("$(Get-SourceFolder)","_S_LibraryProjectName_S_","_S_LibraryProjectName_S_.csproj")
+    Write-Verbose "ToolsFolder=$LibraryProjectPath"
+    return $LibraryProjectPath
+}
+
+function Get-SetupProjectPath
+{
+    Write-Verbose "Get-SetupProjectPath"
+    $SetupProjectPath = [System.IO.Path]::Combine("$(Get-SourceFolder)","_S_SetupProjectName_S_","_S_SetupProjectName_S_.wixproj")
+    Write-Verbose "ToolsFolder=$SetupProjectPath"
+    return $SetupProjectPath
+}
+
+function Get-SetupBootstrapperProjectPath
+{
+    Write-Verbose "Get-SetupBootstrapperProjectPath"
+    $SetupBootstrapperProjectPath = [System.IO.Path]::Combine("$(Get-SourceFolder)","_S_SetupBootstrapperProjectName_S_","_S_SetupBootstrapperProjectName_S_.wixproj")
+    Write-Verbose "ToolsFolder=$SetupBootstrapperProjectPath"
+    return $SetupBootstrapperProjectPath
+}
+
+function Get-SolutionPath
+{
+    Write-Verbose "Get-SolutionPath"
+    $SolutionPath = [System.IO.Path]::Combine("$(Get-BaseFolderPath)","_S_SolutionName_S_.sln")
+    Write-Verbose "ToolsFolder=$SolutionPath"
+    return $SolutionPath
+}
+
+function Get-MsbuildExe
+{
+    Write-Verbose "Get-MsbuildExe"
+    $path = & "$(Get-VswhereExe)" -latest -products * -requires Microsoft.Component.MSBuild -property installationPath
+    if ($path) 
+    {
+      $MsbuildExe = join-path $path 'MSBuild\15.0\Bin\MSBuild.exe'      
+    }
+    if((Test-Path -Path $MsbuildExe) -eq $false)
+    {
+        throw "MSbuild.exe not found: $MsbuildExe"
+    }
+    Write-Verbose "MsbuildExe=$MsbuildExe"
+    return $MsbuildExe
+}
+#Test: Get-MsbuildExe
+
+function Get-VswhereExe
+{
+    Write-Verbose "Get-VswhereExe"
+    $VswhereExe = [System.IO.Path]::Combine("$(Get-ToolsFolder)","vswhere","vswhere.exe")
+    Write-Verbose "VswhereExe=$VswhereExe"
+    return $VswhereExe
+}
+
+function Get-ToolsFolder
+{
+    Write-Verbose "Get-ToolsFolder"
+    $ToolsFolder = [System.IO.Path]::Combine("$(Get-BaseFolderPath)","tools")
+    Write-Verbose "ToolsFolder=$ToolsFolder"
+    return $ToolsFolder
+}
+
 function Get-VersionXml
 {
     Write-Verbose "Get-VersionXml"

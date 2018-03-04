@@ -1,5 +1,5 @@
 properties {
-  $global:config = "debug"  
+  $global:config = "release"  
 }
 
 $VerbosePreference = "Continue"
@@ -14,6 +14,7 @@ Task Test -depends Compile, Clean {
 
 Task Compile -depends Clean, UpdateAssemblyInfos {
   xcopy "$(Get-SourceModuleFolder)" "$(Get-BuildModuleFolder)" /e /q /y /i
+  Exec { & "$(Get-MsbuildExe)" "$(Get-LibraryProjectPath)" /t:Build /p:Configuration=Release }  
   'Executed Compile!'
 }
 
@@ -24,6 +25,9 @@ Task Clean {
 }
 
 Task Deploy -depends Test, UpdateModuleManifest {
+    Exec { & "$(Get-MsbuildExe)" "$(Get-SetupProjectPath)" /t:Build /p:Configuration=Release /p:Platform=x86 }
+    Exec { & "$(Get-MsbuildExe)" "$(Get-SetupProjectPath)" /t:Build /p:Configuration=Release /p:Platform=x64 }
+    Exec { & "$(Get-MsbuildExe)" "$(Get-SetupBootstrapperProjectPath)" /t:Build /p:Configuration=Release }
     Write-Verbose "Copy: '$(Get-BuildModuleFolder)' -> '$(Get-ArtifactsModuleFolder)'"
     xcopy "$(Get-BuildModuleFolder)" "$(Get-ArtifactsModuleFolder)" /e /q /y /i
     "Executed Deploy!"
