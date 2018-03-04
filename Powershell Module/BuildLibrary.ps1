@@ -1,3 +1,11 @@
+function Get-SetupBootStrapperExe
+{
+    Write-Verbose "Get-SetupBootStrapperExe"
+    $SetupBootStrapperExe = [System.IO.Path]::Combine("$(Get-BuildFolder)","bin","Release","_S_SetupBootstrapperProjectName_S_","_S_SetupBootstrapperProjectName_S_.exe")
+    Write-Verbose "SetupBootStrapperExe=$SetupBootStrapperExe"
+    return $SetupBootStrapperExe
+}
+
 function Get-LibraryProjectPath
 {
     Write-Verbose "Get-LibraryProjectPath"
@@ -126,7 +134,6 @@ function Get-SourceFolder
     Write-Verbose "SourceFolder=$sourceFolder"
     return $sourceFolder
 }
-
 
 function Get-ModuleName
 {

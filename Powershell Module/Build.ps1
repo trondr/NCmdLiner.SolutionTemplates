@@ -24,12 +24,16 @@ Task Clean {
   'Executed Clean!'
 }
 
-Task Deploy -depends Test, UpdateModuleManifest {
+Task CompileSetup -depends Test, UpdateModuleManifest {
     Exec { & "$(Get-MsbuildExe)" "$(Get-SetupProjectPath)" /t:Build /p:Configuration=Release /p:Platform=x86 }
     Exec { & "$(Get-MsbuildExe)" "$(Get-SetupProjectPath)" /t:Build /p:Configuration=Release /p:Platform=x64 }
     Exec { & "$(Get-MsbuildExe)" "$(Get-SetupBootstrapperProjectPath)" /t:Build /p:Configuration=Release }
+}
+
+Task Deploy -depends CompileSetup {
     Write-Verbose "Copy: '$(Get-BuildModuleFolder)' -> '$(Get-ArtifactsModuleFolder)'"
-    xcopy "$(Get-BuildModuleFolder)" "$(Get-ArtifactsModuleFolder)" /e /q /y /i
+    Exec { xcopy "$(Get-BuildModuleFolder)" "$(Get-ArtifactsModuleFolder)" /e /q /y /i }
+    Exec { copy "$(Get-SetupBootStrapperExe)" "$(Get-ArtifactsFolder)\" }
     "Executed Deploy!"
 }
 
