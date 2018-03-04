@@ -8,6 +8,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <OutputName>_S_SetupBootstrapperProjectName_S_</OutputName>
     <OutputType>Bundle</OutputType>
+	<DefineSolutionProperties>false</DefineSolutionProperties>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>$(MSBuildProjectDirectory)\..\..\build\bin\$(Configuration)\_S_SetupBootstrapperProjectName_S_</OutputPath>

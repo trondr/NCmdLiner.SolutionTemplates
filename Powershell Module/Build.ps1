@@ -2,7 +2,7 @@ properties {
   $global:config = "release"  
 }
 
-$VerbosePreference = "Continue"
+$VerbosePreference = "SilentlyContinue"
 . ".\BuildLibrary.ps1"
 
 Task default -depends Deploy
@@ -66,7 +66,7 @@ Task UpdateAssemblyInfos {
         Company = "$(Get-CompanyName)"
         Product = "$(Get-ModuleName)"
         Copyright = "$(Get-Copyright)"
-        CLSCompliant = $true
+        CLSCompliant = $false
         InformationalVersion="$(Get-AssemblyVersion).$(Get-RevisionHash)"
         Version="$(Get-AssemblyVersion)"
         FileVersion="$(Get-AssemblyVersion)"
