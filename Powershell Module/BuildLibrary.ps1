@@ -1,3 +1,66 @@
+function Get-SignToolExe
+{
+    Write-Verbose "Get-SignToolExe"
+    $programFilesx86 = [System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::ProgramFilesX86);
+    $programFiles = [System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::ProgramFiles);    
+    $fileList = [System.Collections.ArrayList]@()
+    $fileList += [System.IO.Path]::Combine($programFilesx86,"Windows Kits","10","bin","x86","signtool.exe")
+    $fileList += [System.IO.Path]::Combine($programFilesx86,"Windows Kits","8.1","bin","x86","signtool.exe")
+    $fileList += [System.IO.Path]::Combine($programFilesx86,"Windows Kits","8.0","bin","x86","signtool.exe")
+    $fileList += [System.IO.Path]::Combine($programFilesx86,"Microsoft SDKs","Windows","v7.0A","bin","signtool.exe")
+    $fileList += [System.IO.Path]::Combine($programFiles,"Windows Kits","10","bin","x86","signtool.exe")
+    $fileList += [System.IO.Path]::Combine($programFiles,"Windows Kits","8.1","bin","x86","signtool.exe")
+    $fileList += [System.IO.Path]::Combine($programFiles,"Windows Kits","8.0","bin","x86","signtool.exe")
+    $fileList += [System.IO.Path]::Combine($programFiles,"Microsoft SDKs","Windows","v7.0A","bin","signtool.exe")
+    $delegate = [Func[string,bool]] { [System.IO.File]::Exists($args[0]) }
+    $SignToolExe = [Linq.Enumerable]::First([string[]]$fileList, $delegate)
+    Write-Verbose "SignToolExe=$SignToolExe"
+    return $SignToolExe
+}
+#TEST:
+Get-SignToolExe
+
+function Get-SignDescription
+{
+    Write-Verbose "Get-SignDescription"
+    $SignDescription = "_S_ProductDescription_S_"
+    Write-Verbose "SignDescription=$SignDescription"
+    return $SignDescription
+}
+
+function Get-TimeStampServer
+{
+    Write-Verbose "Get-TimeStampServer"
+    $TimeStampServer = "http://timestamp.comodoca.com/authenticode;http://timestamp.verisign.com/scripts/timstamp.dll;http://timestamp.globalsign.com/scripts/timstamp.dll"
+    Write-Verbose "TimeStampServer=$TimeStampServer"
+    return $TimeStampServer
+}
+
+function Get-Sha1Thumbprint
+{
+    Write-Verbose "Get-Sha1Thumbprint"
+    $Sha1Thumbprint = "F8B61231E99586AA6EBE6CA3B334C0BF4DCD2F56"
+    Write-Verbose "Sha1Thumbprint=$Sha1Thumbprint"
+    return $Sha1Thumbprint
+}
+
+function Get-LibrarySignFiles
+{
+    $fileList = [System.Collections.ArrayList]@()
+    Get-ChildItem -Path "$(Get-BuildLibraryProjectFolder)" -Filter "*.dll" | %{ $fileList += $_.FullName} | Out-Null
+    return $fileList
+}
+#TEST: Get-LibrarySignFiles | Format-Table
+
+function Get-BuildLibraryProjectFolder
+{
+    Write-Verbose "Get-BuildLibraryProjectFolder"
+    $BuildLibraryProjectFolder = [System.IO.Path]::Combine("$(Get-BuildFolder)","bin","Release","_S_LibraryProjectName_S_")
+    Write-Verbose "BuildLibraryProjectFolder=$BuildLibraryProjectFolder"
+    return $BuildLibraryProjectFolder
+}
+
+
 function Get-SetupBootStrapperExe
 {
     Write-Verbose "Get-SetupBootStrapperExe"
@@ -10,7 +73,7 @@ function Get-LibraryProjectPath
 {
     Write-Verbose "Get-LibraryProjectPath"
     $LibraryProjectPath = [System.IO.Path]::Combine("$(Get-SourceFolder)","_S_LibraryProjectName_S_","_S_LibraryProjectName_S_.csproj")
-    Write-Verbose "ToolsFolder=$LibraryProjectPath"
+    Write-Verbose "LibraryProjectPath=$LibraryProjectPath"
     return $LibraryProjectPath
 }
 
@@ -18,7 +81,7 @@ function Get-SetupProjectPath
 {
     Write-Verbose "Get-SetupProjectPath"
     $SetupProjectPath = [System.IO.Path]::Combine("$(Get-SourceFolder)","_S_SetupProjectName_S_","_S_SetupProjectName_S_.wixproj")
-    Write-Verbose "ToolsFolder=$SetupProjectPath"
+    Write-Verbose "SetupProjectPath=$SetupProjectPath"
     return $SetupProjectPath
 }
 
@@ -26,7 +89,7 @@ function Get-SetupBootstrapperProjectPath
 {
     Write-Verbose "Get-SetupBootstrapperProjectPath"
     $SetupBootstrapperProjectPath = [System.IO.Path]::Combine("$(Get-SourceFolder)","_S_SetupBootstrapperProjectName_S_","_S_SetupBootstrapperProjectName_S_.wixproj")
-    Write-Verbose "ToolsFolder=$SetupBootstrapperProjectPath"
+    Write-Verbose "SetupBootstrapperProjectPath=$SetupBootstrapperProjectPath"
     return $SetupBootstrapperProjectPath
 }
 
@@ -34,7 +97,7 @@ function Get-SolutionPath
 {
     Write-Verbose "Get-SolutionPath"
     $SolutionPath = [System.IO.Path]::Combine("$(Get-BaseFolderPath)","_S_SolutionName_S_.sln")
-    Write-Verbose "ToolsFolder=$SolutionPath"
+    Write-Verbose "SolutionPath=$SolutionPath"
     return $SolutionPath
 }
 

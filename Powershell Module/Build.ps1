@@ -37,6 +37,14 @@ Task Deploy -depends CompileSetup {
     "Executed Deploy!"
 }
 
+Task Sign -depends SignLibrary, SignMsi, SignSetupBootStrapper {
+        
+}
+
+Task SignLibrary -depends Compile {
+    Exec { & "$(Get-SignToolExe)" "$(Get-SignToolArguments -SignFiles $(Get-LibrarySignFiles) -PfxSha1Thumbprint $(Get-Sha1Thumbprint) -TimestampServer $(Get-TimeStampServer) -Description $(Get-SignDescription))"}
+}
+
 Task UpdateModuleManifest -depends Test {
     $moduleInfo = @{
         Path = "$(Get-BuildModuleManifestPath)"
