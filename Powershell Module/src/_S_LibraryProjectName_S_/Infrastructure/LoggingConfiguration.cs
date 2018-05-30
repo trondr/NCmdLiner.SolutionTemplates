@@ -13,7 +13,7 @@ namespace _S_LibraryProjectName_S_.Infrastructure
 
         public LoggingConfiguration()
         {            
-            _sectionName = "_S_ConsoleProjectName_S_";
+            _sectionName = "_S_LibraryProjectName_S_";
         }
 
         public string LogDirectoryPath

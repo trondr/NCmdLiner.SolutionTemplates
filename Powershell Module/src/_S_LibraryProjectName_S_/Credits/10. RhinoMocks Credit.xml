@@ -2,5 +2,5 @@
 <CreditInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ProductName>RhinoMocks</ProductName>
   <ProductHome>https://github.com/meisinger/rhino-mocks/</ProductHome>
-  <CreditText>_S_ConsoleProjectName_S_ uses RhinoMocks in unit tests to create stub instances of dependent services not under test.</CreditText>
+  <CreditText>_S_LibraryProjectName_S_ uses RhinoMocks in unit tests to create stub instances of dependent services not under test.</CreditText>
 </CreditInfo>

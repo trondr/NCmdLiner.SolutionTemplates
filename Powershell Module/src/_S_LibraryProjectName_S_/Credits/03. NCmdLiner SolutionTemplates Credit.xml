@@ -2,5 +2,5 @@
 <CreditInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ProductName>NCmdLiner.SolutionTemplates</ProductName>
   <ProductHome>https://github.com/trondr</ProductHome>
-  <CreditText>_S_ConsoleProjectName_S_ uses NCmdLiner.SolutionTemplates to provide a start solution.</CreditText>
+  <CreditText>_S_LibraryProjectName_S_ uses NCmdLiner.SolutionTemplates to provide a start solution.</CreditText>
 </CreditInfo>
